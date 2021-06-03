@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Basic Page Info -->
+    <meta charset="utf-8">
+    <title>Selling Control - PT Sermani Steel</title>
+
+    <!-- Site favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="vendors/images/logo_besar.jpg">
+    <link rel="icon" type="image/png" sizes="32x32" href="vendors/images/logo_besar.jpg">
+    <link rel="icon" type="image/png" sizes="16x16" href="vendors/images/logo_besar.jpg">
+
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="vendors/styles/core.css">
+    <link rel="stylesheet" type="text/css" href="vendors/styles/icon-font.min.css">
+    <link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="vendors/styles/style.css">
+
+</head>
+
+<body>
+    <div class="pre-loader">
+        <div class="pre-loader-box">
+            <div class="loader-logo"><img src="vendors/images/logo.jpg" alt=""></div>
+            <div class='loader-progress' id="progress_div">
+                <div class='bar' id='bar1'></div>
+            </div>
+            <div class='percent' id='percent1'>0%</div>
+            <div class="loading-text">
+                Loading...
+            </div>
+        </div>
+    </div>
+
+    <div class="header">
+        <div class="header-left">
+            <div class="menu-icon dw dw-menu"></div>
+        </div>
+        <div class="header-right">
+            <div class="user-info-dropdown">
+                <div class="dropdown">
+                    <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                        <span class="user-icon">
+                            <img src="vendors/images/photo1.jpg" alt="">
+                        </span>
+                        <span class="user-name">Johnny B Coleman</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                        <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i>Profile</a>
+                        <a class="dropdown-item" href="login.html"><i class="dw dw-logout"></i>Log Out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="left-side-bar">
+        <div class="brand-logo">
+            <a href="dashboard.html">
+                <img src="vendors/images/logo.jpg" alt="" class="dark-logo">
+                <img src="vendors/images/logo.jpg" alt="" class="light-logo">
+            </a>
+            <div class="close-sidebar" data-toggle="left-sidebar-close">
+                <i class="ion-close-round"></i>
+            </div>
+        </div>
+        <div class="menu-block customscroll">
+            <div class="sidebar-menu">
+                <ul id="accordion-menu">
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon dw dw-house-1"></span><span class="mtext">Home</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="dashboard.html">Dashboard</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon dw dw-edit2"></span><span class="mtext">Production</span>
+						</a>
+						<ul class="submenu">
+							<li><a href="dashboard_produksi.html">Production Dashboard</a></li>
+							<li><a href="form-produksi.html">Production Form</a></li>
+							<li><a href="form-corrugation.html">Corrugation Form</a></li>
+							<li><a href="production_manager.html">Production Control</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon dw dw-analytics-21"></span><span class="mtext">Selling</span>
+						</a>
+						<ul class="submenu">
+							<li><a href="dashboard_pemasaran.html">Selling Dashboard</a></li>
+							<li><a href="form-pemasaran.html">Selling Form</a></li>
+							<li><a href="selling_manager.html">Selling Control</a></li>
+						</ul>
+					</li>
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon dw dw-apartment"></span><span class="mtext">Warehouse</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="dashboard_gudang.html">Warehouse Dashboard</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="mobile-menu-overlay"></div>
+
+    <div class="main-container">
+        <div class="pd-ltr-20 xs-pd-20-10">
+            <div class="min-height-200px">
+                <div class="page-header">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="title">
+                                <h4>Selling Control</h4>
+                            </div>
+                            <nav aria-label="breadcrumb" role="navigation">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Selling Control</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row clearfix">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="pd-20 card-box">
+                            <h5 class="h4 text-blue mb-20">Manager Control Tab</h5>
+                            <div class="tab">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active text-blue" data-toggle="tab" href="#home" role="tab"
+                                            aria-selected="true">Target Input</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-blue" data-toggle="tab" href="#profile" role="tab"
+                                            aria-selected="false">Monthly</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-blue" data-toggle="tab" href="#contact" role="tab"
+                                            aria-selected="false">Yearly</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="home" role="tabpanel">
+                                        <div class="pd-20">
+                                            <form>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Year : </label>
+                                                            <select class="custom-select form-control">
+                                                                <option value="2020">2020</option>
+                                                                <option value="2021">2021</option>
+                                                                <option value="2022">2022</option>
+                                                                <option value="2023">2023</option>
+                                                                <option value="2024">2024</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="form-group">
+                                                                <label>Month : </label>
+                                                                <select class="custom-select form-control">
+                                                                    <option value="Januari">Januari</option>
+                                                                    <option value="Februari">Februari</option>
+                                                                    <option value="Maret">Maret</option>
+                                                                    <option value="April">April</option>
+                                                                    <option value="Mei">Mei</option>
+                                                                    <option value="Juni">Juni</option>
+                                                                    <option value="Juli">Juli</option>
+                                                                    <option value="Agustus">Agustus</option>
+                                                                    <option value="September">September</option>
+                                                                    <option value="Oktober">Oktober</option>
+                                                                    <option value="November">November</option>
+                                                                    <option value="Desember">Desember</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Amount: </label>
+                                                            <input type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <input class="btn btn-primary" type="submit" value="Submit">
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="profile" role="tabpanel">
+                                        <div class="pd-20">
+                                            <!-- Export Datatable start -->
+                                            <div class="card-box mb-30">
+                                                <div class="pd-20">
+                                                    <h4 class="text-blue h4">Monthly Report</h4>
+                                                </div>
+                                                <div class="pb-20">
+                                                    <table
+                                                    class="table hover multiple-select-row data-table-export nowrap">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="table-plus datatable-nosort"></th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">1</th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">2</th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">3</th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">4</th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">5</th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">6</th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">7</th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">8</th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">9</th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">10</th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">11</th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">12</th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">13</th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">14</th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">15</th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">16</th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">17</th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">18</th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">19</th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">20</th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">21</th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">22</th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">23</th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">24</th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">25</th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">26</th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">27</th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">28</th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">29</th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">30</th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">31</th>
+                                                            <th style="padding-left: 0px; padding-right: 0px;">Total</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="table-plus">Est</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">930</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="table-plus">Rea</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">30</td>
+                                                            <td style="padding-left: 0px; padding-right: 0px;">930</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                </div>
+                                            </div>
+                                            <!-- Export Datatable End -->
+                                            <div class="bg-white pd-20 card-box mb-30">
+                                                <div class="pd-20">
+                                                    <h4 class="text-blue h4">Monthly Report Chart</h4>
+                                                </div>
+                                                <div id="chart6"></div>
+                                            </div>
+                                            <input class="btn btn-primary" type="print" value="Print">
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="contact" role="tabpanel">
+                                        <div class="pd-20">
+                                            <!-- Export Datatable start -->
+                                            <div class="card-box mb-30">
+                                                <div class="pd-20">
+                                                    <h4 class="text-blue h4">Yearly Report</h4>
+                                                </div>
+                                                <div class="pb-20">
+                                                    <table
+                                                        class="table hover multiple-select-row data-table-export nowrap">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="table-plus datatable-nosort"></th>
+                                                                <th>Jan</th>
+                                                                <th>Feb</th>
+                                                                <th>Mar</th>
+                                                                <th>Apr</th>
+                                                                <th>May</th>
+                                                                <th>Jun</th>
+                                                                <th>Jul</th>
+                                                                <th>Aug</th>
+                                                                <th>Sep</th>
+                                                                <th>Oct</th>
+                                                                <th>Nov</th>
+                                                                <th>Dec</th>
+                                                                <th>Total</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="table-plus">Est 20</td>
+                                                                <td>300</td>
+                                                                <td>330</td>
+                                                                <td>300</td>
+                                                                <td>330</td>
+                                                                <td>300</td>
+                                                                <td>330</td>
+                                                                <td>300</td>
+                                                                <td>330</td>
+                                                                <td>300</td>
+                                                                <td>330</td>
+                                                                <td>300</td>
+                                                                <td>330</td>
+                                                                <td>3780</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="table-plus">Rea 20</td>
+                                                                <td>300</td>
+                                                                <td>330</td>
+                                                                <td>300</td>
+                                                                <td>330</td>
+                                                                <td>300</td>
+                                                                <td>330</td>
+                                                                <td>300</td>
+                                                                <td>330</td>
+                                                                <td>300</td>
+                                                                <td>330</td>
+                                                                <td>300</td>
+                                                                <td>330</td>
+                                                                <td>3780</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="table-plus">Rea 19</td>
+                                                                <td>300</td>
+                                                                <td>330</td>
+                                                                <td>300</td>
+                                                                <td>330</td>
+                                                                <td>300</td>
+                                                                <td>330</td>
+                                                                <td>300</td>
+                                                                <td>330</td>
+                                                                <td>300</td>
+                                                                <td>330</td>
+                                                                <td>300</td>
+                                                                <td>330</td>
+                                                                <td>3780</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <!-- Export Datatable End -->
+                                            <div class="bg-white pd-20 card-box mb-30">
+                                                <div class="pd-20">
+                                                    <h4 class="text-blue h4">Yearly Report Chart</h4>
+                                                </div>
+                                                <div id="chart5"></div>
+                                            </div>
+                                            <input class="btn btn-primary" type="print" value="Print">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-box mb-30">
+                </div>
+                <div class="footer-wrap pd-20 mb-20 card-box">
+                    Design for Internal Use Only
+                </div>
+            </div>
+            <!-- js -->
+            <script src="vendors/scripts/core.js"></script>
+            <script src="vendors/scripts/script.min.js"></script>
+            <script src="vendors/scripts/process.js"></script>
+            <script src="vendors/scripts/layout-settings.js"></script>
+            <script src="src/plugins/apexcharts/apexcharts.min.js"></script>
+            <script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
+            <script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+            <script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
+            <script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+            <script src="vendors/scripts/dashboard.js"></script>
+            <script src="vendors/scripts/apexcharts1-setting.js"></script>
+</body>
+
+</html>

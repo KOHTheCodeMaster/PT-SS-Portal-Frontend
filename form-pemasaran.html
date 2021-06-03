@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Basic Page Info -->
+	<meta charset="utf-8">
+	<title>Form Pemasaran - PT Sermani Steel</title>
+
+	<!-- Site favicon -->
+	<link rel="apple-touch-icon" sizes="180x180" href="vendors/images/logo_besar.jpg">
+	<link rel="icon" type="image/png" sizes="32x32" href="vendors/images/logo_besar.jpg">
+	<link rel="icon" type="image/png" sizes="16x16" href="vendors/images/logo_besar.jpg">
+
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- Google Font -->
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+		rel="stylesheet">
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" href="vendors/styles/core.css">
+	<link rel="stylesheet" type="text/css" href="vendors/styles/icon-font.min.css">
+	<link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/dataTables.bootstrap4.min.css">
+	<link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/responsive.bootstrap4.min.css">
+	<link rel="stylesheet" type="text/css" href="vendors/styles/style.css">
+	<link rel="stylesheet" type="text/css" href="src/plugins/jquery-steps/jquery.steps.css">
+
+</head>
+
+<body>
+
+	<div class="pre-loader">
+		<div class="pre-loader-box">
+			<div class="loader-logo"><img src="vendors/images/logo.jpg" alt=""></div>
+			<div class='loader-progress' id="progress_div">
+				<div class='bar' id='bar1'></div>
+			</div>
+			<div class='percent' id='percent1'>0%</div>
+			<div class="loading-text">
+				Loading...
+			</div>
+		</div>
+	</div>
+
+	<div class="header">
+		<div class="header-left">
+			<div class="menu-icon dw dw-menu"></div>
+		</div>
+		<div class="header-right">
+			<div class="user-info-dropdown">
+				<div class="dropdown">
+					<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+						<span class="user-icon">
+							<img src="vendors/images/photo1.jpg" alt="">
+						</span>
+						<span class="user-name">Johnny B Coleman</span>
+					</a>
+					<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+						<a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
+						<a class="dropdown-item" href="login.html"><i class="dw dw-logout"></i> Log Out</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="left-side-bar">
+		<div class="brand-logo">
+			<a href="dashboard.html">
+				<img src="vendors/images/logo.jpg" alt="" class="dark-logo">
+				<img src="vendors/images/logo.jpg" alt="" class="light-logo">
+			</a>
+			<div class="close-sidebar" data-toggle="left-sidebar-close">
+				<i class="ion-close-round"></i>
+			</div>
+		</div>
+		<div class="menu-block customscroll">
+			<div class="sidebar-menu">
+				<ul id="accordion-menu">
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon dw dw-house-1"></span><span class="mtext">Home</span>
+						</a>
+						<ul class="submenu">
+							<li><a href="dashboard.html">Dashboard</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon dw dw-edit2"></span><span class="mtext">Production</span>
+						</a>
+						<ul class="submenu">
+							<li><a href="dashboard_produksi.html">Production Dashboard</a></li>
+							<li><a href="form-produksi.html">Production Form</a></li>
+							<li><a href="form-corrugation.html">Corrugation Form</a></li>
+							<li><a href="production_manager.html">Production Control</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon dw dw-analytics-21"></span><span class="mtext">Selling</span>
+						</a>
+						<ul class="submenu">
+							<li><a href="dashboard_pemasaran.html">Selling Dashboard</a></li>
+							<li><a href="form-pemasaran.html">Selling Form</a></li>
+							<li><a href="selling_manager.html">Selling Control</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon dw dw-apartment"></span><span class="mtext">Warehouse</span>
+						</a>
+						<ul class="submenu">
+							<li><a href="dashboard_gudang.html">Warehouse Dashboard</a></li>
+						</ul>
+					</li>					
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="mobile-menu-overlay"></div>
+
+	<div class="main-container">
+		<div class="pd-ltr-20 xs-pd-20-10">
+			<div class="min-height-200px">
+				<div class="page-header">
+					<div class="row">
+						<div class="col-md-6 col-sm-12">
+							<div class="title">
+								<h4>Selling Form</h4>
+							</div>
+							<nav aria-label="breadcrumb" role="navigation">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="dashboard.html">Home</a></li>
+									<li class="breadcrumb-item active" aria-current="page">Selling Form</li>
+								</ol>
+							</nav>
+						</div>
+					</div>
+				</div>
+
+				<div class="pd-20 card-box mb-30">
+					<div class="clearfix">
+						<h4 class="text-blue h4">Selling Form</h4>
+						<p class="mb-30">Daily Selling Form</p>
+					</div>
+					<div class="wizard-content">
+						<form class="tab-wizard wizard-circle wizard vertical">
+							<h5>Buyer Info</h5>
+							<section>
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<label>Buyer Name :</label>
+											<input type="text" class="form-control">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<label>Buyer Phone Number :</label>
+											<input type="text" class="form-control">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<label>Buyer Address :</label>
+											<textarea class="form-control"></textarea>
+										</div>
+									</div>
+								</div>
+							</section>
+							<!-- Step 2 -->
+							<h5>Selling Report</h5>
+							<section id="step2" name="step2" onsubmit="return false">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Item Types : </label>
+											<select class="custom-select form-control">
+												<option value="seng_kaki">Seng Kaki (762)</option>
+												<option value="seng_lebar">Seng Lebar (914)</option>
+												<option value="spandeck">Spandeck</option>
+												<option value="galvalum">Galvalum</option>
+												<option value="coil">Coil</option>
+											</select>
+										</div>
+										<div class="form-group">
+											<div class="form-group">
+												<label>Colour : </label>
+												<select class="custom-select form-control">
+													<option value="silver">Silver</option>
+													<option value="merah">Red</option>
+													<option value="biru">Blue</option>
+													<option value="hijau">Green</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Item Size : </label>
+											<select class="custom-select form-control">
+												<optgroup label="Seng Kaki (762)">
+													<option value="762 x 1524 x 0,2">1524 x 0,2</option>
+													<option value="762 x 1829 x 0,2">1829 x 0,2</option>
+													<option value="762 x 2134 x 0,2">2134 x 0,2</option>
+													<option value="762 x 2438 x 0,2">2438 x 0,2</option>
+													<option value="762 x 2743 x 0,2">2743 x 0,2</option>
+													<option value="762 x 3048 x 0,2">3048 x 0,2</option>
+												</optgroup>
+												<optgroup label="Seng Lebar (914)">
+													<option value="914 x 1829 x 0,2">1829 x 0,2</option>
+													<option value="914 x 1829 x 0,25">1829 x 0,25</option>
+													<option value="914 x 1829 x 0,3">1829 x 0,3</option>
+													<option value="914 x 1829 x 0,35">1829 x 0,35</option>
+													<option value="914 x 1829 x 0,5">1829 x 0,5</option>
+												</optgroup>
+												<optgroup label="Spandeck">
+													<option value="750 x 0,25">1829 x 0,25</option>
+													<option value="750 x 0,3">1829 x 0,3</option>
+													<option value="750 x 0,35">1829 x 0,35</option>
+												</optgroup>
+											</select>
+										</div>
+										<div class="form-group">
+											<div class="form-group">
+												<label>Date :</label>
+												<input type="text" class="form-control date-picker"
+													placeholder="Select Date">
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Amount of Item : </label>
+											<input type="text" class="form-control">
+										</div>
+										<div class="form-group">
+											<div class="form-group">
+												<div class="form-group">
+													<label>Payment : </label>
+													<select class="custom-select form-control">
+														<option value="">Select Payment</option>
+														<option value="cash">Cash</option>
+														<option value="30hari">30 Days</option>
+														<option value="90hari">90 Days</option>
+														<option value="180hari">180 Days</option>
+														<option value="360hari">360 Days</option>
+													</select>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Sales Name : </label>
+											<select class="custom-select form-control">
+												<option value="">Choose Sales Name</option>
+												<option value="Samsul B">Samsul B</option>
+												<option value="Yeri S">Yeri S</option>
+												<option value="Coki S">Coki S</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</section>
+						</form>
+					</div>
+				</div>
+
+				<!-- success Popup html Start -->
+				<div class="modal fade" id="success-modal" tabindex="-1" role="dialog"
+					aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-body text-center font-18">
+								<h3 class="mb-20">Form Submitted!</h3>
+								<div class="mb-30 text-center"><img src="vendors/images/success.png"></div>
+								Thank You
+							</div>
+							<div class="modal-footer justify-content-center">
+								<button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- success Popup html End -->
+
+			</div>
+			<div class="footer-wrap pd-20 mb-20 card-box">
+				Design for Internal Use Only
+			</div>
+		</div>
+	</div>
+
+	<!-- js -->
+	<script src="vendors/scripts/core.js"></script>
+	<script src="vendors/scripts/script.min.js"></script>
+	<script src="vendors/scripts/process.js"></script>
+	<script src="vendors/scripts/layout-settings.js"></script>
+	<script src="src/plugins/apexcharts/apexcharts.min.js"></script>
+	<script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
+	<script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+	<script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
+	<script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+	<script src="vendors/scripts/dashboard.js"></script>
+	<script src="src/plugins/jquery-steps/jquery.steps.js"></script>
+	<script src="vendors/scripts/steps-setting.js"></script>
+
+</body>
+
+</html>
