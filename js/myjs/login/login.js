@@ -109,6 +109,7 @@ async function demoGetRESTCall() {
 
 async function fetchJsonFromUrl(url) {
 
+    console.log("Fetching from url: " + url);
     return await fetch(url)
         .then(response => response.json())
 
