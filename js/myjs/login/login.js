@@ -2,12 +2,20 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     test();
+    // init();
 
 });
 
 function test() {
     console.log("Test - Time Stamp: " + new Date());
 }
+
+/*
+function init() {
+    //  Initialize Event Listener on Remember Me Btn. (Later replace it with Sign In)
+    document.querySelector('#customCheck1').addEventListener('click', onSignIn);
+}
+*/
 
 //  document is the root element of all the objects model for every html page
 async function onSignIn() {
@@ -25,7 +33,17 @@ async function onSignIn() {
 
     if (isLoginSuccessful) {
         console.log("Login Successful!");
+
+        let userJson = await fetchJsonFromUrl("http://localhost:8066/user/" + emailId);
+        // let userModel = new User(userJson);
+
+        // console.log(userModel.emailId);
+        // console.log(userJson);
+
+        //  Set userJson in localStorage for dashboard.js
+        localStorage.setItem('user', JSON.stringify(userJson));
         window.location = 'http://localhost:63342/PT%20XYZ/dashboard.html';
+
     }
     else console.log("Login Failed...");
 
