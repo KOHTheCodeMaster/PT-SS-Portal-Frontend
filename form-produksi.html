@@ -2,312 +2,325 @@
 <html lang="en">
 
 <head>
-	<!-- Basic Page Info -->
-	<meta charset="utf-8">
-	<title>Form Produksi - PT Sermani Steel</title>
+    <!-- Basic Page Info -->
+    <meta charset="utf-8">
+    <title>Form Produksi - PT Sermani Steel</title>
 
-	<!-- Site favicon -->
-	<link rel="apple-touch-icon" sizes="180x180" href="vendors/images/logo_besar.jpg">
-	<link rel="icon" type="image/png" sizes="32x32" href="vendors/images/logo_besar.jpg">
-	<link rel="icon" type="image/png" sizes="16x16" href="vendors/images/logo_besar.jpg">
+    <!-- Site favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="vendors/images/logo_besar.jpg">
+    <link rel="icon" type="image/png" sizes="32x32" href="vendors/images/logo_besar.jpg">
+    <link rel="icon" type="image/png" sizes="16x16" href="vendors/images/logo_besar.jpg">
 
-	<!-- Mobile Specific Metas -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-	<!-- Google Font -->
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-		rel="stylesheet">
-	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="vendors/styles/core.css">
-	<link rel="stylesheet" type="text/css" href="vendors/styles/icon-font.min.css">
-	<link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/dataTables.bootstrap4.min.css">
-	<link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/responsive.bootstrap4.min.css">
-	<link rel="stylesheet" type="text/css" href="vendors/styles/style.css">
-	<link rel="stylesheet" type="text/css" href="src/plugins/jquery-steps/jquery.steps.css">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="vendors/styles/core.css">
+    <link rel="stylesheet" type="text/css" href="vendors/styles/icon-font.min.css">
+    <link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="vendors/styles/style.css">
+    <link rel="stylesheet" type="text/css" href="src/plugins/jquery-steps/jquery.steps.css">
 
 </head>
 
 <body>
 
-    <div class="pre-loader">
-		<div class="pre-loader-box">
-			<div class="loader-logo"><img src="vendors/images/logo.jpg" alt=""></div>
-			<div class='loader-progress' id="progress_div">
-				<div class='bar' id='bar1'></div>
-			</div>
-			<div class='percent' id='percent1'>0%</div>
-			<div class="loading-text">
-				Loading...
-			</div>
-		</div>
-	</div>
+<!--
+    Loading Box
+<div class="pre-loader">
+    <div class="pre-loader-box">
+        <div class="loader-logo"><img src="vendors/images/logo.jpg" alt=""></div>
+        <div class='loader-progress' id="progress_div">
+            <div class='bar' id='bar1'></div>
+        </div>
+        <div class='percent' id='percent1'>0%</div>
+        <div class="loading-text">
+            Loading...
+        </div>
+    </div>
+</div>
+-->
 
-	<div class="header">
-		<div class="header-left">
-			<div class="menu-icon dw dw-menu"></div>
-		</div>
-		<div class="header-right">
-			<div class="user-info-dropdown">
-				<div class="dropdown">
-					<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+<div class="header">
+    <div class="header-left">
+        <div class="menu-icon dw dw-menu"></div>
+    </div>
+    <div class="header-right">
+        <div class="user-info-dropdown">
+            <div class="dropdown">
+                <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
 						<span class="user-icon">
 							<img src="vendors/images/photo1.jpg" alt="">
 						</span>
-						<span class="user-name">Johnny B Coleman</span>
-					</a>
-					<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-						<a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
-						<a class="dropdown-item" href="login.html"><i class="dw dw-logout"></i> Log Out</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                    <span class="user-name">Johnny B Coleman</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                    <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
+                    <a class="dropdown-item" href="login.html"><i class="dw dw-logout"></i> Log Out</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <div class="left-side-bar">
-		<div class="brand-logo">
-			<a href="dashboard.html">
-				<img src="vendors/images/logo.jpg" alt="" class="dark-logo">
-				<img src="vendors/images/logo.jpg" alt="" class="light-logo">
-			</a>
-			<div class="close-sidebar" data-toggle="left-sidebar-close">
-				<i class="ion-close-round"></i>
-			</div>
-		</div>
-		<div class="menu-block customscroll">
-			<div class="sidebar-menu">
-				<ul id="accordion-menu">
-					<li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-house-1"></span><span class="mtext">Home</span>
-						</a>
-						<ul class="submenu">
-							<li><a href="dashboard.html">Dashboard</a></li>
-						</ul>
-					</li>
-					<li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-edit2"></span><span class="mtext">Production</span>
-						</a>
-						<ul class="submenu">
-							<li><a href="dashboard_produksi.html">Production Dashboard</a></li>
-							<li><a href="form-produksi.html">Production Form</a></li>
-							<li><a href="form-corrugation.html">Corrugation Form</a></li>
-							<li><a href="production_manager.html">Production Control</a></li>
-						</ul>
-					</li>
-					<li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-analytics-21"></span><span class="mtext">Selling</span>
-						</a>
-						<ul class="submenu">
-							<li><a href="dashboard_pemasaran.html">Selling Dashboard</a></li>
-							<li><a href="form-pemasaran.html">Selling Form</a></li>
-							<li><a href="selling_manager.html">Selling Control</a></li>
-						</ul>
-					</li>
-					<li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-apartment"></span><span class="mtext">Warehouse</span>
-						</a>
-						<ul class="submenu">
-							<li><a href="dashboard_gudang.html">Warehouse Dashboard</a></li>
-						</ul>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<div class="mobile-menu-overlay"></div>
+<div class="left-side-bar">
+    <div class="brand-logo">
+        <a href="dashboard.html">
+            <img src="vendors/images/logo.jpg" alt="" class="dark-logo">
+            <img src="vendors/images/logo.jpg" alt="" class="light-logo">
+        </a>
+        <div class="close-sidebar" data-toggle="left-sidebar-close">
+            <i class="ion-close-round"></i>
+        </div>
+    </div>
+    <div class="menu-block customscroll">
+        <div class="sidebar-menu">
+            <ul id="accordion-menu">
+                <li class="dropdown">
+                    <a href="javascript:" class="dropdown-toggle">
+                        <span class="micon dw dw-house-1"></span><span class="mtext">Home</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:" class="dropdown-toggle">
+                        <span class="micon dw dw-edit2"></span><span class="mtext">Production</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="dashboard_produksi.html">Production Dashboard</a></li>
+                        <li><a href="form-produksi.html">Production Form</a></li>
+                        <li><a href="form-corrugation.html">Corrugation Form</a></li>
+                        <li><a href="production_manager.html">Production Control</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:" class="dropdown-toggle">
+                        <span class="micon dw dw-analytics-21"></span><span class="mtext">Selling</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="dashboard_pemasaran.html">Selling Dashboard</a></li>
+                        <li><a href="form-pemasaran.html">Selling Form</a></li>
+                        <li><a href="selling_manager.html">Selling Control</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:" class="dropdown-toggle">
+                        <span class="micon dw dw-apartment"></span><span class="mtext">Warehouse</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="dashboard_gudang.html">Warehouse Dashboard</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="mobile-menu-overlay"></div>
 
-    <div class="main-container">
-		<div class="pd-ltr-20 xs-pd-20-10">
-			<div class="min-height-200px">
-				<div class="page-header">
-					<div class="row">
-						<div class="col-md-6 col-sm-12">
-							<div class="title">
-								<h4>Production Form</h4>
-							</div>
-							<nav aria-label="breadcrumb" role="navigation">
-								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="dashboard.html">Home</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Production Form</li>
-								</ol>
-							</nav>
-						</div>
-					</div>
-				</div>
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="title">
+                            <h4>Production Form</h4>
+                        </div>
+                        <nav aria-label="breadcrumb" role="navigation">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="dashboard.html">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Production Form</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
 
-				<div class="pd-20 card-box mb-30">
-					<div class="clearfix">
-						<h4 class="text-blue h4">Production Form</h4>
-						<p class="mb-30">Daily Production Form</p>
-					</div>
-					<div class="wizard-content">
-						<form class="tab-wizard wizard-circle wizard vertical">
-							<h5>CGL</h5>
-							<section>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label >Supervisor Name :</label>
-											<select id="select-supervisor" class="custom-select form-control">
-												<option value="">Choose Supervisor Name</option>
-												<option value="Samsul B">Samsul B</option>
-												<option value="Yeri S">Yeri S</option>
-												<option value="Coki S">Coki S</option>
-											</select>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label >Name of The Reporter :</label>
-											<input type="text" class="form-control">
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>Shift :</label>
-											<select class="custom-select form-control">
-												<option value="">Choose Shift</option>
-												<option value="A">A</option>
-												<option value="B">B</option>
-												<option value="C">C</option>
-											</select>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label >Date :</label>
-											<input type="text" class="form-control date-picker" placeholder="Select Date">
-										</div>
-									</div>
-								</div>
-							</section>
-							<!-- Step 2 -->
-							<h5>Raw Material Information</h5>
-							<section>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>Card Number :</label>
-											<input type="text" class="form-control">
-										</div>
-										<div class="form-group">
-											<label>Coil Number :</label>
-											<input type="text" class="form-control">
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>Weight :</label>
-											<input type="text" class="form-control">
-										</div>
-										<div class="form-group">
-											<label>Size :</label>
-											<select class="custom-select form-control">
-												<option value="">Choose Size</option>
-												<option value="1524 x 762 x 0,2">1524 x 762 x 0,2</option>
-												<option value="1829 x 762 x 0,2">1829 x 762 x 0,2</option>
-												<option value="2134 x 762 x 0,2">2134 x 762 x 0,2</option>
-                                                <option value="2743 x 762 x 0,2">2743 x 762 x 0,2</option>
-												<option value="3048 x 762 x 0,2">3048 x 762 x 0,2</option>
-                                                <option value="1829 x 914 x 0,2">1829 x 914 x 0,2</option>
-												<option value="1829 x 914 x 0,25">1829 x 914 x 0,25</option>
-                                                <option value="1829 x 914 x 0,3">1829 x 914 x 0,3</option>
-                                                <option value="1829 x 914 x 0,35">1829 x 914 x 0,35</option>
-                                                <option value="1829 x 914 x 0,5">1829 x 914 x 0,5</option>
-											</select>
-										</div>
-									</div>
-								</div>
-							</section>
-							<!-- Step 3 -->
-							<h5>Production Report</h5>
-							<section>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>Started Time :</label>
-                                            <input class="form-control time-picker" placeholder="Select time" type="text">
-										</div>
-										<div class="form-group">
-                                            <div class="form-group">
-                                                <label>1st Class Production Amount :</label>
-                                                <input type="text" class="form-control">
-                                            </div>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-                                            <label>End Time :</label>
-                                            <input class="form-control time-picker" placeholder="Select time" type="text">
+            <div class="pd-20 card-box mb-30">
+                <div class="clearfix">
+                    <h4 class="text-blue h4">Production Form</h4>
+                    <p class="mb-30">Daily Production Form</p>
+                </div>
+                <div class="wizard-content">
+                    <form class="tab-wizard wizard-circle wizard vertical">
+                        <h5>CGL</h5>
+                        <section>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="prod-select-supervisor">Supervisor Name :</label>
+                                        <select id="prod-select-supervisor" class="custom-select form-control">
+                                            <option value="">Choose Supervisor Name</option>
+                                            <!--
+                                                <option value="Samsul B">Samsul B</option>
+                                                <option value="Yeri S">Yeri S</option>
+                                                <option value="Coki S">Coki S</option>
+                                            -->
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="prod-input-reporter">Name of The Reporter:</label>
+                                        <input id="prod-input-reporter" type="text" class="form-control" value="adw">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="prod-select-shift">Shift :</label>
+                                        <select id="prod-select-shift" class="custom-select form-control">
+                                            <option value="">Choose Shift</option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="prod-select-prod-date">Date :</label>
+                                        <input id="prod-select-prod-date" type="text" class="form-control date-picker"
+                                               placeholder="Select Date">
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <!-- Step 2 -->
+                        <h5>Raw Material Information</h5>
+                        <section>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="prod-input-card-number">Card Number :</label>
+                                        <input id="prod-input-card-number" type="text" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="prod-input-coil-number">Coil Number :</label>
+                                        <input id="prod-input-coil-number" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="prod-input-weight">Weight :</label>
+                                        <input id="prod-input-weight" type="text" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="prod-select-size">Size :</label>
+                                        <select id="prod-select-size" class="custom-select form-control">
+                                            <option value="">Choose Size</option>
+                                            <!--
+                                                                                        <option value="1524 x 762 x 0,2">1524 x 762 x 0,2</option>
+                                                                                        <option value="1829 x 762 x 0,2">1829 x 762 x 0,2</option>
+                                                                                        <option value="2134 x 762 x 0,2">2134 x 762 x 0,2</option>
+                                                                                        <option value="2743 x 762 x 0,2">2743 x 762 x 0,2</option>
+                                                                                        <option value="3048 x 762 x 0,2">3048 x 762 x 0,2</option>
+                                                                                        <option value="1829 x 914 x 0,2">1829 x 914 x 0,2</option>
+                                                                                        <option value="1829 x 914 x 0,25">1829 x 914 x 0,25</option>
+                                                                                        <option value="1829 x 914 x 0,3">1829 x 914 x 0,3</option>
+                                                                                        <option value="1829 x 914 x 0,35">1829 x 914 x 0,35</option>
+                                                                                        <option value="1829 x 914 x 0,5">1829 x 914 x 0,5</option>
+                                            -->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <!-- Step 3 -->
+                        <h5>Production Report</h5>
+                        <section>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="prod-input-start-time">Started Time :</label>
+                                        <input id="prod-input-start-time" class="form-control time-picker"
+                                               placeholder="Select time" type="text">
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="prod-input-1st-prod-amount">1st Class Production Amount
+                                                :</label>
+                                            <input id="prod-input-1st-prod-amount" type="text" class="form-control">
                                         </div>
-										<div class="form-group">
-											<label>2nd Class Production Amount :</label>
-                                            <input type="text" class="form-control">
-										</div>
-									</div>
-								</div>
-							</section>
-							<!-- Step 4 -->
-							<h5>Notes</h5>
-							<section>
-								<div class="row">
-									<div class="col-md-12">
-										<div class="form-group">
-											<label>Notes :</label>
-											<textarea class="form-control"></textarea>
-										</div>
-									</div>
-								</div>
-							</section>
-						</form>
-					</div>
-				</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="prod-input-end-time">End Time :</label>
+                                        <input id="prod-input-end-time" class="form-control time-picker"
+                                               placeholder="Select time" type="text">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="prod-input-2nd-prod-amount">2nd Class Production Amount :</label>
+                                        <input id="prod-input-2nd-prod-amount" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <!-- Step 4 -->
+                        <h5>Notes</h5>
+                        <section>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="prod-input-notes">Notes :</label>
+                                        <textarea id="prod-input-notes" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </form>
+                </div>
+            </div>
 
-				<!-- success Popup html Start -->
-				<div class="modal fade" id="success-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered" role="document">
-						<div class="modal-content">
-							<div class="modal-body text-center font-18">
-								<h3 class="mb-20">Form Submitted!</h3>
-								<div class="mb-30 text-center"><img src="vendors/images/success.png"></div>
-								Thank You
-							</div>
-							<div class="modal-footer justify-content-center">
-								<button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- success Popup html End -->
+            <!-- success Popup html Start -->
+            <div class="modal fade" id="success-modal" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body text-center font-18">
+                            <h3 class="mb-20">Form Submitted!</h3>
+                            <div class="mb-30 text-center"><img src="vendors/images/success.png" alt="Success img.">
+                            </div>
+                            Thank You
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- success Popup html End -->
 
-			</div>
-			<div class="footer-wrap pd-20 mb-20 card-box">
-				Design for Internal Use Only
-			</div>
-		</div>
-	</div>
+        </div>
+        <div class="footer-wrap pd-20 mb-20 card-box">
+            Design for Internal Use Only
+        </div>
+    </div>
+</div>
 
-    <!-- js -->
-	<script src="vendors/scripts/core.js"></script>
-	<script src="vendors/scripts/script.min.js"></script>
-	<script src="vendors/scripts/process.js"></script>
-	<script src="vendors/scripts/layout-settings.js"></script>
-	<script src="src/plugins/apexcharts/apexcharts.min.js"></script>
-	<script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
-	<script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
-	<script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
-	<script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
-	<script src="vendors/scripts/dashboard.js"></script>
-    <script src="src/plugins/jquery-steps/jquery.steps.js"></script>
-	<script src="vendors/scripts/steps-setting.js"></script>
+<!-- js -->
+<script src="vendors/scripts/core.js"></script>
+<script src="vendors/scripts/script.min.js"></script>
+<script src="vendors/scripts/process.js"></script>
+<script src="vendors/scripts/layout-settings.js"></script>
+<script src="src/plugins/apexcharts/apexcharts.min.js"></script>
+<script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
+<script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+<script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
+<script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+<script src="vendors/scripts/dashboard.js"></script>
+<script src="src/plugins/jquery-steps/jquery.steps.js"></script>
+<script src="vendors/scripts/steps-setting.js"></script>
 
-	<script src="js/myjs/form/production-form.js"></script>
+<script src="js/myjs/form/production-form.js"></script>
 
 
 </body>
