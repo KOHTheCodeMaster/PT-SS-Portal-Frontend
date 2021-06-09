@@ -25,6 +25,9 @@
     <link rel="stylesheet" type="text/css" href="vendors/styles/style.css">
     <link rel="stylesheet" type="text/css" href="src/plugins/jquery-steps/jquery.steps.css">
 
+    <!--  CSS for Forms  -->
+    <link rel="stylesheet" type="text/css" href="css/css/forms.css">
+
 </head>
 
 <body>
@@ -168,7 +171,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="prod-input-reporter">Name of The Reporter:</label>
-                                        <input id="prod-input-reporter" type="text" class="form-control" value="adw">
+                                        <input id="prod-input-reporter" type="text" class="form-control"
+                                               placeholder="Enter valid name">
                                     </div>
                                 </div>
                             </div>
@@ -176,7 +180,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="prod-select-shift">Shift :</label>
-                                        <select id="prod-select-shift" class="custom-select form-control">
+                                        <select id="prod-select-shift" class="custom-select form-control"
+                                                required="required">
                                             <option value="">Choose Shift</option>
                                             <option value="A">A</option>
                                             <option value="B">B</option>
@@ -320,8 +325,10 @@
 <script src="src/plugins/jquery-steps/jquery.steps.js"></script>
 <script src="vendors/scripts/steps-setting.js"></script>
 
-<script src="js/myjs/form/production-form.js"></script>
+<!--<script src="src/scripts/setting.js"></script>-->
 
+<script src="js/myjs/form/production-form.js"></script>
+<script src="js/myjs/form/date-helper.js"></script>
 
 </body>
 

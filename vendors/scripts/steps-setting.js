@@ -7,13 +7,41 @@ $(".tab-wizard").steps({
     labels: {
         finish: "Submit"
     },
+    onStepChanging: function (event, currentIndex, newIndex) {
+
+        //  Allow user to go back to previous tab
+        if (currentIndex > newIndex) return true;
+
+        //  Validate current index prod form
+        return validateProdForm(currentIndex);
+    },
     onStepChanged: function (event, currentIndex, priorIndex) {
         // $('.steps .current').prevAll().addClass('disabled');
+        // console.log("Clicked! Current Index: " + currentIndex);
     },
     onFinished: function (event, currentIndex) {
         onProductionSubmitBtnClick()
             .then($('#success-modal').modal('show'));
     }
+});
+
+$("#1tab-wizard").steps({
+    // Disables the finish button (required if pagination is enabled)
+    enableFinishButton: false,
+    // Disables the next and previous buttons (optional)
+    enablePagination: false,
+    // Enables all steps from the begining
+    enableAllSteps: true,
+    // Removes the number from the title
+    titleTemplate: "#title#",
+
+    onStepChanged: function (event, currentIndex, priorIndex) {
+    },
+    onStepChanging: function (event, currentIndex, newIndex) {
+        return false;
+    }
+
+
 });
 
 //  Selling Form
