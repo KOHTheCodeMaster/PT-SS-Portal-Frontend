@@ -205,17 +205,17 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="prod-input-card-number">Card Number :</label>
-                                        <input id="prod-input-card-number" type="text" class="form-control">
+                                        <input id="prod-input-card-number" type="number" min="0" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label for="prod-input-coil-number">Coil Number :</label>
-                                        <input id="prod-input-coil-number" type="text" class="form-control">
+                                        <input id="prod-input-coil-number" type="text" maxlength="6" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="prod-input-weight">Weight :</label>
-                                        <input id="prod-input-weight" type="text" class="form-control">
+                                        <input id="prod-input-weight" type="number" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label for="prod-select-size">Size :</label>
@@ -252,7 +252,7 @@
                                         <div class="form-group">
                                             <label for="prod-input-1st-prod-amount">1st Class Production Amount
                                                 :</label>
-                                            <input id="prod-input-1st-prod-amount" type="text" class="form-control">
+                                            <input id="prod-input-1st-prod-amount" type="number" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -264,7 +264,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="prod-input-2nd-prod-amount">2nd Class Production Amount :</label>
-                                        <input id="prod-input-2nd-prod-amount" type="text" class="form-control">
+                                        <input id="prod-input-2nd-prod-amount" type="number" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -327,6 +327,7 @@
 
 <!--<script src="src/scripts/setting.js"></script>-->
 
+<script src="js/myjs/form/validate-form.js"></script>
 <script src="js/myjs/form/production-form.js"></script>
 <script src="js/myjs/form/date-helper.js"></script>
 
