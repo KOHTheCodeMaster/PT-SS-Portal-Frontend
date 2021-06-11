@@ -45,20 +45,23 @@ $("#1tab-wizard").steps({
 });
 
 //  Selling Form
-$(".tab-wizard2").steps({
+$(".tab-wizard-sell").steps({
     headerTag: "h5",
     bodyTag: "section",
     transitionEffect: "fade",
-    titleTemplate: '<span class="step">#index#</span> <span class="info">#title#</span>',
+    titleTemplate: '<span class="step">#index#</span> #title#',
     labels: {
-        finish: "Submit",
-        next: "Next",
-        previous: "Previous",
+        finish: "Submit"
     },
-    onStepChanged: function (event, currentIndex, priorIndex) {
-        $('.steps .current').prevAll().addClass('disabled');
+    onStepChanging: function (event, currentIndex, newIndex) {
+
+        //  Allow user to go back to previous tab
+        if (currentIndex > newIndex) return true;
+
+        //  Validate current index prod form
+        return validateStep1();
     },
     onFinished: function (event, currentIndex) {
-        $('#success-modal-btn').trigger('click');
+        if (validateStep2()) onSellingSubmitBtnClick().then($('#success-modal').modal('show'));
     }
 });

@@ -4,14 +4,11 @@ let sizeList;
 //  Wait for the html content to be loaded before running the major function
 document.addEventListener("DOMContentLoaded", () => {
 
-    //  Unable to load Current User from localStorage due to pre-loader-box
-
     major()
         .then(() => console.log("Production-form -> Major method complete."))
         .then(() => quickFill());
 
 });
-
 
 async function major() {
 
@@ -82,11 +79,8 @@ async function init() {
 
     }
 
-    // displayList();
-
     //  Update select elements with list values
     await updateProdFormInput();
-
 
 }
 
@@ -147,39 +141,6 @@ function updateProdFormInput() {
 
 }
 
-/**
- * Make GET REST API Call to given url
- * Note: Throws error if connection failure to given url
- * @param url URL for GET request
- * @returns {Promise<string>} JSON Response received from the given url
- */
-async function fetchJsonFromUrl(url) {
-
-    let json = await fetch(url)
-        .then(response => {
-            // The API call was successful!
-            if (response.ok) return response.json();
-
-            //  Reject in case of failed response
-            return Promise.reject(response);
-        }).catch(function (err) {
-
-            // There was an error
-            console.warn('Failed to establish connection with Back-end REST API.\n', err);
-            return null;
-        });
-
-    return JSON.stringify(json);
-
-}
-
-function displayList() {
-
-    console.log(supervisorNameList);
-    console.log(sizeList);
-
-}
-
 async function onProductionSubmitBtnClick() {
 
     // console.log("Daily Production Submitted.");
@@ -191,7 +152,7 @@ async function onProductionSubmitBtnClick() {
     // console.log(production);
 
     //  Validate production for empty values
-    if (!emptyValidateProduction(production)) console.log("Invalid Production!");
+    // if (!emptyValidateProduction(production)) console.log("Invalid Production!");
     console.log("Production is valid.");
 
     //  Save production in DB
@@ -207,32 +168,8 @@ function initializeProductionFromForm() {
 
     console.log("Initializing Production");
 
-    return JSON.stringify({
-
-        'supervisorName': $('#prod-select-supervisor').val(),
-        'nameOfReporter': $('#prod-input-reporter').val(),
-        'Shift': $('#prod-select-shift').val(),
-        'Date': $('#prod-select-prod-date').val(),
-        'cardNumber': $('#prod-input-card-number').val(),
-        'coilNumber': $('#prod-input-coil-number').val(),
-        'weight': $('#prod-input-weight').val(),
-        'size': $('#prod-select-size').val(),
-        'startTime': sessionStorage.getItem('startTime'),
-        'endTime': sessionStorage.getItem('endTime'),
-        'totalTime': sessionStorage.getItem('totalTime'),
-        'prodAmount1stClass': $('#prod-input-1st-prod-amount').val(),
-        'prodAmount2ndClass': $('#prod-input-2nd-prod-amount').val(),
-        'notes': $('#prod-input-notes').val()
-
-    });
-
-}
-
-function emptyValidateProduction(production) {
-
     /*
-        //  Valid production object
-        {
+        let prodJson = {
             "supervisorName": "Syam",
             "nameOfReporter": "Tanto",
             "shift": "C",
@@ -248,15 +185,26 @@ function emptyValidateProduction(production) {
             "productionAmount2ndClass": 1426,
             "notes": "abc 123"
         }
-     */
+    */
 
-    //  Check for length > 0
-    for (let key in production) {
-        if (production.hasOwnProperty(key) && production[key].length === 0)
-            return false;
-    }
+    return JSON.stringify({
 
-    return true;
+        'supervisorName': $('#prod-select-supervisor').val().trim(),
+        'nameOfReporter': $('#prod-input-reporter').val().trim(),
+        'shift': $('#prod-select-shift').val().trim(),
+        'productionDate': $('#prod-select-prod-date').val().trim(),
+        'cardNumber': $('#prod-input-card-number').val().trim(),
+        'coilNumber': $('#prod-input-coil-number').val().trim(),
+        'weight': $('#prod-input-weight').val().trim(),
+        'size': $('#prod-select-size').val().trim(),
+        'startTime': sessionStorage.getItem('startTime'),
+        'endTime': sessionStorage.getItem('endTime'),
+        'totalTime': sessionStorage.getItem('totalTime'),
+        'productionAmount1stClass': $('#prod-input-1st-prod-amount').val().trim(),
+        'productionAmount2ndClass': $('#prod-input-2nd-prod-amount').val().trim(),
+        'notes': $('#prod-input-notes').val().trim()
+
+    });
 
 }
 
@@ -298,6 +246,9 @@ function quickFill() {
 
 }
 
+
+//  API Helper Methods
+//  -------------------------
 /**
  * Invoke POST Method REST API Call to the given url with the given body
  * @param url   url for the post request
@@ -329,6 +280,101 @@ async function reqPostCall(url, body) {
         console.warn('Something went wrong.', err);
 
     });
+
+}
+
+/**
+ * Make GET REST API Call to given url
+ * Note: Throws error if connection failure to given url
+ * @param url URL for GET request
+ * @returns {Promise<string>} JSON Response received from the given url
+ */
+async function fetchJsonFromUrl(url) {
+
+    let json = await fetch(url)
+        .then(response => {
+            // The API call was successful!
+            if (response.ok) return response.json();
+
+            //  Reject in case of failed response
+            return Promise.reject(response);
+        }).catch(function (err) {
+
+            // There was an error
+            console.warn('Failed to establish connection with Back-end REST API.\n', err);
+            return null;
+        });
+
+    return JSON.stringify(json);
+
+}
+
+
+//  Validation Helper Methods
+//  -------------------------
+/**
+ * Validate date - Check format -> 'yyyy-mm-dd'
+ * @returns {boolean} true when input passes all validations, otherwise false
+ */
+function validateDate(elementDate) {
+
+    //  Regex for pattern -> '####-[01]#-[0123]#'
+    let regexDate = new RegExp('^\\d{4}-[01]\\d-[0-3]\\d$');
+
+    //  validate if input date is in correct format i.e. yyyy-mm-dd
+    return validateElement(elementDate, regexDate);
+
+}
+
+/**
+ * Validate given element's value with the regex provided.
+ * Add/remove 'invalid-input' CSS class when value is invalid/valid respectively.
+ * @param element Element whose value needs to be validated
+ * @param regex Regex pattern which contains the rules for validation
+ * @returns {boolean} true when input passes all validations, otherwise false
+ */
+function validateElement(element, regex) {
+
+    let str = element.val();
+
+    //  Test if input date is in correct format i.e. yyyy-mm-dd
+    if (regex.test(str)) {
+        // let strShortMonthDate = convertToShortMonthDate(str);
+        // element.val(strShortMonthDate);
+        element.removeClass('invalid-input');
+        return true;
+    }
+
+    element.addClass('invalid-input');
+    return false;
+
+}
+
+/**
+ * Check for value of given list of input elements whether its empty or not.
+ * Add/remove 'invalid-input' CSS class when value is invalid/valid respectively.
+ * This method is Common, used by both validateSellForm() & validateProdForm()
+ * @param listOfElements List of input elements whose value needs to be checked for emptiness
+ * @returns {boolean} true when all the elements have some value i.e. not blank, otherwise false
+ */
+function emptyValidationListOfElements(listOfElements) {
+
+    let result = true;
+
+    //  Check for element's value is not empty.
+    listOfElements.forEach(element => {
+
+        element.removeClass('invalid-input');
+
+        if (element.val().trim().length < 1 || element.val().trim().length > 50) {
+            // element.attr('placeholder', 'Enter valid supervisor name');
+            element.addClass('invalid-input');
+            result = false;
+        }
+
+    });
+
+    return result;
 
 }
 

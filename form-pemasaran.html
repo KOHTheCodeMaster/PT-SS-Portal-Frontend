@@ -25,10 +25,13 @@
 	<link rel="stylesheet" type="text/css" href="vendors/styles/style.css">
 	<link rel="stylesheet" type="text/css" href="src/plugins/jquery-steps/jquery.steps.css">
 
+	<link rel="stylesheet" type="text/css" href="css/css/forms.css">
+
 </head>
 
 <body>
 
+<!--
 	<div class="pre-loader">
 		<div class="pre-loader-box">
 			<div class="loader-logo"><img src="vendors/images/logo.jpg" alt=""></div>
@@ -41,6 +44,7 @@
 			</div>
 		</div>
 	</div>
+-->
 
 	<div class="header">
 		<div class="header-left">
@@ -78,7 +82,7 @@
 			<div class="sidebar-menu">
 				<ul id="accordion-menu">
 					<li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle">
+						<a href="javascript:" class="dropdown-toggle">
 							<span class="micon dw dw-house-1"></span><span class="mtext">Home</span>
 						</a>
 						<ul class="submenu">
@@ -86,7 +90,7 @@
 						</ul>
 					</li>
 					<li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle">
+						<a href="javascript:" class="dropdown-toggle">
 							<span class="micon dw dw-edit2"></span><span class="mtext">Production</span>
 						</a>
 						<ul class="submenu">
@@ -97,7 +101,7 @@
 						</ul>
 					</li>
 					<li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle">
+						<a href="javascript:" class="dropdown-toggle">
 							<span class="micon dw dw-analytics-21"></span><span class="mtext">Selling</span>
 						</a>
 						<ul class="submenu">
@@ -107,13 +111,13 @@
 						</ul>
 					</li>
 					<li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle">
+						<a href="javascript:" class="dropdown-toggle">
 							<span class="micon dw dw-apartment"></span><span class="mtext">Warehouse</span>
 						</a>
 						<ul class="submenu">
 							<li><a href="dashboard_gudang.html">Warehouse Dashboard</a></li>
 						</ul>
-					</li>					
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -145,57 +149,57 @@
 						<p class="mb-30">Daily Selling Form</p>
 					</div>
 					<div class="wizard-content">
-						<form class="tab-wizard wizard-circle wizard vertical">
+						<form class="tab-wizard-sell wizard-circle wizard vertical">
 							<h5>Buyer Info</h5>
 							<section>
 								<div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
-											<label>Buyer Name :</label>
-											<input type="text" class="form-control">
+											<label for="sell-input-buyer-name">Buyer Name :</label>
+											<input id="sell-input-buyer-name" maxlength="50" type="text" class="form-control">
 										</div>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
-											<label>Buyer Phone Number :</label>
-											<input type="text" class="form-control">
+											<label for="sell-input-buyer-phone">Buyer Phone Number :</label>
+											<input id="sell-input-buyer-phone" type="number" maxlength="11" class="form-control remove-spinner">
 										</div>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
-											<label>Buyer Address :</label>
-											<textarea class="form-control"></textarea>
+											<label for="sell-input-buyer-address">Buyer Address :</label>
+											<textarea id="sell-input-buyer-address" maxlength="100" class="form-control"></textarea>
 										</div>
 									</div>
 								</div>
 							</section>
 							<!-- Step 2 -->
 							<h5>Selling Report</h5>
-							<section id="step2" name="step2" onsubmit="return false">
+							<section id="step2" onsubmit="return false">
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
-											<label>Item Types : </label>
-											<select class="custom-select form-control">
-												<option value="seng_kaki">Seng Kaki (762)</option>
-												<option value="seng_lebar">Seng Lebar (914)</option>
-												<option value="spandeck">Spandeck</option>
-												<option value="galvalum">Galvalum</option>
-												<option value="coil">Coil</option>
+											<label for="sell-select-item-type">Item Types : </label>
+											<select id="sell-select-item-type" class="custom-select form-control">
+												<option value="Seng Kaki">Seng Kaki (762)</option>
+												<option value="Seng Lebar">Seng Lebar (914)</option>
+												<option value="Spandeck">Spandeck</option>
+												<option value="Galvalum">Galvalum</option>
+												<option value="Coil">Coil</option>
 											</select>
 										</div>
 										<div class="form-group">
 											<div class="form-group">
-												<label>Colour : </label>
-												<select class="custom-select form-control">
-													<option value="silver">Silver</option>
-													<option value="merah">Red</option>
-													<option value="biru">Blue</option>
-													<option value="hijau">Green</option>
+												<label for="sell-select-colour">Colour : </label>
+												<select id="sell-select-colour" class="custom-select form-control">
+													<option value="Silver">Silver</option>
+													<option value="Red">Red</option>
+													<option value="Blue">Blue</option>
+													<option value="Green">Green</option>
 												</select>
 											</div>
 										</div>
@@ -204,8 +208,8 @@
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
-											<label>Item Size : </label>
-											<select class="custom-select form-control">
+											<label for="sell-select-item-size">Item Size : </label>
+											<select id="sell-select-item-size" class="custom-select form-control">
 												<optgroup label="Seng Kaki (762)">
 													<option value="762 x 1524 x 0,2">1524 x 0,2</option>
 													<option value="762 x 1829 x 0,2">1829 x 0,2</option>
@@ -230,8 +234,8 @@
 										</div>
 										<div class="form-group">
 											<div class="form-group">
-												<label>Date :</label>
-												<input type="text" class="form-control date-picker"
+												<label for="sell-select-date">Date :</label>
+												<input id="sell-select-date" type="text" class="form-control date-picker"
 													placeholder="Select Date">
 											</div>
 										</div>
@@ -240,20 +244,20 @@
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
-											<label>Amount of Item : </label>
-											<input type="text" class="form-control">
+											<label for="sell-select-amount-of-item">Amount of Item : </label>
+											<input id="sell-select-amount-of-item" type="number" maxlength="10" class="form-control remove-spinner">
 										</div>
 										<div class="form-group">
 											<div class="form-group">
 												<div class="form-group">
-													<label>Payment : </label>
-													<select class="custom-select form-control">
+													<label for="sell-select-payment">Payment : </label>
+													<select id="sell-select-payment" class="custom-select form-control">
 														<option value="">Select Payment</option>
-														<option value="cash">Cash</option>
-														<option value="30hari">30 Days</option>
-														<option value="90hari">90 Days</option>
-														<option value="180hari">180 Days</option>
-														<option value="360hari">360 Days</option>
+														<option value="CASH">Cash</option>
+														<option value="DAYS_30">30 Days</option>
+														<option value="DAYS_90">90 Days</option>
+														<option value="DAYS_180">180 Days</option>
+														<option value="DAYS_360">360 Days</option>
 													</select>
 												</div>
 											</div>
@@ -263,8 +267,8 @@
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
-											<label>Sales Name : </label>
-											<select class="custom-select form-control">
+											<label for="sell-select-sales-name">Sales Name : </label>
+											<select id="sell-select-sales-name" class="custom-select form-control">
 												<option value="">Choose Sales Name</option>
 												<option value="Samsul B">Samsul B</option>
 												<option value="Yeri S">Yeri S</option>
@@ -285,7 +289,7 @@
 						<div class="modal-content">
 							<div class="modal-body text-center font-18">
 								<h3 class="mb-20">Form Submitted!</h3>
-								<div class="mb-30 text-center"><img src="vendors/images/success.png"></div>
+								<div class="mb-30 text-center"><img src="vendors/images/success.png" alt="success img."></div>
 								Thank You
 							</div>
 							<div class="modal-footer justify-content-center">
@@ -316,6 +320,10 @@
 	<script src="vendors/scripts/dashboard.js"></script>
 	<script src="src/plugins/jquery-steps/jquery.steps.js"></script>
 	<script src="vendors/scripts/steps-setting.js"></script>
+
+	<script src="js/myjs/form/date-helper.js"></script>
+	<script src="js/myjs/form/validate-sell-form.js"></script>
+	<script src="js/myjs/form/selling-form.js"></script>
 
 </body>
 

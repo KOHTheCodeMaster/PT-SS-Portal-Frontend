@@ -1,3 +1,16 @@
 .invalid-input {
     border: 2px solid red;
 }
+
+
+/* Remove Spinner from number input */
+/* Chrome, Safari, Edge, Opera */
+.remove-spinner::-webkit-outer-spin-button,
+.remove-spinner::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+/* Firefox */
+.remove-spinner[type=number] {
+    -moz-appearance: textfield;
+}
