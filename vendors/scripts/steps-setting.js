@@ -19,29 +19,17 @@ $(".tab-wizard").steps({
         // $('.steps .current').prevAll().addClass('disabled');
         // console.log("Clicked! Current Index: " + currentIndex);
     },
-    onFinished: function (event, currentIndex) {
-        onProductionSubmitBtnClick()
-            .then($('#success-modal').modal('show'));
+    onFinished: async function (event, currentIndex) {
+        // onProductionSubmitBtnClick()
+        //     .then($('#success-modal').modal('show'));
+
+        //  Attempt to save in DB
+        let saveSuccessful = await onProductionSubmitBtnClick();
+
+        if (saveSuccessful) $('#success-modal').modal('show')
+        else $('#failure-modal').modal('show')
+
     }
-});
-
-$("#1tab-wizard").steps({
-    // Disables the finish button (required if pagination is enabled)
-    enableFinishButton: false,
-    // Disables the next and previous buttons (optional)
-    enablePagination: false,
-    // Enables all steps from the begining
-    enableAllSteps: true,
-    // Removes the number from the title
-    titleTemplate: "#title#",
-
-    onStepChanged: function (event, currentIndex, priorIndex) {
-    },
-    onStepChanging: function (event, currentIndex, newIndex) {
-        return false;
-    }
-
-
 });
 
 //  Selling Form
@@ -61,7 +49,15 @@ $(".tab-wizard-sell").steps({
         //  Validate current index prod form
         return validateStep1();
     },
-    onFinished: function (event, currentIndex) {
-        if (validateStep2()) onSellingSubmitBtnClick().then($('#success-modal').modal('show'));
+    onFinished: async function (event, currentIndex) {
+        if (validateStep2()) {
+
+            //  Attempt to save in DB
+            let saveSuccessful = await onSellingSubmitBtnClick();
+
+            if (saveSuccessful) $('#success-modal').modal('show')
+            else $('#failure-modal').modal('show')
+
+        }
     }
 });

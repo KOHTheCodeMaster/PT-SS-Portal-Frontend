@@ -33,6 +33,7 @@ async function onSellingSubmitBtnClick() {
     let strResponse = await reqPostCall(url, sales);
 
     console.log("Response: " + strResponse);
+    return strResponse !== undefined && strResponse !== null;
 
 }
 

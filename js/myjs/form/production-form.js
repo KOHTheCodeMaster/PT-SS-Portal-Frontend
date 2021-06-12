@@ -161,6 +161,7 @@ async function onProductionSubmitBtnClick() {
     let strResponse = await reqPostCall(url, production);
 
     console.log("Response: " + strResponse);
+    return strResponse !== undefined && strResponse !== null;
 
 }
 

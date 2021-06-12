@@ -205,33 +205,35 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="prod-input-card-number">Card Number :</label>
-                                        <input id="prod-input-card-number" type="number" min="0" class="form-control">
+                                        <input id="prod-input-card-number" type="number" min="0"
+                                               class="form-control remove-spinner">
                                     </div>
                                     <div class="form-group">
                                         <label for="prod-input-coil-number">Coil Number :</label>
-                                        <input id="prod-input-coil-number" type="text" maxlength="6" class="form-control">
+                                        <input id="prod-input-coil-number" type="text" maxlength="6"
+                                               class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="prod-input-weight">Weight :</label>
-                                        <input id="prod-input-weight" type="number" class="form-control">
+                                        <input id="prod-input-weight" type="number" class="form-control remove-spinner">
                                     </div>
                                     <div class="form-group">
                                         <label for="prod-select-size">Size :</label>
                                         <select id="prod-select-size" class="custom-select form-control">
                                             <option value="">Choose Size</option>
                                             <!--
-                                                                                        <option value="1524 x 762 x 0,2">1524 x 762 x 0,2</option>
-                                                                                        <option value="1829 x 762 x 0,2">1829 x 762 x 0,2</option>
-                                                                                        <option value="2134 x 762 x 0,2">2134 x 762 x 0,2</option>
-                                                                                        <option value="2743 x 762 x 0,2">2743 x 762 x 0,2</option>
-                                                                                        <option value="3048 x 762 x 0,2">3048 x 762 x 0,2</option>
-                                                                                        <option value="1829 x 914 x 0,2">1829 x 914 x 0,2</option>
-                                                                                        <option value="1829 x 914 x 0,25">1829 x 914 x 0,25</option>
-                                                                                        <option value="1829 x 914 x 0,3">1829 x 914 x 0,3</option>
-                                                                                        <option value="1829 x 914 x 0,35">1829 x 914 x 0,35</option>
-                                                                                        <option value="1829 x 914 x 0,5">1829 x 914 x 0,5</option>
+                                            <option value="1524 x 762 x 0,2">1524 x 762 x 0,2</option>
+                                            <option value="1829 x 762 x 0,2">1829 x 762 x 0,2</option>
+                                            <option value="2134 x 762 x 0,2">2134 x 762 x 0,2</option>
+                                            <option value="2743 x 762 x 0,2">2743 x 762 x 0,2</option>
+                                            <option value="3048 x 762 x 0,2">3048 x 762 x 0,2</option>
+                                            <option value="1829 x 914 x 0,2">1829 x 914 x 0,2</option>
+                                            <option value="1829 x 914 x 0,25">1829 x 914 x 0,25</option>
+                                            <option value="1829 x 914 x 0,3">1829 x 914 x 0,3</option>
+                                            <option value="1829 x 914 x 0,35">1829 x 914 x 0,35</option>
+                                            <option value="1829 x 914 x 0,5">1829 x 914 x 0,5</option>
                                             -->
                                         </select>
                                     </div>
@@ -250,9 +252,10 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="form-group">
-                                            <label for="prod-input-1st-prod-amount">1st Class Production Amount
-                                                :</label>
-                                            <input id="prod-input-1st-prod-amount" type="number" class="form-control">
+                                            <label for="prod-input-1st-prod-amount">
+                                                1st Class Production Amount :</label>
+                                            <input id="prod-input-1st-prod-amount" type="number"
+                                                   class="form-control remove-spinner">
                                         </div>
                                     </div>
                                 </div>
@@ -264,7 +267,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="prod-input-2nd-prod-amount">2nd Class Production Amount :</label>
-                                        <input id="prod-input-2nd-prod-amount" type="number" class="form-control">
+                                        <input id="prod-input-2nd-prod-amount" type="number"
+                                               class="form-control remove-spinner">
                                     </div>
                                 </div>
                             </div>
@@ -303,6 +307,24 @@
                 </div>
             </div>
             <!-- success Popup html End -->
+
+            <!-- Failure Popup html Start -->
+            <div class="modal fade" id="failure-modal" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body text-center font-18">
+                            <h3 class="mb-20">Connection Timed Out.</h3>
+                            <div class="mb-30 text-center"><img src="vendors/images/cross.png" alt="cross img."></div>
+                            <p>Network Error: Unable to establish connection with Back-end REST API.</p>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Failure Popup html End -->
 
         </div>
         <div class="footer-wrap pd-20 mb-20 card-box">
