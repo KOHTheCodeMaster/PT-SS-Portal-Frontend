@@ -1,50 +1,43 @@
-/*
-*
- * @param currentIndex Index value (0-1) indicating current step of form.
- * @returns {boolean} true when all elements for given step number are valid, otherwise false.
-function validateSellForm(currentIndex) {
-
-    let stepNumber = currentIndex + 1;
-    let isValid = false;
-
-    if (stepNumber === 1) {
-
-        let listOfInput = [
-            $('#sell-input-buyer-name'),
-            $('#sell-input-buyer-phone'),
-            $('#sell-input-buyer-address')
-        ];
-
-        // isValid = emptyValidationListOfElements(listOfInput) & validateStep1();
-
-    } else if (stepNumber === 2) {
-
-        let listOfInput = [
-            $('#sell-select-item-type'),
-            $('#sell-select-colour'),
-            $('#sell-select-item-size'),
-            $('#sell-select-date'),
-            $('#sell-select-amount-of-item'),
-            $('#sell-select-payment'),
-            $('#sell-select-sales-name')
-        ];
-
-        isValid = emptyValidationListOfElements(listOfInput) & validateSaleDate();
-
-    }
-
-    return isValid;
-
-}
-*/
 
 /**
- * Validate Selling Form - Step 1 every time user clicks on next btn.
- * onClick for next btn. is linked via steps-settings.js
- * Validation of Buyer Name & Buyer Phone Number
+ * On Submit corrugation form,
+ * Firstly, validate the form input values
+ * Once, all validations are passed
+ * Attempt to save the form in DB and show success popup
+ * Otherwise, show failure popup
+ */
+async function onSubmitCorrugationForm() {
+
+    if (!validateCorrugationForm()) return;
+
+    // console.log("Corrugation Form Submit.");
+
+    let corrugation;
+
+    //  Initialize corrugation from the form
+    corrugation = initializeCorrugationFromForm();
+    console.log(corrugation);
+
+    //  Save production in DB
+    console.log("Saving Corrugation in DB.");
+    let url = 'http://localhost:8066/corrugation'
+    let strResponse = await reqPostCall(url, corrugation);
+
+    console.log("Response: " + strResponse);
+    let saveSuccessful = strResponse !== undefined && strResponse !== null;
+
+    if (saveSuccessful) $('#success-modal').modal('show')
+    else $('#failure-modal').modal('show')
+
+}
+
+/**
+ * Validate Corrugation Form
  * @returns {boolean} true when input passes all validations, otherwise false
  */
-function corrugationForm() {
+function validateCorrugationForm() {
+
+    console.log('Validate Corrugation Form.');
 
     let listOfInput = [
         $('#corru-input-date'),
@@ -53,20 +46,45 @@ function corrugationForm() {
         $('#corru-select-corrugation-type'),
         $('#corru-select-amount')
     ];
-    let isValid = false, element, regex;
 
     // console.log('Validate Corrugation Form.');
-    isValid = emptyValidationListOfElements(listOfInput);
+    let isValid = emptyValidationListOfElements(listOfInput);
 
-    //  Validate buyer name
-    regex = new RegExp('^\\w([ \\w]{0,49})$');    //  Regex pattern -> 'a[ a]'
-    isValid &= validateElement(listOfInput[0], regex);
+    //  Validate corrugation amount - no negative value allowed
+    let element = listOfInput[4];
+    let regex = new RegExp('^\\d{1,9}$');    //  Regex pattern -> '#{1-9}'
+    isValid &= validateElement(element, regex);
 
-    //  Validate buyer phone number
-    regex = new RegExp('^\\d{1,11}$');    //  Regex pattern -> '#{1-11}'
-    isValid &= validateElement(listOfInput[1], regex);
+    //  Validate corrugation date
+    isValid &= validateDate(listOfInput[0]);
 
     return isValid;
+
+}
+
+function initializeCorrugationFromForm() {
+
+    console.log("Initializing Corrugation from the Form");
+
+    /*
+        let corrugationJson = {
+            "corrugationDate": "2021-12-31",
+            "itemType": "Seng Kaki",
+            "colour": "Silver",
+            "corrugationType": "Coil",
+            "amount": "100"
+        }
+     */
+
+    return JSON.stringify({
+
+        'corrugationDate': $('#corru-input-date').val().trim(),
+        'itemType': $('#corru-select-item-type').val().trim(),
+        'colour': $('#corru-select-colour').val().trim(),
+        'corrugationType': $('#corru-select-corrugation-type').val().trim(),
+        'amount': $('#corru-select-amount').val().trim()
+
+    });
 
 }
 
