@@ -24,7 +24,7 @@ $(".tab-wizard").steps({
         //     .then($('#success-modal').modal('show'));
 
         //  Attempt to save in DB
-        let saveSuccessful = await onProductionSubmitBtnClick();
+        let saveSuccessful = await onSubmitProductionForm();
 
         if (saveSuccessful) $('#success-modal').modal('show')
         else $('#failure-modal').modal('show')
@@ -53,7 +53,7 @@ $(".tab-wizard-sell").steps({
         if (validateStep2()) {
 
             //  Attempt to save in DB
-            let saveSuccessful = await onSellingSubmitBtnClick();
+            let saveSuccessful = await onSubmitSellingForm();
 
             if (saveSuccessful) $('#success-modal').modal('show')
             else $('#failure-modal').modal('show')

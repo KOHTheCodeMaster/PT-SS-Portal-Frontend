@@ -10,16 +10,19 @@ async function onSubmitCorrugationForm() {
 
     if (!validateCorrugationForm()) return;
 
+    //  Disable Submit btn. to prevent multiple clicks
+    disableSubmitBtn('#corru-input-submit');
+
     // console.log("Corrugation Form Submit.");
 
     let corrugation;
 
     //  Initialize corrugation from the form
     corrugation = initializeCorrugationFromForm();
-    console.log(corrugation);
+    // console.log(corrugation);
 
     //  Save production in DB
-    console.log("Saving Corrugation in DB.");
+    // console.log("Saving Corrugation in DB.");
     let url = 'http://localhost:8066/corrugation'
     let strResponse = await reqPostCall(url, corrugation);
 
@@ -29,6 +32,9 @@ async function onSubmitCorrugationForm() {
     if (saveSuccessful) $('#success-modal').modal('show')
     else $('#failure-modal').modal('show')
 
+    //  Enable Submit btn. after form submit response received
+    enableSubmitBtn('#corru-input-submit');
+
 }
 
 /**
@@ -37,7 +43,7 @@ async function onSubmitCorrugationForm() {
  */
 function validateCorrugationForm() {
 
-    console.log('Validate Corrugation Form.');
+    // console.log('Validate Corrugation Form.');
 
     let listOfInput = [
         $('#corru-input-date'),
@@ -64,7 +70,7 @@ function validateCorrugationForm() {
 
 function initializeCorrugationFromForm() {
 
-    console.log("Initializing Corrugation from the Form");
+    // console.log("Initializing Corrugation from the Form");
 
     /*
         let corrugationJson = {
@@ -219,4 +225,20 @@ function emptyValidationListOfElements(listOfElements) {
     return result;
 
 }
+
+
+function disableSubmitBtn(strElementId) {
+    // console.log('Disable');
+    let elementSubmitBtn = $(strElementId);
+    elementSubmitBtn.prop('disabled', true);
+    elementSubmitBtn.prop('value', 'Submitting');
+}
+
+function enableSubmitBtn(strElementId) {
+    // console.log('Enable');
+    let elementSubmitBtn = $(strElementId);
+    elementSubmitBtn.prop('disabled', false);
+    elementSubmitBtn.prop('value', 'Submit');
+}
+
 
