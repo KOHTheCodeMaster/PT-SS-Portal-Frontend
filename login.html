@@ -79,8 +79,9 @@
                                     <!--
                                         use code for form submit
                                     -->
-                                    <input id="login-input-submit" class="btn btn-primary btn-lg btn-block" type="submit" value="Sign In"
-                                    onclick="onSignIn(); return false;">
+                                    <input id="login-input-submit" class="btn btn-primary btn-lg btn-block"
+                                           type="submit" value="Sign In"
+                                           onclick="onSignIn(); return false;">
 
                                     <!--<button type="submit" class="btn btn-primary btn-lg btn-block"
                                             onclick="
@@ -103,6 +104,44 @@
         </div>
     </div>
 </div>
+
+<!-- success Popup html Start -->
+<div class="modal fade" id="invalid-credentials-modal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center font-18">
+                <h3 class="mb-20">Invalid Credentials!</h3>
+                <div class="mb-30 text-center"><img src="vendors/images/cross.png" alt="Cross img.">
+                    Please enter a valid email/password.
+                </div>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- success Popup html End -->
+
+<!-- Failure Popup html Start -->
+<div class="modal fade" id="failure-modal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center font-18">
+                <h3 class="mb-20">Connection Timed Out.</h3>
+                <div class="mb-30 text-center"><img src="vendors/images/cross.png" alt="cross img."></div>
+                <p>Network Error: Unable to establish connection with Back-end REST API.</p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Failure Popup html End -->
+
 <!-- js -->
 <script src="vendors/scripts/core.js"></script>
 <script src="vendors/scripts/script.min.js"></script>

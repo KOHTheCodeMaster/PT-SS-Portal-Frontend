@@ -1,3 +1,19 @@
+
+/**
+ * Test connection with Back-end REST API.
+ * @returns {Promise<boolean>} true when connection failure with Back-end REST API, otherwise false.
+ */
+async function testConnectionFailure() {
+
+    console.log("Test - Time Stamp: " + new Date());
+
+    //  Test connection by making GET request for productionId 1
+    let url = 'http://localhost:8066/production/1'
+    let responseProd = await fetchJsonFromUrl(url).then(json => JSON.parse(json));
+    return responseProd == null;
+
+}
+
 /**
  * Invoke POST Method REST API Call to the given url with the given body
  * @param url   url for the post request

@@ -27,23 +27,38 @@ async function onSignIn() {
     //  Disable Submit btn. to prevent multiple clicks
     disableBtn('#login-input-submit', 'Signing In');
 
-    //  Authenticate User
-    let isLoginSuccessful = await authenticateUser(emailId, password);
+    //  Skip Login on connection failure.
+    if (await testConnectionFailure()) {
 
-    if (isLoginSuccessful) {
-        console.log("Login Successful!");
-
-        let userJson = await fetchJsonFromUrl("http://localhost:8066/user/" + emailId);
+        // Display Network Connection Failure popup
+        $('#failure-modal').modal('show');
 
         //  Enable Submit btn. after form submit response received
         enableBtn('#login-input-submit', 'Sign In');
 
+        return;
+    }
+
+    //  Authenticate User
+    let isLoginSuccessful = await authenticateUser(emailId, password);
+
+    if (isLoginSuccessful) {
+
+        // console.log("Login Successful!");
+        //  Fetch user details json
+        let userJson = await fetchJsonFromUrl("http://localhost:8066/user/" + emailId);
+
         //  Set userJson in localStorage for dashboard.js
         localStorage.setItem('user', JSON.stringify(userJson));
-        // window.location = 'http://localhost:63342/PT%20XYZ/dashboard.html';
-        $('#login-form').submit();
 
-    } else console.log("Login Failed...");
+        //  Submit Form and to navigate user to dashboard
+        $('#login-form').submit();
+        return;
+
+    }
+
+    // console.log('invalid Credentials.');
+    $('#invalid-credentials-modal').modal('show');
 
     //  Enable Submit btn. after form submit response received
     enableBtn('#login-input-submit', 'Sign In');

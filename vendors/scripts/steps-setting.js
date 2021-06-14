@@ -61,3 +61,35 @@ $(".tab-wizard-sell").steps({
         }
     }
 });
+
+
+//  Disable/Enable Submit Form Btn.
+//  -------------------------------
+
+function disableSubmitFormBtn() {
+
+    // console.log('Disabled');
+
+    //  Find submit button via querySelector
+    //  Note: this ain't manually declared in html but rather automatically by jquery steps
+    let elementSubmitBtn = document.querySelector("a[href='#finish']");
+
+    elementSubmitBtn.style.pointerEvents="none";
+    elementSubmitBtn.style.cursor="default";
+    elementSubmitBtn.textContent = 'Submitting';
+
+}
+
+function enableSubmitFormBtn() {
+
+    // console.log('Enabled');
+
+    //  Find submit button via querySelector
+    //  Note: this ain't manually declared in html but rather automatically by jquery steps
+    let elementBtn = document.querySelector("a[href='#finish']");
+    elementBtn.style.pointerEvents="auto";
+    elementBtn.style.cursor="pointer";
+    elementBtn.textContent = 'Submit';
+
+}
+
