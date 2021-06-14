@@ -161,15 +161,17 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="corru-select-item-type">Type :</label>
-                                <select id="corru-select-item-type" class="custom-select2 form-control" name="state"
+                                <!-- Removed class 'custom-select2' as it didn't support 'invalid-input' class later -->
+                                <select id="corru-select-item-type" class=" form-control" name="state"
                                         style="width: 100%; height: 38px;">
-                                    <optgroup label="Choose Type">
+<!--                                    <optgroup label="Choose Type">-->
+                                        <option value="">Choose Type</option>
                                         <option value="Seng Kaki">Seng Kaki</option>
                                         <option value="Seng Lebar">Seng Lebar</option>
                                         <option value="Galvalum">Galvalum</option>
                                         <option value="Spandeck">Spandeck</option>
                                         <option value="Coil">Coil</option>
-                                    </optgroup>
+<!--                                    </optgroup>-->
                                 </select>
                             </div>
                         </div>
@@ -180,15 +182,15 @@
                                 <label for="corru-select-colour">Colour :</label>
                                 <select id="corru-select-colour" class="custom-select2 form-control" name="state"
                                         style="width: 100%; height: 38px;">
-                                    <optgroup label="Seng Kaki,Seng Lebar,& Galvalum">
-                                        <option value="Silver">Silver</option>
-                                    </optgroup>
-                                    <optgroup label="Spandeck & Coil">
+<!--                                    <optgroup label="Seng Kaki,Seng Lebar,& Galvalum">-->
+<!--                                        <option value="Silver">Silver</option>-->
+<!--                                    </optgroup>-->
+<!--                                    <optgroup label="Spandeck & Coil">-->
                                         <option value="Silver">Silver</option>
                                         <option value="Merah">Merah Merapi</option>
                                         <option value="Hijau">Hijau Borneo</option>
                                         <option value="Biru">Biru Bromo</option>
-                                    </optgroup>
+<!--                                    </optgroup>-->
                                 </select>
                             </div>
                         </div>
@@ -200,21 +202,21 @@
                                 <select id="corru-select-corrugation-type" class="custom-select2 form-control"
                                         name="state"
                                         style="width: 100%; height: 38px;">
-                                    <optgroup label="Seng Kaki/Seng Lebar">
+<!--                                    <optgroup label="Seng Kaki/Seng Lebar">-->
                                         <option value="Gelombang Besar">Gelombang Besar</option>
                                         <option value="Gelombang Kecil">Gelombang Kecil</option>
-                                    </optgroup>
-                                    <optgroup label="Galvalum">
+<!--                                    </optgroup>-->
+<!--                                    <optgroup label="Galvalum">-->
                                         <option value="Kanal C">Kanal C</option>
                                         <option value="Reng">Reng</option>
                                         <option value="Hollow">Hollow</option>
-                                    </optgroup>
-                                    <optgroup label="Spandeck">
+<!--                                    </optgroup>-->
+<!--                                    <optgroup label="Spandeck">-->
                                         <option value="Spandeck">Spandeck</option>
-                                    </optgroup>
-                                    <optgroup label="Coil">
+<!--                                    </optgroup>-->
+<!--                                    <optgroup label="Coil">-->
                                         <option value="Coil">Coil</option>
-                                    </optgroup>
+<!--                                    </optgroup>-->
                                 </select>
                             </div>
                         </div>
@@ -223,7 +225,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="corru-select-amount">Amount :</label>
-                                <input id="corru-select-amount" type="text" class="form-control">
+                                <input id="corru-select-amount" type="number" maxlength="10" class="form-control remove-spinner">
                             </div>
                         </div>
                     </div>
@@ -284,8 +286,9 @@
 <script src="vendors/scripts/steps-setting.js"></script>
 
 <script src="js/myjs/form/date-helper.js"></script>
-<script src="js/myjs/form/corrugation-form.js"></script>
+<script src="js/myjs/api/api-helper.js"></script>
 <script src="js/myjs/form/validation-helper.js"></script>
+<script src="js/myjs/form/corrugation-form.js"></script>
 
 </body>
 

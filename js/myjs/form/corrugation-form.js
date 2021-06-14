@@ -1,3 +1,96 @@
+jQuery(document).ready(function () {
+
+    let elementSelectItemType = $('#corru-select-item-type');
+    let elementSelectCorrugationType = $('#corru-select-corrugation-type');
+    let elementSelectColour = $('#corru-select-colour');
+
+    //  Initially Disable select colour & corrugation type elements - enable only after item type is changed
+    elementSelectColour.prop('disabled', true);
+    elementSelectCorrugationType.prop('disabled', true);
+    //  Disable Submit btn. to prevent empty form submission
+    // disableBtn('#corru-input-submit', 'Submit');
+
+    elementSelectItemType.change(function () {
+
+        // console.log('Selected - ' + this.value);
+
+        //  Disable & return if user selects 'Choose' default option
+        if (this.value.length === 0) {
+            elementSelectColour.prop('disabled', true);
+            elementSelectCorrugationType.prop('disabled', true);
+            return;
+        }
+
+        //  Enable select colour & corrugation type elements
+        elementSelectColour.prop('disabled', false);
+        elementSelectCorrugationType.prop('disabled', false);
+        //  Enable Submit btn.
+        // enableBtn('#corru-input-submit', 'Submit');
+
+        updateCorrugationType(elementSelectItemType.val().trim(), elementSelectCorrugationType);
+        updateCorrugationColour(elementSelectItemType.val().trim(), elementSelectColour);
+
+    });
+
+
+    function updateCorrugationType(strItemType, elementSelectCorrugationType) {
+
+        //  Delete all existing options from select element
+        // elementSelectCorrugationType.find('option').remove();
+        elementSelectCorrugationType.empty();
+
+        switch (strItemType) {
+            case 'Seng Kaki':
+            case 'Seng Lebar':
+                // elementSelectCorrugationType.append($("<option></option>").attr("value", 'Gelombang Besar').text('Gelombang Besar').trigger('change'));
+                elementSelectCorrugationType.append(new Option('Gelombang Besar', 'Gelombang Besar')).trigger('change');
+                elementSelectCorrugationType.append(new Option('Gelombang Kecil', 'Gelombang Kecil')).trigger('change');
+                break;
+            case 'Galvalum':
+                elementSelectCorrugationType.append(new Option('Kanal C', 'Kanal C')).trigger('change');
+                elementSelectCorrugationType.append(new Option('Reng', 'Reng')).trigger('change');
+                elementSelectCorrugationType.append(new Option('Hollow', 'Hollow')).trigger('change');
+                break;
+            case 'Spandeck':
+                elementSelectCorrugationType.append(new Option('Spandeck', 'Spandeck')).trigger('change');
+                break;
+            case 'Coil':
+                elementSelectCorrugationType.append(new Option('Coil', 'Coil')).trigger('change');
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    function updateCorrugationColour(strItemType, elementSelectColour) {
+
+        //  Delete all existing options from select element
+        // elementSelectColour.find('option').remove();
+        elementSelectColour.empty();
+
+        switch (strItemType) {
+            case 'Seng Kaki':
+            case 'Seng Lebar':
+            case 'Galvalum':
+                // elementSelectColour.append($("<option></option>").attr("value", 'Silver').text('Silver').trigger('change'));
+                elementSelectColour.append(new Option('Silver', 'Silver')).trigger('change');
+                break;
+            case 'Spandeck':
+            case 'Coil':
+                elementSelectColour.append(new Option('Silver', 'Silver')).trigger('change');
+                elementSelectColour.append(new Option('Merah Merapi', 'Merah Merapi')).trigger('change');
+                elementSelectColour.append(new Option('Hijau Borneo', 'Hijau Borneo')).trigger('change');
+                elementSelectColour.append(new Option('Biru Bromo', 'Biru Bromo')).trigger('change');
+                break;
+            default:
+                break;
+        }
+
+    }
+
+});
+
 
 /**
  * On Submit corrugation form,
@@ -9,6 +102,7 @@
 async function onSubmitCorrugationForm() {
 
     if (!validateCorrugationForm()) return;
+    console.log('Submitting.');
 
     //  Disable Submit btn. to prevent multiple clicks
     disableBtn('#corru-input-submit', 'Submitting');
@@ -73,6 +167,7 @@ function initializeCorrugationFromForm() {
     // console.log("Initializing Corrugation from the Form");
 
     /*
+        //  Sample valid corrugation json
         let corrugationJson = {
             "corrugationDate": "2021-12-31",
             "itemType": "Seng Kaki",
@@ -91,138 +186,6 @@ function initializeCorrugationFromForm() {
         'amount': $('#corru-select-amount').val().trim()
 
     });
-
-}
-
-
-//  API Helper Methods
-//  -------------------------
-/**
- * Invoke POST Method REST API Call to the given url with the given body
- * @param url   url for the post request
- * @param body  json object containing data for the post body
- * @returns string Text response from the server
- */
-async function reqPostCall(url, body) {
-
-    return await fetch(url, {
-        method: 'POST',
-        body: body,
-        headers: {'Content-Type': 'application/json'}
-    }).then(function (response) {
-
-        // The API call was successful!
-        if (response.ok) return response.text();
-
-        //  Reject in case of failed response
-        return Promise.reject(response);
-
-    }).then(function (data) {
-
-        // This is the JSON from our response
-        return data;
-
-    }).catch(function (err) {
-
-        // There was an error
-        console.warn('Something went wrong.', err);
-
-    });
-
-}
-
-/**
- * Make GET REST API Call to given url
- * Note: Throws error if connection failure to given url
- * @param url URL for GET request
- * @returns {Promise<string>} JSON Response received from the given url
- */
-async function fetchJsonFromUrl(url) {
-
-    let json = await fetch(url)
-        .then(response => {
-            // The API call was successful!
-            if (response.ok) return response.json();
-
-            //  Reject in case of failed response
-            return Promise.reject(response);
-        }).catch(function (err) {
-
-            // There was an error
-            console.warn('Failed to establish connection with Back-end REST API.\n', err);
-            return null;
-        });
-
-    return JSON.stringify(json);
-
-}
-
-
-//  Validation Helper Methods
-//  -------------------------
-/**
- * Validate date - Check format -> 'yyyy-mm-dd'
- * @returns {boolean} true when input passes all validations, otherwise false
- */
-function validateDate(elementDate) {
-
-    //  Regex for pattern -> '####-[01]#-[0123]#'
-    let regexDate = new RegExp('^\\d{4}-[01]\\d-[0-3]\\d$');
-
-    //  validate if input date is in correct format i.e. yyyy-mm-dd
-    return validateElement(elementDate, regexDate);
-
-}
-
-/**
- * Validate given element's value with the regex provided.
- * Add/remove 'invalid-input' CSS class when value is invalid/valid respectively.
- * @param element Element whose value needs to be validated
- * @param regex Regex pattern which contains the rules for validation
- * @returns {boolean} true when input passes all validations, otherwise false
- */
-function validateElement(element, regex) {
-
-    let str = element.val();
-
-    //  Test if input date is in correct format i.e. yyyy-mm-dd
-    if (regex.test(str)) {
-        // let strShortMonthDate = convertToShortMonthDate(str);
-        // element.val(strShortMonthDate);
-        element.removeClass('invalid-input');
-        return true;
-    }
-
-    element.addClass('invalid-input');
-    return false;
-
-}
-
-/**
- * Check for value of given list of input elements whether its empty or not.
- * Add/remove 'invalid-input' CSS class when value is invalid/valid respectively.
- * This method is Common, used by both validateSellForm() & validateProdForm()
- * @param listOfElements List of input elements whose value needs to be checked for emptiness
- * @returns {boolean} true when all the elements have some value i.e. not blank, otherwise false
- */
-function emptyValidationListOfElements(listOfElements) {
-
-    let result = true;
-
-    //  Check for element's value is not empty.
-    listOfElements.forEach(element => {
-
-        element.removeClass('invalid-input');
-
-        if (element.val().trim().length < 1 || element.val().trim().length > 50) {
-            // element.attr('placeholder', 'Enter valid supervisor name');
-            element.addClass('invalid-input');
-            result = false;
-        }
-
-    });
-
-    return result;
 
 }
 

@@ -1,17 +1,104 @@
+//  Wait for the html content to be loaded
+jQuery(document).ready(function () {
 
-//  Wait for the html content to be loaded before running the major function
-document.addEventListener("DOMContentLoaded", () => {
+    let elementSelectItemType = $('#sell-select-item-type');
+    let elementSelectItemSize = $('#sell-select-item-size');
+    let elementSelectColour = $('#sell-select-colour');
+    // let elementSubmitBtn = $('#corru-input-submit');
 
-    // major()
-    //     .then(() => console.log("Selling Form -> Major method complete."))
-    // .then(() => quickFill());
+    //  Initially Disable select colour & corrugation type elements - enable only after item type is changed
+    elementSelectColour.prop('disabled', true);
+    elementSelectItemSize.prop('disabled', true);
+
+    elementSelectItemType.change(function () {
+
+        // console.log('Selected - ' + this.value);
+
+        //  Disable & return if user selects 'Choose' default option
+        if (this.value.length === 0) {
+            elementSelectColour.prop('disabled', true);
+            elementSelectItemSize.prop('disabled', true);
+            return;
+        }
+
+        //  Enable select colour & corrugation type elements
+        elementSelectColour.prop('disabled', false);
+        elementSelectItemSize.prop('disabled', false);
+
+        updateItemSize(elementSelectItemType.val().trim(), elementSelectItemSize);
+        updateColour(elementSelectItemType.val().trim(), elementSelectColour);
+
+    });
+
+
+    function updateItemSize(strItemType, elementSelectItemSize) {
+
+        //  Delete all existing options from select element
+        // elementSelectItemSize.find('option').remove();
+        elementSelectItemSize.empty();
+
+        switch (strItemType) {
+            case 'Seng Kaki':
+                // elementSelectItemSize.append($("<option></option>").attr("value", 'Gelombang Besar').text('Gelombang Besar').trigger('change'));
+                elementSelectItemSize.append(new Option( '1524 x 0,2',  '1524 x 0,2')).trigger('change');
+                elementSelectItemSize.append(new Option( '1829 x 0,2',  '1829 x 0,2')).trigger('change');
+                elementSelectItemSize.append(new Option( '2134 x 0,2',  '2134 x 0,2')).trigger('change');
+                elementSelectItemSize.append(new Option( '2438 x 0,2',  '2438 x 0,2')).trigger('change');
+                elementSelectItemSize.append(new Option( '2743 x 0,2',  '2743 x 0,2')).trigger('change');
+                elementSelectItemSize.append(new Option( '3048 x 0,2',  '3048 x 0,3')).trigger('change');
+                break;
+            case 'Seng Lebar':
+                elementSelectItemSize.append(new Option( '1829 x 0,2',  '1829 x 0,2')).trigger('change');
+                elementSelectItemSize.append(new Option( '1829 x 0,25',  '1829 x 0,25')).trigger('change');
+                elementSelectItemSize.append(new Option( '1829 x 0,3',  '1829 x 0,3')).trigger('change');
+                elementSelectItemSize.append(new Option( '1829 x 0,35',  '1829 x 0,35')).trigger('change');
+                elementSelectItemSize.append(new Option( '1829 x 0,3',  '1829 x 0,3')).trigger('change');
+                break;
+            case 'Galvalum':
+                elementSelectItemSize.append(new Option('1829 x 0,3', '1829 x 0,3')).trigger('change');
+                break;
+            case 'Spandeck':
+                elementSelectItemSize.append(new Option( '1829 x 0,25',  '1829 x 0,25')).trigger('change');
+                elementSelectItemSize.append(new Option( '1829 x 0,3',  '1829 x 0,3')).trigger('change');
+                elementSelectItemSize.append(new Option( '1829 x 0,35',  '1829 x 0,35')).trigger('change');
+                break;
+            case 'Coil':
+                elementSelectItemSize.append(new Option('1829 x 0,2', '1829 x 0,2')).trigger('change');
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    function updateColour(strItemType, elementSelectColour) {
+
+        //  Delete all existing options from select element
+        // elementSelectColour.find('option').remove();
+        elementSelectColour.empty();
+
+        switch (strItemType) {
+            case 'Seng Kaki':
+            case 'Seng Lebar':
+            case 'Galvalum':
+                // elementSelectColour.append($("<option></option>").attr("value", 'Silver').text('Silver').trigger('change'));
+                elementSelectColour.append(new Option('Silver', 'Silver')).trigger('change');
+                break;
+            case 'Spandeck':
+            case 'Coil':
+                elementSelectColour.append(new Option('Silver', 'Silver')).trigger('change');
+                elementSelectColour.append(new Option('Merah Merapi', 'Merah Merapi')).trigger('change');
+                elementSelectColour.append(new Option('Hijau Borneo', 'Hijau Borneo')).trigger('change');
+                elementSelectColour.append(new Option('Biru Bromo', 'Biru Bromo')).trigger('change');
+                break;
+            default:
+                break;
+        }
+
+    }
 
 });
 
-
-async function major() {
-    console.log("\n-----------------------------------------------\n");
-}
 
 async function onSubmitSellingForm() {
 
