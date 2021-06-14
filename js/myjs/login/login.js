@@ -1,8 +1,8 @@
+//  document is the root element of all the objects model for every html page
 //  Wait for the html content to be loaded before running the major function
 document.addEventListener("DOMContentLoaded", () => {
 
     test();
-    // init();
 
 });
 
@@ -10,14 +10,6 @@ function test() {
     console.log("Test - Time Stamp: " + new Date());
 }
 
-/*
-function init() {
-    //  Initialize Event Listener on Remember Me Btn. (Later replace it with Sign In)
-    document.querySelector('#customCheck1').addEventListener('click', onSignIn);
-}
-*/
-
-//  document is the root element of all the objects model for every html page
 async function onSignIn() {
 
     //  Fetch emailId & password from the input form
@@ -26,7 +18,14 @@ async function onSignIn() {
     // console.log("User Name: " + emailId);
     // console.log("Password: " + password);
 
-    // await demoGetRESTCall();
+    //  Skip Login if form fails to pass empty validation
+    if (!emptyValidationListOfElements([$('#emailId'), $('#password')])) {
+        // console.log('Empty Form');
+        return;
+    }
+
+    //  Disable Submit btn. to prevent multiple clicks
+    disableBtn('#login-input-submit', 'Signing In');
 
     //  Authenticate User
     let isLoginSuccessful = await authenticateUser(emailId, password);
@@ -35,17 +34,20 @@ async function onSignIn() {
         console.log("Login Successful!");
 
         let userJson = await fetchJsonFromUrl("http://localhost:8066/user/" + emailId);
-        // let userModel = new User(userJson);
 
-        // console.log(userModel.emailId);
-        // console.log(userJson);
+        //  Enable Submit btn. after form submit response received
+        enableBtn('#login-input-submit', 'Sign In');
 
         //  Set userJson in localStorage for dashboard.js
         localStorage.setItem('user', JSON.stringify(userJson));
-        window.location = 'http://localhost:63342/PT%20XYZ/dashboard.html';
+        // window.location = 'http://localhost:63342/PT%20XYZ/dashboard.html';
+        $('#login-form').submit();
 
-    }
-    else console.log("Login Failed...");
+    } else console.log("Login Failed...");
+
+    //  Enable Submit btn. after form submit response received
+    enableBtn('#login-input-submit', 'Sign In');
+
 
 }
 
@@ -56,61 +58,31 @@ async function authenticateUser(emailId, password) {
     let body = JSON.stringify(userDTOJson);
 
     //  The response of this POST request to /login is a plain-text boolean value
-    return await reqPostCall(url, body);
+    let strResponse = 'false';
+    await reqPostCall(url, body).then(value => strResponse = value);
+
+    console.log("Response: " + strResponse);
+
+    await sleepNow(200);
+    return strResponse === 'true';
 
 }
 
-/**
- * Invoke POST Method REST API Call to the given url with the given body
- * @param url   url for the post request
- * @param body  json object containing data for the post body
- * @returns {Promise<Response>} Json response from the server
- */
-async function reqPostCall(url, body) {
-
-    return await fetch(url, {
-        method: 'POST',
-        body: body,
-        headers: {'Content-Type': 'application/json'}
-    }).then(function (response) {
-
-        // The API call was successful!
-        if (response.ok) return response.json();
-
-        //  Reject in case of failed response
-        return Promise.reject(response);
-
-    }).then(function (data) {
-
-        // This is the JSON from our response
-        return data;
-
-    }).catch(function (err) {
-
-        // There was an error
-        console.warn('Something went wrong.', err);
-
-    });
-
+async function sleepNow(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-//  Unused Methods
-//  --------------
+//  Unused Method for testing purpose.
+//  Wait on form submit btn. click, wait for any task & then explicitly submit the form
+async function onFormSubmitAndWait(strFormId) {
 
-async function demoGetRESTCall() {
+    console.log('submit clicked.');
 
-    // let url = 'https://jsonplaceholder.typicode.com/todos/1';
-    let url = 'http://localhost:8066/user/rudys@sermanisteel.co.id';
-    let json = await fetchJsonFromUrl(url);
+    console.log('1');
+    await sleepNow(200);
+    console.log('2');
 
-    console.log("Response: " + json);
-
-}
-
-async function fetchJsonFromUrl(url) {
-
-    console.log("Fetching from url: " + url);
-    return await fetch(url)
-        .then(response => response.json())
-
+    $(strFormId).submit();
+    console.log('form submitted.');
+    return false;
 }

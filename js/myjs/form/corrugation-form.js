@@ -11,7 +11,7 @@ async function onSubmitCorrugationForm() {
     if (!validateCorrugationForm()) return;
 
     //  Disable Submit btn. to prevent multiple clicks
-    disableSubmitBtn('#corru-input-submit');
+    disableBtn('#corru-input-submit', 'Submitting');
 
     // console.log("Corrugation Form Submit.");
 
@@ -33,7 +33,7 @@ async function onSubmitCorrugationForm() {
     else $('#failure-modal').modal('show')
 
     //  Enable Submit btn. after form submit response received
-    enableSubmitBtn('#corru-input-submit');
+    enableBtn('#corru-input-submit', 'Submit');
 
 }
 
@@ -225,20 +225,4 @@ function emptyValidationListOfElements(listOfElements) {
     return result;
 
 }
-
-
-function disableSubmitBtn(strElementId) {
-    // console.log('Disable');
-    let elementSubmitBtn = $(strElementId);
-    elementSubmitBtn.prop('disabled', true);
-    elementSubmitBtn.prop('value', 'Submitting');
-}
-
-function enableSubmitBtn(strElementId) {
-    // console.log('Enable');
-    let elementSubmitBtn = $(strElementId);
-    elementSubmitBtn.prop('disabled', false);
-    elementSubmitBtn.prop('value', 'Submit');
-}
-
 

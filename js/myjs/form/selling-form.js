@@ -100,10 +100,10 @@ function enableSubmitFormBtn() {
 
     //  Find submit button via querySelector
     //  Note: this ain't manually declared in html but rather automatically by jquery steps
-    let elementSubmitBtn = document.querySelector("a[href='#finish']");
-
-    elementSubmitBtn.style.pointerEvents="auto";
-    elementSubmitBtn.style.cursor="pointer";
-    elementSubmitBtn.textContent = 'Submit';
+    let elementBtn = document.querySelector("a[href='#finish']");
+s
+    elementBtn.style.pointerEvents="auto";
+    elementBtn.style.cursor="pointer";
+    elementBtn.textContent = 'Submit';
 
 }

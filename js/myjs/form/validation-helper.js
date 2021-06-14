@@ -64,3 +64,27 @@ function emptyValidationListOfElements(listOfElements) {
     return result;
 
 }
+
+
+//  Button Disable/Enable
+//  ---------------------
+
+function disableBtn(strElementId, strBtnValue) {
+    // console.log('Disable');
+    let elementSubmitBtn = $(strElementId);
+    elementSubmitBtn.prop('disabled', true);
+    elementSubmitBtn.prop('value', strBtnValue);
+    elementSubmitBtn.css('cursor', 'default');
+
+}
+
+function enableBtn(strElementId, strBtnValue) {
+    // console.log('Enable');
+    let elementSubmitBtn = $(strElementId);
+    elementSubmitBtn.prop('disabled', false);
+    elementSubmitBtn.prop('value', strBtnValue);
+    elementSubmitBtn.css('cursor', 'pointer');
+
+}
+
+
