@@ -8,7 +8,7 @@ async function testConnectionFailure() {
     console.log("Test - Time Stamp: " + new Date());
 
     //  Test connection by making GET request for productionId 1
-    let url = 'http://localhost:8066/production/1'
+    let url = 'https://pt-ss-portal-backend-1.herokuapp.com/production/1'
     let responseProd = await fetchJsonFromUrl(url).then(json => JSON.parse(json));
     return responseProd == null;
 
@@ -81,7 +81,7 @@ async function fetchJsonFromUrl(url) {
 async function demoGetRESTCall() {
 
     // let url = 'https://jsonplaceholder.typicode.com/todos/1';
-    let url = 'http://localhost:8066/user/rudys@sermanisteel.co.id';
+    let url = 'https://pt-ss-portal-backend-1.herokuapp.com/user/rudys@sermanisteel.co.id';
     let json = await fetchJsonFromUrl(url);
 
     console.log("Response: " + json);

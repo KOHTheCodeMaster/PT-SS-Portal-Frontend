@@ -117,7 +117,7 @@ async function onSubmitCorrugationForm() {
 
     //  Save production in DB
     // console.log("Saving Corrugation in DB.");
-    let url = 'http://localhost:8066/corrugation'
+    let url = 'https://pt-ss-portal-backend-1.herokuapp.com/corrugation'
     let strResponse = await reqPostCall(url, corrugation);
 
     console.log("Response: " + strResponse);

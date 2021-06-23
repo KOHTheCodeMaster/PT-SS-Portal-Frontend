@@ -51,8 +51,8 @@ async function init() {
         console.log('Initializing Lists from Back-end REST API.');
 
         //  Initialize Data members
-        let supervisorUrl = 'http://localhost:8066/production/list/supervisor'
-        let sizeUrl = 'http://localhost:8066/production/list/size'
+        let supervisorUrl = 'https://pt-ss-portal-backend-1.herokuapp.com/production/list/supervisor'
+        let sizeUrl = 'https://pt-ss-portal-backend-1.herokuapp.com/production/list/size'
 
         //  Initialize lists
         supervisorNameList = await fetchJsonFromUrl(supervisorUrl).then(json => JSON.parse(json));
@@ -145,7 +145,7 @@ async function onSubmitProductionForm() {
 
     //  Save production in DB
     // console.log("Saving Production in DB.");
-    let url = 'http://localhost:8066/production'
+    let url = 'https://pt-ss-portal-backend-1.herokuapp.com/production'
     let strResponse = await reqPostCall(url, production);
 
     //  Enable Submit btn. after form submit response received
