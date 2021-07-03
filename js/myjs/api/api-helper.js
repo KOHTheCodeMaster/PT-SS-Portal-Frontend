@@ -8,8 +8,20 @@ async function testConnectionFailure() {
     console.log("Test - Time Stamp: " + new Date());
 
     //  Test connection by making GET request for productionId 1
-    let url = 'https://pt-ss-portal-backend-1.herokuapp.com/production/1'
-    let responseProd = await fetchJsonFromUrl(url).then(json => JSON.parse(json));
+    let url = 'http://localhost:8066/test/'
+    let responseProd = await fetch(url)
+        .then(response => {
+            // The API call was successful!
+            if (response.ok) return response.text();
+
+            //  Reject in case of failed response
+            return Promise.reject(response);
+        }).catch(function (err) {
+
+            // There was an error
+            console.warn('Failed to establish connection with Back-end REST API.\n', err);
+            return null;
+        });
     return responseProd == null;
 
 }
