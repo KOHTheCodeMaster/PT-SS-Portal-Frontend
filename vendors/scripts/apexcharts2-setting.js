@@ -1,11 +1,10 @@
-let jsonProdDashboard;
+let jsonProdDashboard = {};
 
 //  Wait for the html content to be loaded before running the major function
 document.addEventListener("DOMContentLoaded", () => {
 
     // new Promise()
-    major()
-        .then(() => console.log('Production Dashboard Loaded.'));
+    major();
 
 });
 
@@ -20,12 +19,31 @@ async function major() {
 
     await initializeProductionCharts();
 
+    console.log('Production Dashboard Loaded.');
+
+
 }
 
 async function initializeJsonProductionChartData() {
 
+    //  Initialize jsonProdDashboard chart keys with empty data
+    jsonProdDashboard = {
+        "chart1": {},
+        "chart2": {},
+/*
+        "chart3": {},
+        "chart4": {},
+        "chart5": {},
+        "chart6": {},
+        "chart7": {},
+        "chart8": {}
+*/
+    }
+
     //  Make GET REST API call to fetch all production chart data
     await loadDataChart1();
+
+    await loadDataChart2();
 
     //  Mock API call
     // mockChart1Data();
@@ -51,16 +69,71 @@ async function loadDataChart1() {
     }
     // console.log(jsonResponse);
 
-    jsonProdDashboard = {
-        "chart1": {
-            "data": data
-        }
-    }
+    jsonProdDashboard["chart1"]["data"] = data;
     console.log('Chart 1 Data - loaded successfully.');
 
 }
 
+async function loadDataChart2() {
+
+    //  Load data for Chart 2 - Total Production Based on Type of Goods
+    //  Make GET REST API Call to fetch all production charts data in json
+    let strYearAndMonth = "2021-02";
+    let url = "http://localhost:8066/corrugation/monthly/each-item-type/" + strYearAndMonth;
+    let jsonResponse = JSON.parse(await fetchJsonFromUrl(url));
+
+    // let arrItemTypes = ["Seng Kaki", "Seng Lebar", "Galvalum", "Spandeck", "Coil"];
+    /*
+        for (let itemType in jsonResponse) {
+            console.log(itemType);
+            console.log(jsonResponse[itemType]);
+        }
+    */
+
+    //  Iterate over keys of Json i.e. itemType
+    for (let itemType in jsonResponse) {
+
+        //  Check json has own property
+        if (!jsonResponse.hasOwnProperty(itemType)) continue;
+
+        let data = [];
+        //  Iterate list of daily production for given itemType
+        for (let dailyProduction of jsonResponse[itemType]) {
+            let temp = {
+                "x": dailyProduction["epochMilliSecond"],
+                "y": dailyProduction["dailyProductionAmount"]
+            };
+            data.push(temp);
+            // console.log(temp);
+        }
+        if (data.length !== 0) jsonProdDashboard["chart2"][itemType] = data;
+
+        // console.log("Item Type: " + itemType);
+        // console.log(JSON.stringify(tempData2[itemType]));
+
+    }
+
+    // console.log(JSON.stringify(jsonProdDashboard));
+    console.log('Chart 2 Data - loaded successfully.');
+
+
+}
+
 function initializeProductionCharts() {
+
+    // console.log(jsonProdDashboard["chart1"]["data"]);
+
+    initChart1();
+
+    initializeChart2();
+
+    initChart3();
+
+    initChart7();
+
+}
+
+function initChart1() {
 
     //  Chart 1 - Total Production
     //  -----------------------------------------------------------------------------
@@ -68,6 +141,7 @@ function initializeProductionCharts() {
     let options1 = {
         series: [{
             name: 'Daily Production',
+            // data: mockChart1Data()
             data: jsonProdDashboard.chart1.data
         }],
         chart: {
@@ -78,7 +152,7 @@ function initializeProductionCharts() {
             }
         },
         grid: {
-            show: false,
+            show: true,
             padding: {
                 left: 10,
                 right: 10
@@ -134,63 +208,6 @@ function initializeProductionCharts() {
 
     let chart1 = new ApexCharts(document.querySelector("#chart1"), options1);
     chart1.render();
-
-    //  Chart 3 - Total Production Against Production Target
-    //  -----------------------------------------------------------------------------
-
-    let options3 = {
-        series: [{
-            name: 'Target',
-            data: [31, 40, 28, 51, 42, 31, 40, 28, 51, 42, 51, 42, 31, 40, 31, 40, 28, 25]
-        }, {
-            name: 'Production',
-            data: [14, 13, 20, 19, 29, 19, 22, 19, 12, 17, 19, 15, 13, 19, 17, 12, 17, 15]
-        }],
-        chart: {
-            height: 350,
-            type: 'area',
-            toolbar: {
-                show: false,
-            }
-        },
-        grid: {
-            show: false,
-            padding: {
-                left: 0,
-                right: 0
-            }
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            curve: 'smooth'
-        },
-        xaxis: {
-            type: 'datetime',
-            categories: ['1/2/2021', '1/3/2021', '1/4/2021', '1/5/2021', '1/6/2021', '1/7/2021', '1/8/2021', '1/9/2021', '1/10/2021', '1/11/2021', '1/12/2021', '1/13/2021', '1/14/2021', '1/15/2021', '1/16/2021', '1/17/2021', '1/18/2021', '1/19/2021'],
-        },
-        title: {
-            text: 'Total Production Against Production Target',
-            align: 'left',
-            style: {
-                fontSize: "16px",
-                color: '#666'
-            }
-        },
-        tooltip: {
-            x: {
-                format: 'dd/MM/yy'
-            },
-        },
-        yaxis: {
-            title: {
-                text: 'Total Production',
-            },
-        }
-    };
-    let chart3 = new ApexCharts(document.querySelector("#chart3"), options3);
-    chart3.render();
 
     /*
         //  Chart 5
@@ -325,6 +342,133 @@ function initializeProductionCharts() {
         chart6.render();
     */
 
+}
+
+function initializeChart2() {
+
+    // chart 2 - Total Production Based on Type of Goods
+    Highcharts.chart('chart2', {
+        title: {
+            text: 'Total Production Based on Type of Goods'
+        },
+        subtitle: {
+            text: 'January 2021'
+        },
+        series: [
+            {name: 'Seng Kaki (762)', data: jsonProdDashboard.chart2["Seng Kaki"]},
+            {name: 'Seng Lebar (914)', data: jsonProdDashboard.chart2["Seng Lebar"]},
+            {name: 'Spandeck', data: jsonProdDashboard.chart2["Spandeck"]},
+            {name: 'Galvanum', data: jsonProdDashboard.chart2["Galvanum"]},
+            {name: 'Coil', data: jsonProdDashboard.chart2["Coil"]}
+        ],
+        tooltip: {
+            xDateFormat: '%d %b %Y',    //  'DD-Mmm-YYYY'
+        },
+        xAxis: {
+            type: 'datetime',
+            labels: {
+                formatter: function () {
+                    // return Highcharts.dateFormat('%b/%e/%Y', this.value);
+                    return Highcharts.dateFormat('%e %b', this.value);  //  'DD Mmm'
+                }
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Total Production'
+            }
+        },
+        chart: {
+            type: 'spline',
+        },
+        plotOptions: {
+            series: {
+                label: {
+                    connectorAllowed: false
+                },
+                pointStart: 1
+            },
+            spline: {
+                marker: {
+                    enabled: false
+                }
+            }
+        },
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 500
+                }
+            }]
+        }
+    });
+
+
+}
+
+function initChart3() {
+
+    //  Chart 3 - Total Production Against Production Target
+    //  -----------------------------------------------------------------------------
+
+    let options3 = {
+        series: [{
+            name: 'Target',
+            data: [31, 40, 28, 51, 42, 31, 40, 28, 51, 42, 51, 42, 31, 40, 31, 40, 28, 25]
+        }, {
+            name: 'Production',
+            data: [14, 13, 20, 19, 29, 19, 22, 19, 12, 17, 19, 15, 13, 19, 17, 12, 17, 15]
+        }],
+        chart: {
+            height: 350,
+            type: 'area',
+            toolbar: {
+                show: false,
+            }
+        },
+        grid: {
+            show: false,
+            padding: {
+                left: 0,
+                right: 0
+            }
+        },
+        dataLabels: {
+            enabled: false
+        },
+        stroke: {
+            curve: 'smooth'
+        },
+        xaxis: {
+            type: 'datetime',
+            categories: ['1/2/2021', '1/3/2021', '1/4/2021', '1/5/2021', '1/6/2021', '1/7/2021', '1/8/2021', '1/9/2021', '1/10/2021', '1/11/2021', '1/12/2021', '1/13/2021', '1/14/2021', '1/15/2021', '1/16/2021', '1/17/2021', '1/18/2021', '1/19/2021'],
+        },
+        title: {
+            text: 'Total Production Against Production Target',
+            align: 'left',
+            style: {
+                fontSize: "16px",
+                color: '#666'
+            }
+        },
+        tooltip: {
+            x: {
+                format: 'dd/MM/yy'
+            },
+        },
+        yaxis: {
+            title: {
+                text: 'Total Production',
+            },
+        }
+    };
+    let chart3 = new ApexCharts(document.querySelector("#chart3"), options3);
+    chart3.render();
+
+}
+
+function initChart7() {
+
     //  Chart 7 - Production Class Comparison
     //  -----------------------------------------------------------------------------
     let options7 = {
@@ -404,7 +548,6 @@ function initializeProductionCharts() {
     };
     let chart7 = new ApexCharts(document.querySelector("#chart7"), options7);
     chart7.render();
-
 }
 
 function mockChart1Data() {
@@ -416,7 +559,7 @@ function mockChart1Data() {
         '2/8/2021 GMT', '2/9/2021 GMT', '2/10/2021 GMT', '2/11/2021 GMT', '2/12/2021 GMT', '2/13/2021 GMT',
         '2/14/2021 GMT', '2/15/2021 GMT', '2/16/2021 GMT', '2/17/2021 GMT', '2/18/2021 GMT', '2/19/2021 GMT',
         '2/20/2021 GMT', '2/21/2021 GMT', '2/22/2021 GMT', '2/23/2021 GMT', '2/24/2021 GMT', '2/25/2021 GMT',
-        '2/26/2021 GMT', '2/27/2021 GMT', '2/28/2021 GMT', '2/29/2021 GMT', '2/30/2021 GMT', '2/31/2021 GMT'
+        '2/26/2021 GMT', '2/27/2021 GMT', '2/28/2021 GMT'//, '2/29/2021 GMT', '2/30/2021 GMT', '2/31/2021 GMT'
     ];
 
     let yData = [
@@ -432,14 +575,12 @@ function mockChart1Data() {
         let tempTimeMs = Date.parse(strDate);   //  Convert GMT Date into milliseconds
 
         let temp = {"x": tempTimeMs, "y": yData[i]};
-        console.log(temp);
+        // console.log(temp);
         data.push(temp);
     }
 
-    jsonProdDashboard = {
-        "chart1": {
-            "data": data
-        }
-    }
+    // console.log(data);
+
+    return data;
 
 }

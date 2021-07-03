@@ -1,10 +1,14 @@
-// chart 1
+/*
+// chart 2 - Total Production Based on Type of Goods
 Highcharts.chart('chart2', {
 	title: {
 		text: 'Total Production Based on Type of Goods'
 	},
 	subtitle: {
 		text: 'January 2021'
+	},
+	xaxis: {
+		type: 'datetime',
 	},
 	yAxis: {
 		title: {
@@ -51,3 +55,4 @@ Highcharts.chart('chart2', {
 		}]
 	}
 });
+*/
