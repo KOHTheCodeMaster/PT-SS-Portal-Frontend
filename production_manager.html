@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <!-- Basic Page Info -->
@@ -16,7 +16,7 @@
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+          rel="stylesheet">
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="vendors/styles/core.css">
     <link rel="stylesheet" type="text/css" href="vendors/styles/icon-font.min.css">
@@ -24,21 +24,27 @@
     <link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="vendors/styles/style.css">
 
+    <!--  CSS for Forms  -->
+    <link rel="stylesheet" type="text/css" href="css/css/forms.css">
+
 </head>
 
 <body>
-    <div class="pre-loader">
-        <div class="pre-loader-box">
-            <div class="loader-logo"><img src="vendors/images/logo.jpg" alt=""></div>
-            <div class='loader-progress' id="progress_div">
-                <div class='bar' id='bar1'></div>
-            </div>
-            <div class='percent' id='percent1'>0%</div>
-            <div class="loading-text">
-                Loading...
+<div>
+    <!--
+        <div class="pre-loader">
+            <div class="pre-loader-box">
+                <div class="loader-logo"><img src="vendors/images/logo.jpg" alt=""></div>
+                <div class='loader-progress' id="progress_div">
+                    <div class='bar' id='bar1'></div>
+                </div>
+                <div class='percent' id='percent1'>0%</div>
+                <div class="loading-text">
+                    Loading...
+                </div>
             </div>
         </div>
-    </div>
+    -->
 
     <div class="header">
         <div class="header-left">
@@ -76,7 +82,7 @@
             <div class="sidebar-menu">
                 <ul id="accordion-menu">
                     <li class="dropdown">
-                        <a href="javascript:;" class="dropdown-toggle">
+                        <a href="javascript:" class="dropdown-toggle">
                             <span class="micon dw dw-house-1"></span><span class="mtext">Home</span>
                         </a>
                         <ul class="submenu">
@@ -84,28 +90,28 @@
                         </ul>
                     </li>
                     <li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-edit2"></span><span class="mtext">Production</span>
-						</a>
-						<ul class="submenu">
-							<li><a href="dashboard_produksi.html">Production Dashboard</a></li>
-							<li><a href="form-produksi.html">Production Form</a></li>
-							<li><a href="form-corrugation.html">Corrugation Form</a></li>
-							<li><a href="production_manager.html">Production Control</a></li>
-						</ul>
-					</li>
-					<li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-analytics-21"></span><span class="mtext">Selling</span>
-						</a>
-						<ul class="submenu">
-							<li><a href="dashboard_pemasaran.html">Selling Dashboard</a></li>
-							<li><a href="form-pemasaran.html">Selling Form</a></li>
-							<li><a href="selling_manager.html">Selling Control</a></li>
-						</ul>
-					</li>
+                        <a href="javascript:" class="dropdown-toggle">
+                            <span class="micon dw dw-edit2"></span><span class="mtext">Production</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="dashboard_produksi.html">Production Dashboard</a></li>
+                            <li><a href="form-produksi.html">Production Form</a></li>
+                            <li><a href="form-corrugation.html">Corrugation Form</a></li>
+                            <li><a href="production_manager.html">Production Control</a></li>
+                        </ul>
+                    </li>
                     <li class="dropdown">
-                        <a href="javascript:;" class="dropdown-toggle">
+                        <a href="javascript:" class="dropdown-toggle">
+                            <span class="micon dw dw-analytics-21"></span><span class="mtext">Selling</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="dashboard_pemasaran.html">Selling Dashboard</a></li>
+                            <li><a href="form-pemasaran.html">Selling Form</a></li>
+                            <li><a href="selling_manager.html">Selling Control</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:" class="dropdown-toggle">
                             <span class="micon dw dw-apartment"></span><span class="mtext">Warehouse</span>
                         </a>
                         <ul class="submenu">
@@ -120,7 +126,7 @@
 
     <div class="main-container">
         <div class="pd-ltr-20 xs-pd-20-10">
-            <div class="min-height-200px">
+            <div class="min-height-200">
                 <div class="page-header">
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
@@ -145,49 +151,52 @@
                                 <ul class="nav nav-tabs" role="tablist">
                                     <li class="nav-item">
                                         <a class="nav-link active text-blue" data-toggle="tab" href="#home" role="tab"
-                                            aria-selected="true">Target Input</a>
+                                           aria-selected="true">Target Input</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link text-blue" data-toggle="tab" href="#monthly" role="tab"
-                                            aria-selected="false">Monthly</a>
+                                           aria-selected="false">Monthly</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link text-blue" data-toggle="tab" href="#yearly" role="tab"
-                                            aria-selected="false">Yearly</a>
+                                           aria-selected="false">Yearly</a>
                                     </li>
                                 </ul>
                                 <div class="tab-content">
                                     <div class="tab-pane fade show active" id="home" role="tabpanel">
                                         <div class="pd-20">
-                                            <form>
+                                            <div>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label>Year : </label>
-                                                            <select class="custom-select form-control">
+                                                            <label for="prod-control-select-year">Year : </label>
+                                                            <select id="prod-control-select-year"
+                                                                    class="custom-select form-control">
                                                                 <option value="2020">2020</option>
                                                                 <option value="2021">2021</option>
                                                                 <option value="2022">2022</option>
                                                                 <option value="2023">2023</option>
                                                                 <option value="2024">2024</option>
+                                                                <option value="2025">2025</option>
                                                             </select>
                                                         </div>
                                                         <div class="form-group">
                                                             <div class="form-group">
-                                                                <label>Month : </label>
-                                                                <select class="custom-select form-control">
-                                                                    <option value="Januari">Januari</option>
-                                                                    <option value="Februari">Februari</option>
-                                                                    <option value="Maret">Maret</option>
-                                                                    <option value="April">April</option>
-                                                                    <option value="Mei">Mei</option>
-                                                                    <option value="Juni">Juni</option>
-                                                                    <option value="Juli">Juli</option>
-                                                                    <option value="Agustus">Agustus</option>
-                                                                    <option value="September">September</option>
-                                                                    <option value="Oktober">Oktober</option>
-                                                                    <option value="November">November</option>
-                                                                    <option value="Desember">Desember</option>
+                                                                <label for="prod-control-select-month">Month : </label>
+                                                                <select id="prod-control-select-month"
+                                                                        class="custom-select form-control">
+                                                                    <option value="1">January</option>
+                                                                    <option value="2">February</option>
+                                                                    <option value="3">March</option>
+                                                                    <option value="4">April</option>
+                                                                    <option value="5">May</option>
+                                                                    <option value="6">June</option>
+                                                                    <option value="7">July</option>
+                                                                    <option value="8">August</option>
+                                                                    <option value="9">September</option>
+                                                                    <option value="10">October</option>
+                                                                    <option value="11">November</option>
+                                                                    <option value="12">December</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -196,13 +205,18 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label>Amount: </label>
-                                                            <input type="text" class="form-control">
+                                                            <label for="prod-control-input-target-amount">
+                                                                Amount :</label>
+                                                            <input id="prod-control-input-target-amount" type="number"
+                                                                   class="form-control remove-spinner">
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <input class="btn btn-primary" type="submit" value="Submit">
-                                            </form>
+                                                <button id="prod-control-submit-btn" class="btn btn-primary"
+                                                        onclick="submitProdControlForm()">
+                                                    Submit
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="monthly" role="tabpanel">
@@ -214,115 +228,115 @@
                                                 </div>
                                                 <div class="pb-20">
                                                     <table
-                                                        class="table hover multiple-select-row data-table-export nowrap">
+                                                            class="table hover multiple-select-row data-table-export nowrap">
                                                         <thead>
-                                                            <tr>
-                                                                <th class="table-plus datatable-nosort"></th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">1</th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">2</th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">3</th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">4</th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">5</th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">6</th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">7</th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">8</th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">9</th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">10</th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">11</th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">12</th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">13</th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">14</th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">15</th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">16</th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">17</th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">18</th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">19</th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">20</th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">21</th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">22</th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">23</th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">24</th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">25</th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">26</th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">27</th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">28</th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">29</th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">30</th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">31</th>
-                                                                <th style="padding-left: 0px; padding-right: 0px;">Total</th>
-                                                            </tr>
+                                                        <tr>
+                                                            <th class="table-plus datatable-nosort"></th>
+                                                            <th style="padding-left: 0; padding-right: 0;">1</th>
+                                                            <th style="padding-left: 0; padding-right: 0;">2</th>
+                                                            <th style="padding-left: 0; padding-right: 0;">3</th>
+                                                            <th style="padding-left: 0; padding-right: 0;">4</th>
+                                                            <th style="padding-left: 0; padding-right: 0;">5</th>
+                                                            <th style="padding-left: 0; padding-right: 0;">6</th>
+                                                            <th style="padding-left: 0; padding-right: 0;">7</th>
+                                                            <th style="padding-left: 0; padding-right: 0;">8</th>
+                                                            <th style="padding-left: 0; padding-right: 0;">9</th>
+                                                            <th style="padding-left: 0; padding-right: 0;">10</th>
+                                                            <th style="padding-left: 0; padding-right: 0;">11</th>
+                                                            <th style="padding-left: 0; padding-right: 0;">12</th>
+                                                            <th style="padding-left: 0; padding-right: 0;">13</th>
+                                                            <th style="padding-left: 0; padding-right: 0;">14</th>
+                                                            <th style="padding-left: 0; padding-right: 0;">15</th>
+                                                            <th style="padding-left: 0; padding-right: 0;">16</th>
+                                                            <th style="padding-left: 0; padding-right: 0;">17</th>
+                                                            <th style="padding-left: 0; padding-right: 0;">18</th>
+                                                            <th style="padding-left: 0; padding-right: 0;">19</th>
+                                                            <th style="padding-left: 0; padding-right: 0;">20</th>
+                                                            <th style="padding-left: 0; padding-right: 0;">21</th>
+                                                            <th style="padding-left: 0; padding-right: 0;">22</th>
+                                                            <th style="padding-left: 0; padding-right: 0;">23</th>
+                                                            <th style="padding-left: 0; padding-right: 0;">24</th>
+                                                            <th style="padding-left: 0; padding-right: 0;">25</th>
+                                                            <th style="padding-left: 0; padding-right: 0;">26</th>
+                                                            <th style="padding-left: 0; padding-right: 0;">27</th>
+                                                            <th style="padding-left: 0; padding-right: 0;">28</th>
+                                                            <th style="padding-left: 0; padding-right: 0;">29</th>
+                                                            <th style="padding-left: 0; padding-right: 0;">30</th>
+                                                            <th style="padding-left: 0; padding-right: 0;">31</th>
+                                                            <th style="padding-left: 0; padding-right: 0;">Total</th>
+                                                        </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td class="table-plus">Est</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">930</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="table-plus">Rea</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">30</td>
-                                                                <td style="padding-left: 0px; padding-right: 0px;">930</td>
-                                                            </tr>
+                                                        <tr>
+                                                            <td class="table-plus">Est</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">930</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="table-plus">Rea</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">30</td>
+                                                            <td style="padding-left: 0; padding-right: 0;">930</td>
+                                                        </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -334,7 +348,7 @@
                                                 </div>
                                                 <div id="chart6"></div>
                                             </div>
-                                            <input class="btn btn-primary" type="print" value="Print">
+                                            <button class="btn btn-primary" value="Print">Print</button>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="yearly" role="tabpanel">
@@ -346,74 +360,74 @@
                                                 </div>
                                                 <div class="pb-20">
                                                     <table
-                                                        class="table hover multiple-select-row data-table-export nowrap">
+                                                            class="table hover multiple-select-row data-table-export nowrap">
                                                         <thead>
-                                                            <tr>
-                                                                <th class="table-plus datatable-nosort"></th>
-                                                                <th>Jan</th>
-                                                                <th>Feb</th>
-                                                                <th>Mar</th>
-                                                                <th>Apr</th>
-                                                                <th>May</th>
-                                                                <th>Jun</th>
-                                                                <th>Jul</th>
-                                                                <th>Aug</th>
-                                                                <th>Sep</th>
-                                                                <th>Oct</th>
-                                                                <th>Nov</th>
-                                                                <th>Dec</th>
-                                                                <th>Total</th>
-                                                            </tr>
+                                                        <tr>
+                                                            <th class="table-plus datatable-nosort"></th>
+                                                            <th>Jan</th>
+                                                            <th>Feb</th>
+                                                            <th>Mar</th>
+                                                            <th>Apr</th>
+                                                            <th>May</th>
+                                                            <th>Jun</th>
+                                                            <th>Jul</th>
+                                                            <th>Aug</th>
+                                                            <th>Sep</th>
+                                                            <th>Oct</th>
+                                                            <th>Nov</th>
+                                                            <th>Dec</th>
+                                                            <th>Total</th>
+                                                        </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td class="table-plus">Est 20</td>
-                                                                <td>300</td>
-                                                                <td>330</td>
-                                                                <td>300</td>
-                                                                <td>330</td>
-                                                                <td>300</td>
-                                                                <td>330</td>
-                                                                <td>300</td>
-                                                                <td>330</td>
-                                                                <td>300</td>
-                                                                <td>330</td>
-                                                                <td>300</td>
-                                                                <td>330</td>
-                                                                <td>3780</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="table-plus">Rea 20</td>
-                                                                <td>300</td>
-                                                                <td>330</td>
-                                                                <td>300</td>
-                                                                <td>330</td>
-                                                                <td>300</td>
-                                                                <td>330</td>
-                                                                <td>300</td>
-                                                                <td>330</td>
-                                                                <td>300</td>
-                                                                <td>330</td>
-                                                                <td>300</td>
-                                                                <td>330</td>
-                                                                <td>3780</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="table-plus">Rea 19</td>
-                                                                <td>300</td>
-                                                                <td>330</td>
-                                                                <td>300</td>
-                                                                <td>330</td>
-                                                                <td>300</td>
-                                                                <td>330</td>
-                                                                <td>300</td>
-                                                                <td>330</td>
-                                                                <td>300</td>
-                                                                <td>330</td>
-                                                                <td>300</td>
-                                                                <td>330</td>
-                                                                <td>3780</td>
-                                                            </tr>
+                                                        <tr>
+                                                            <td class="table-plus">Est 20</td>
+                                                            <td>300</td>
+                                                            <td>330</td>
+                                                            <td>300</td>
+                                                            <td>330</td>
+                                                            <td>300</td>
+                                                            <td>330</td>
+                                                            <td>300</td>
+                                                            <td>330</td>
+                                                            <td>300</td>
+                                                            <td>330</td>
+                                                            <td>300</td>
+                                                            <td>330</td>
+                                                            <td>3780</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="table-plus">Rea 20</td>
+                                                            <td>300</td>
+                                                            <td>330</td>
+                                                            <td>300</td>
+                                                            <td>330</td>
+                                                            <td>300</td>
+                                                            <td>330</td>
+                                                            <td>300</td>
+                                                            <td>330</td>
+                                                            <td>300</td>
+                                                            <td>330</td>
+                                                            <td>300</td>
+                                                            <td>330</td>
+                                                            <td>3780</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="table-plus">Rea 19</td>
+                                                            <td>300</td>
+                                                            <td>330</td>
+                                                            <td>300</td>
+                                                            <td>330</td>
+                                                            <td>300</td>
+                                                            <td>330</td>
+                                                            <td>300</td>
+                                                            <td>330</td>
+                                                            <td>300</td>
+                                                            <td>330</td>
+                                                            <td>300</td>
+                                                            <td>330</td>
+                                                            <td>3780</td>
+                                                        </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -425,7 +439,8 @@
                                                 </div>
                                                 <div id="chart5"></div>
                                             </div>
-                                            <input class="btn btn-primary" type="print" value="Print">
+                                            <!--                                            <input class="btn btn-primary" type="print" value="Print">-->
+                                            <button class="btn btn-primary" value="Print">Print</button>
                                         </div>
                                     </div>
                                 </div>
@@ -439,18 +454,70 @@
                     Design for Internal Use Only
                 </div>
             </div>
-            <!-- js -->
-            <script src="vendors/scripts/core.js"></script>
-            <script src="vendors/scripts/script.min.js"></script>
-            <script src="vendors/scripts/process.js"></script>
-            <script src="vendors/scripts/layout-settings.js"></script>
-            <script src="src/plugins/apexcharts/apexcharts.min.js"></script>
-            <script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
-            <script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
-            <script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
-            <script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
-            <script src="vendors/scripts/dashboard.js"></script>
-            <script src="vendors/scripts/apexcharts2-setting.js"></script>
+
+
+
+            <!-- success Popup html Start -->
+            <div class="modal fade" id="success-modal" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body text-center font-18">
+                            <h3 class="mb-20">Form Submitted!</h3>
+                            <div class="mb-30 text-center"><img src="vendors/images/success.png" alt="success img.">
+                            </div>
+                            Thank You
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- success Popup html End -->
+
+            <!-- Failure Popup html Start -->
+            <div class="modal fade" id="failure-modal" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body text-center font-18">
+                            <h3 class="mb-20">Connection Timed Out.</h3>
+                            <div class="mb-30 text-center"><img src="vendors/images/cross.png" alt="cross img.">
+                            </div>
+                            <p>Network Error: Unable to establish connection with Back-end REST API.</p>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Failure Popup html End -->
+
+        </div>
+    </div>
+</div>
+
+<!-- js -->
+<script src="vendors/scripts/core.js"></script>
+<script src="vendors/scripts/script.min.js"></script>
+<!--            <script src="vendors/scripts/process.js"></script>-->
+<script src="vendors/scripts/layout-settings.js"></script>
+<!--            <script src="src/plugins/apexcharts/apexcharts.min.js"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
+<script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+<script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
+<script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+<!--            <script src="vendors/scripts/dashboard.js"></script>-->
+<!--<script src="vendors/scripts/apexcharts2-setting.js"></script>-->
+
+
+<script src="js/myjs/api/api-helper.js"></script>
+<script src="js/myjs/form/validation-helper.js"></script>
+<script src="js/myjs/form/validate-prod-control-form.js"></script>
+
 </body>
 
 </html>

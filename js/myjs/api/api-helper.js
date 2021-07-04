@@ -5,7 +5,7 @@
  */
 async function testConnectionFailure() {
 
-    console.log("Test - Time Stamp: " + new Date());
+    console.log("Test Connection Request - Time Stamp: " + new Date());
 
     //  Test connection by making GET request for productionId 1
     let url = 'http://localhost:8066/test/'
