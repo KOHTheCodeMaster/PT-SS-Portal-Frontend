@@ -30,20 +30,18 @@ async function initializeJsonProductionChartData() {
     jsonProdDashboard = {
         "chart1": {},
         "chart2": {},
-/*
-        "chart3": {},
-        "chart4": {},
-        "chart5": {},
-        "chart6": {},
-        "chart7": {},
-        "chart8": {}
-*/
+        "chart7": {
+            "data1stClass": {},
+            "data2ndClass": {},
+        },
     }
 
     //  Make GET REST API call to fetch all production chart data
     await loadDataChart1();
 
     await loadDataChart2();
+
+    await loadDataChart7();
 
     //  Mock API call
     // mockChart1Data();
@@ -116,6 +114,30 @@ async function loadDataChart2() {
     // console.log(JSON.stringify(jsonProdDashboard));
     console.log('Chart 2 Data - loaded successfully.');
 
+
+}
+
+async function loadDataChart7() {
+
+    //  Load data for Chart 1 - Total Production
+    //  Make GET REST API Call to fetch all production charts data in json
+    let url = "http://localhost:8066/production/monthly/2nd-class/", strYearAndMonth = "2021-02";
+    let jsonResponse = JSON.parse(await fetchJsonFromUrl(url + strYearAndMonth));
+    // jsonResponse = JSON.parse(jsonResponse);
+
+    let data = [];
+    for (let dailyProduction of jsonResponse) {
+        let temp = {
+            "x": dailyProduction["epochMilliSecond"],
+            "y": dailyProduction["dailyProductionAmount"]
+        };
+        data.push(temp);
+        // console.log(temp);
+    }
+    // console.log(jsonResponse);
+
+    jsonProdDashboard.chart7.data2ndClass = data;
+    console.log('Chart 7 Data - loaded successfully.');
 
 }
 
@@ -475,11 +497,13 @@ function initChart7() {
         series: [{
             name: '1st Class Production',
             type: 'column',
-            data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30]
+            data: jsonProdDashboard.chart1.data
+            // data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30]
         }, {
             name: '2nd Class Production',
             type: 'area',
-            data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43]
+            data: jsonProdDashboard.chart7.data2ndClass
+            // data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43]
         }],
         chart: {
             height: 350,
@@ -505,7 +529,6 @@ function initChart7() {
                 columnWidth: '20%'
             }
         },
-
         fill: {
             opacity: [0.85, 0.25, 1],
             gradient: {
@@ -543,7 +566,10 @@ function initChart7() {
                     return y;
 
                 }
-            }
+            },
+            x: {
+                format: 'dd MMM yyyy'
+            },
         }
     };
     let chart7 = new ApexCharts(document.querySelector("#chart7"), options7);
@@ -582,5 +608,50 @@ function mockChart1Data() {
     // console.log(data);
 
     return data;
+
+}
+
+function mockChart7Data() {
+
+    let data1stClass = [];
+    let data2ndClass = [];
+
+    let categories = [
+        '2/1/2021 GMT', '2/2/2021 GMT', '2/3/2021 GMT', '2/4/2021 GMT', '2/5/2021 GMT', '2/6/2021 GMT', '2/7/2021 GMT',
+        '2/8/2021 GMT', '2/9/2021 GMT', '2/10/2021 GMT', '2/11/2021 GMT', '2/12/2021 GMT', '2/13/2021 GMT',
+        '2/14/2021 GMT', '2/15/2021 GMT', '2/16/2021 GMT', '2/17/2021 GMT', '2/18/2021 GMT', '2/19/2021 GMT',
+        '2/20/2021 GMT', '2/21/2021 GMT', '2/22/2021 GMT', '2/23/2021 GMT', '2/24/2021 GMT', '2/25/2021 GMT',
+        '2/26/2021 GMT', '2/27/2021 GMT', '2/28/2021 GMT'//, '2/29/2021 GMT', '2/30/2021 GMT', '2/31/2021 GMT'
+    ];
+
+    let yData = [
+        14, 13, 20, 19, 29, 19, 22, 19, 12, 17,
+        19, 15, 13, 19, 17, 12, 17, 15, 14, 13,
+        20, 19, 29, 19, 22, 19, 12, 17, 19, 15,
+        27
+    ];
+    let yData2 = [46,43,66,63,96,63,73,63,40,56,63,50,43,63,56,40,56,50,46,43,66,63,96,63,73,63,40,56,63,50,90];
+
+    console.log(yData2.toString())
+
+    for (let i = 0; i < categories.length; i++) {
+
+        let strDate = categories[i];
+        let tempTimeMs = Date.parse(strDate);   //  Convert GMT Date into milliseconds
+
+        let temp = {"x": tempTimeMs, "y": yData[i]};
+        let temp2 = {"x": tempTimeMs, "y": yData2[i]};
+        // console.log(temp);
+        data1stClass.push(temp);
+        data2ndClass.push(temp2);
+    }
+
+    // console.log(data1stClass);
+    // console.log(data2ndClass);
+
+    jsonProdDashboard.chart7.data1stClass = data1stClass;
+    jsonProdDashboard.chart7.data2ndClass = data2ndClass;
+
+    return data1stClass;
 
 }
