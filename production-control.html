@@ -97,7 +97,7 @@
                             <li><a href="dashboard_produksi.html">Production Dashboard</a></li>
                             <li><a href="form-produksi.html">Production Form</a></li>
                             <li><a href="form-corrugation.html">Corrugation Form</a></li>
-                            <li><a href="production_manager.html">Production Control</a></li>
+                            <li><a href="production-control.html">Production Control</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -212,10 +212,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <button id="prod-control-submit-btn" class="btn btn-primary"
-                                                        onclick="submitProdControlForm()">
-                                                    Submit
-                                                </button>
+                                                <input id="prod-control-input-submit" class="btn btn-primary" type="submit" onclick="submitProdControlForm()">
                                             </div>
                                         </div>
                                     </div>
@@ -346,7 +343,7 @@
                                                 <div class="pd-20">
                                                     <h4 class="text-blue h4">Monthly Report Chart</h4>
                                                 </div>
-                                                <div id="chart6"></div>
+                                                <div id="prod-control-monthly-report-chart"></div>
                                             </div>
                                             <button class="btn btn-primary" value="Print">Print</button>
                                         </div>
@@ -437,9 +434,8 @@
                                                 <div class="pd-20">
                                                     <h4 class="text-blue h4">Yearly Report Chart</h4>
                                                 </div>
-                                                <div id="chart5"></div>
+                                                <div id="prod-control-yearly-report-chart"></div>
                                             </div>
-                                            <!--                                            <input class="btn btn-primary" type="print" value="Print">-->
                                             <button class="btn btn-primary" value="Print">Print</button>
                                         </div>
                                     </div>
@@ -502,16 +498,19 @@
 <!-- js -->
 <script src="vendors/scripts/core.js"></script>
 <script src="vendors/scripts/script.min.js"></script>
-<!--            <script src="vendors/scripts/process.js"></script>-->
 <script src="vendors/scripts/layout-settings.js"></script>
-<!--            <script src="src/plugins/apexcharts/apexcharts.min.js"></script>-->
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
 <script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
 <script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
 <script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
-<!--            <script src="vendors/scripts/dashboard.js"></script>-->
+
+<!-- Apex JS -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="js/myjs/chart/prod-control-charts.js"></script>
+<!--<script src="js/myjs/chart/prod-dashboard-charts.js"></script>-->
+<!--<script src="vendors/scripts/apexcharts1-setting.js"></script>-->
 <!--<script src="vendors/scripts/apexcharts2-setting.js"></script>-->
+<!--            <script src="src/plugins/apexcharts/apexcharts.min.js"></script>-->
 
 
 <script src="js/myjs/api/api-helper.js"></script>

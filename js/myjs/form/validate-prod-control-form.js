@@ -16,11 +16,11 @@ async function submitProdControlForm() {
     console.log('Submitting.');
 
     //  Disable Submit btn. to prevent multiple clicks
-    disableBtn('#prod-control-submit-btn', 'Submitting');
+    disableBtn('#prod-control-input-submit', 'Submitting');
 
     if (await testConnectionFailure()) {
         $('#failure-modal').modal('show');
-        enableBtn('#prod-control-submit-btn', 'Submit');
+        enableBtn('#prod-control-input-submit', 'Submit');
         return;
     }
 
@@ -29,12 +29,12 @@ async function submitProdControlForm() {
     let jsonTargetInput;
 
     //  Initialize jsonTargetInput from the form
-    jsonTargetInput = {
+    jsonTargetInput = JSON.stringify({
         'type': 'P',
         'year': $('#prod-control-select-year').val().trim(),
         'month': $('#prod-control-select-month').val().trim(),
         'targetAmount': $('#prod-control-input-target-amount').val().trim()
-    }
+    });
     // console.log(jsonTargetInput);
 
     //  Save jsonTargetInput in DB
@@ -49,7 +49,7 @@ async function submitProdControlForm() {
     else $('#failure-modal').modal('show')
 
     //  Enable Submit btn. after form submit response received
-    enableBtn('#prod-control-submit-btn', 'Submit');
+    enableBtn('#prod-control-input-submit', 'Submit');
 
 }
 
