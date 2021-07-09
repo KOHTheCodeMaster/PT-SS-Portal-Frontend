@@ -13,9 +13,13 @@ async function major() {
     console.log("Major Invoked.");
     console.log("Loading Production Dashboard.");
 
-    if (await testConnectionFailure()) return;
+    initializeJsonProductionChartData();
 
-    await initializeJsonProductionChartData();
+    if (await testConnectionFailure()) jsonProdDashboard.connectionFailure = true;
+
+    console.log("Connection Failure: " + jsonProdDashboard.connectionFailure);
+
+    await loadAllChartsData();
 
     await initializeProductionCharts();
 
@@ -24,7 +28,7 @@ async function major() {
 
 }
 
-async function initializeJsonProductionChartData() {
+function initializeJsonProductionChartData() {
 
     //  Initialize jsonProdDashboard chart keys with empty data
     jsonProdDashboard = {
@@ -34,6 +38,19 @@ async function initializeJsonProductionChartData() {
             "data1stClass": {},
             "data2ndClass": {},
         },
+        "connectionFailure" : false,
+    }
+
+}
+async function loadAllChartsData() {
+
+    //  Reset all chart data to 0 on connection failure
+    if (jsonProdDashboard.connectionFailure) {
+        jsonProdDashboard.chart1.data = [0];
+        jsonProdDashboard.chart2.data = [0];
+        jsonProdDashboard.chart7.data1stClass = [0];
+        jsonProdDashboard.chart7.data2ndClass = [0];
+        return;
     }
 
     //  Make GET REST API call to fetch all production chart data
@@ -119,7 +136,7 @@ async function loadDataChart2() {
 
 async function loadDataChart7() {
 
-    //  Load data for Chart 1 - Total Production
+    //  Load data for Chart 7 - Production Class Comparison
     //  Make GET REST API Call to fetch all production charts data in json
     let url = "http://localhost:8066/production/monthly/2nd-class/", strYearAndMonth = "2021-02";
     let jsonResponse = JSON.parse(await fetchJsonFromUrl(url + strYearAndMonth));

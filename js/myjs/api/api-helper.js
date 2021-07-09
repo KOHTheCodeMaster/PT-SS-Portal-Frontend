@@ -93,7 +93,7 @@ async function fetchJsonFromUrl(url) {
 async function demoGetRESTCall() {
 
     // let url = 'https://jsonplaceholder.typicode.com/todos/1';
-    let url = 'https://pt-ss-portal-backend-1.herokuapp.com/user/rudys@sermanisteel.co.id';
+    let url = 'http://localhost:8066/user/rudys@sermanisteel.co.id';
     let json = await fetchJsonFromUrl(url);
 
     console.log("Response: " + json);
