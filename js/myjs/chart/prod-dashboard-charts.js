@@ -34,20 +34,23 @@ function initializeJsonProductionChartData() {
     jsonProdDashboard = {
         "chart1": {},
         "chart2": {},
+        "chart3": {},
         "chart7": {
             "data1stClass": {},
             "data2ndClass": {},
         },
-        "connectionFailure" : false,
+        "connectionFailure": false,
     }
 
 }
+
 async function loadAllChartsData() {
 
     //  Reset all chart data to 0 on connection failure
     if (jsonProdDashboard.connectionFailure) {
         jsonProdDashboard.chart1.data = [0];
         jsonProdDashboard.chart2.data = [0];
+        jsonProdDashboard.chart3.data = [0];
         jsonProdDashboard.chart7.data1stClass = [0];
         jsonProdDashboard.chart7.data2ndClass = [0];
         return;
@@ -57,6 +60,8 @@ async function loadAllChartsData() {
     await loadDataChart1();
 
     await loadDataChart2();
+
+    await loadDataChart3();
 
     await loadDataChart7();
 
@@ -131,6 +136,31 @@ async function loadDataChart2() {
     // console.log(JSON.stringify(jsonProdDashboard));
     console.log('Chart 2 Data - loaded successfully.');
 
+
+}
+
+async function loadDataChart3() {
+
+    //  Load data for Chart 3 - Total Production Against Production Target
+    //  Make GET REST API Call to fetch all production charts data in json
+    let strYearAndMonth = "2021-02";
+    let url = "http://localhost:8066/target/p/year-month/" + strYearAndMonth;
+    let targetList = JSON.parse(await fetchJsonFromUrl(url));
+    let data = [];
+
+    //  Iterate targetList & add dailyTarget to data array
+    for (let dailyTarget of targetList) {
+        let temp = {
+            "x": dailyTarget["epochMilliSecond"],
+            "y": dailyTarget["dailyTargetAmount"]
+        };
+        data.push(temp);
+    }
+
+    jsonProdDashboard.chart3.data = data;
+
+    // console.log(jsonProdDashboard.chart3.data);
+    console.log('Chart 3 Data - loaded successfully.');
 
 }
 
@@ -453,10 +483,10 @@ function initChart3() {
     let options3 = {
         series: [{
             name: 'Target',
-            data: [31, 40, 28, 51, 42, 31, 40, 28, 51, 42, 51, 42, 31, 40, 31, 40, 28, 25]
+            data: jsonProdDashboard.chart3.data
         }, {
             name: 'Production',
-            data: [14, 13, 20, 19, 29, 19, 22, 19, 12, 17, 19, 15, 13, 19, 17, 12, 17, 15]
+            data: jsonProdDashboard.chart1.data
         }],
         chart: {
             height: 350,
@@ -647,7 +677,7 @@ function mockChart7Data() {
         20, 19, 29, 19, 22, 19, 12, 17, 19, 15,
         27
     ];
-    let yData2 = [46,43,66,63,96,63,73,63,40,56,63,50,43,63,56,40,56,50,46,43,66,63,96,63,73,63,40,56,63,50,90];
+    let yData2 = [46, 43, 66, 63, 96, 63, 73, 63, 40, 56, 63, 50, 43, 63, 56, 40, 56, 50, 46, 43, 66, 63, 96, 63, 73, 63, 40, 56, 63, 50, 90];
 
     console.log(yData2.toString())
 
