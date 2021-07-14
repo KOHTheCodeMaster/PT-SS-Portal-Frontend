@@ -40,16 +40,18 @@ async function submitProdControlForm() {
     //  Save jsonTargetInput in DB
     // console.log("Saving Corrugation in DB.");
     let url = 'http://localhost:8066/target/'
-    let strResponse = await reqPostCall(url, jsonTargetInput);
-
-    console.log("Response: " + strResponse);
-    let saveSuccessful = strResponse !== undefined && strResponse !== null;
-
-    if (saveSuccessful) $('#success-modal').modal('show')
-    else $('#failure-modal').modal('show')
+    let jsonResponse = JSON.parse(await reqPostCall(url, jsonTargetInput));
+    // console.log("Response: " + JSON.stringify(jsonResponse));
 
     //  Enable Submit btn. after form submit response received
     enableBtn('#prod-control-input-submit', 'Submit');
+
+    //  status = 208 -> target already exists
+    if (jsonResponse["status"] === 208) $('#target-already-exists-modal').modal('show')
+
+    //  status = 201 -> target added successfully
+    else if (jsonResponse["status"] === 201) $('#success-modal').modal('show')
+    else $('#failure-modal').modal('show')
 
 }
 
