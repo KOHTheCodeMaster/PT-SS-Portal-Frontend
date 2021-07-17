@@ -152,7 +152,7 @@ async function loadDataChart3() {
     for (let dailyTarget of targetList) {
         let temp = {
             "x": dailyTarget["epochMilliSecond"],
-            "y": dailyTarget["dailyTargetAmount"]
+            "y": dailyTarget["targetAmount"]
         };
         data.push(temp);
     }
