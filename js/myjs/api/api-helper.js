@@ -19,7 +19,7 @@ async function testConnectionFailure() {
         }).catch(function (err) {
 
             // There was an error
-            console.warn('Failed to establish connection with Back-end REST API.\n', err);
+            console.warn('Failed to establish connection with Back-end REST API.');
             return null;
         });
     return responseProd == null;

@@ -1,17 +1,37 @@
+
+//  Initialize json prod control - shared data among functions
 let jsonProdControl = {
-    "monthlyChartData": {
-        "est": {},
-        "rea": {}
+    "connectionFailure": false,
+    "monthlyChart": {
+        "est": [],
+        "rea": []
     },
     "yearlyChartData": {}
 }
+
 jQuery(document).ready(function () {
 
-    $("#prod-control-select-monthly-report").change(function () {
-        monthChanged(this.value);
+    //  Apply on click listener to select month element
+    let elementSelectMonth = $("#prod-control-select-monthly-report");
+    elementSelectMonth.change(function () {
+        monthChanged(this.value).then();
     });
 
+    initMonthlyReportChart();
     initYearlyReportChart();
+
+    //  Switch to current Month
+    monthChanged(getCurrentMonthAsString()).then();
+
+    //  Update current month in select element
+    elementSelectMonth.val(getCurrentMonthAsString());
+
+    function getCurrentMonthAsString() {
+        let currentMonthNum = new Date().getMonth() + 1 + "";
+        return (currentMonthNum < 10)
+            ? "0" + currentMonthNum
+            : currentMonthNum;
+    }
 
 });
 
@@ -19,10 +39,33 @@ async function monthChanged(month) {
 
     // console.log("Month Changed - " + month);
 
-    await loadMonthlyChartData(month);
-    // loadYearlyChartData();
+    if (await testConnectionFailure()) {
+        console.log("Test Connection Failure.");
+        jsonProdControl.connectionFailure = true;
 
-    updateMonthlyReportChart();
+        let options = jsonProdControl.monthlyChart.options;
+        options.noData.text = "Unable to establish connection with Back-end REST API.";
+        options.series = [];
+
+        //  On Connection Failure - Update Chart Options with empty series & text
+        // jsonProdControl.monthlyChart.chart.updateSeries([]);
+        jsonProdControl.monthlyChart.chart.updateOptions(options);
+        return;
+    }
+
+    await loadMonthlyChartData(month);
+
+    //  Update Series with Chart Data
+    jsonProdControl.monthlyChart.chart.updateSeries([{
+        name: 'Estimate',
+        data: jsonProdControl.monthlyChart.est
+        // data: [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30]
+    }, {
+        name: 'Realised',
+        data: jsonProdControl.monthlyChart.rea
+        // data: [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 20, 20, 20, 20, 20, 20, 20, 20]
+    }]);
+
     console.log("Monthly Chart Updated.");
 
 }
@@ -57,16 +100,62 @@ async function loadMonthlyChartData(month) {
             "y": dailyProduction["dailyProductionAmount"]
         });
 
-    jsonProdControl.monthlyChartData.est = estMonthlyData;
-    jsonProdControl.monthlyChartData.rea = reaMonthlyData;
-    // console.log(JSON.stringify(jsonProdControl.monthlyChartData));
+    jsonProdControl.monthlyChart.est = estMonthlyData;
+    jsonProdControl.monthlyChart.rea = reaMonthlyData;
+    // console.log(JSON.stringify(jsonProdControl.monthlyChart));
 
 }
 
-async function loadYearlyChartData() {
+function initMonthlyReportChart() {
 
-    //  Load data for Monthly Report Chart
-    //  Make GET REST API Call to fetch target data for specified month in json
+    let options = {
+        series: [{
+            name: 'Estimate',
+            data: jsonProdControl.monthlyChart.est
+            // data: [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30]
+        }, {
+            name: 'Realised',
+            data: jsonProdControl.monthlyChart.rea
+            // data: [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 20, 20, 20, 20, 20, 20, 20, 20]
+        }],
+        noData: {
+            text: "Loading Data.",
+            // text: "Unable to establish connection with Back-end REST API.",
+        },
+        chart: {
+            height: 350,
+            type: 'area',
+            toolbar: {
+                show: false,
+            }
+        },
+        grid: {
+            show: false,
+            padding: {
+                left: 0,
+                right: 0
+            }
+        },
+        dataLabels: {
+            enabled: false
+        },
+        stroke: {
+            curve: 'smooth'
+        },
+        xaxis: {
+            type: 'datetime',
+        },
+        tooltip: {
+            x: {
+                format: 'dd/MM/yy'
+            },
+        },
+    };
+    let chart = new ApexCharts(document.querySelector("#prod-control-monthly-report-chart"), options);
+    chart.render();
+
+    jsonProdControl.monthlyChart.chart = chart;
+    jsonProdControl.monthlyChart.options = options;
 
 }
 
@@ -154,57 +243,9 @@ function initYearlyReportChart() {
     chart.render();
 }
 
-function updateMonthlyReportChart() {
-    let options = {
-        series: [{
-            name: 'Estimate',
-            data: jsonProdControl.monthlyChartData.est
-            // data: [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30]
-        }, {
-            name: 'Realised',
-            data: jsonProdControl.monthlyChartData.rea
-            // data: [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 20, 20, 20, 20, 20, 20, 20, 20]
-        }],
-        chart: {
-            height: 350,
-            type: 'area',
-            toolbar: {
-                show: false,
-            }
-        },
-        grid: {
-            show: false,
-            padding: {
-                left: 0,
-                right: 0
-            }
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            curve: 'smooth'
-        },
-        xaxis: {
-            type: 'datetime',
-        },
-        tooltip: {
-            x: {
-                format: 'dd/MM/yy'
-            },
-        },
-    };
-    let chart = new ApexCharts(document.querySelector("#prod-control-monthly-report-chart"), options);
-    chart.render();
-    //  Update Series Data
-    chart.updateSeries([{
-        name: 'Estimate',
-        data: jsonProdControl.monthlyChartData.est
-        // data: [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30]
-    }, {
-        name: 'Realised',
-        data: jsonProdControl.monthlyChartData.rea
-        // data: [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 20, 20, 20, 20, 20, 20, 20, 20]
-    }]);
+async function loadYearlyChartData() {
+
+    //  Load data for Monthly Report Chart
+    //  Make GET REST API Call to fetch target data for specified month in json
 
 }
