@@ -21,7 +21,8 @@ jQuery(document).ready(function () {
     });
 
     //  Load & Initialize Yearly Report Chart
-    loadYearlyChartData().then(initYearlyReportChart);
+    initYearlyReportChart();
+    loadYearlyChartData().then(() => console.log("Yearly Chart Loaded."));
 
     initMonthlyReportChart();
 
@@ -96,18 +97,19 @@ async function loadMonthlyChartData(month) {
     }
 
     //  Load Realised Data - 1st class production data for all types
-    url = "http://localhost:8066/production/monthly/all/";
+    url = "http://localhost:8066/production/daily/all/";
     let productionList = JSON.parse(await fetchJsonFromUrl(url + strYearAndMonth));
 
-    for (let dailyProduction of productionList)
+    for (let productionPojo of productionList)
         reaMonthlyData.push({
-            "x": dailyProduction["epochMilliSecond"],
-            "y": dailyProduction["dailyProductionAmount"]
+            "x": productionPojo["epochMilliSecond"],
+            "y": productionPojo["productionAmount"]
         });
 
     jsonProdControl.monthlyChart.est = estMonthlyData;
     jsonProdControl.monthlyChart.rea = reaMonthlyData;
-    // console.log((jsonProdControl.monthlyChart));
+    // console.log(estMonthlyData);
+    // console.log(reaMonthlyData);
 
 }
 
@@ -152,7 +154,7 @@ function initMonthlyReportChart() {
         },
         tooltip: {
             x: {
-                format: 'dd/MM/yy'
+                format: 'dd MMM yyyy'
             },
         },
     };
@@ -164,7 +166,7 @@ function initMonthlyReportChart() {
 
 }
 
-function initYearlyReportChart() {
+async function initYearlyReportChart() {
     let options = {
         series: [{
             name: 'Estimation 2021',
@@ -201,7 +203,7 @@ function initYearlyReportChart() {
             }
         },
         stroke: {
-            width: [0, 2, 5],
+            // width: [0, 2, 5],
             curve: 'smooth'
         },
         plotOptions: {
@@ -209,7 +211,7 @@ function initYearlyReportChart() {
                 columnWidth: '20%'
             }
         },
-        fill: {
+/*        fill: {
             opacity: [0.85, 0.25, 1],
             gradient: {
                 inverseColors: false,
@@ -219,21 +221,21 @@ function initYearlyReportChart() {
                 opacityTo: 0.55,
                 stops: [0, 100, 100, 100]
             }
-        },
-        labels: ['01/01/2020', '02/01/2020', '03/01/2020', '04/01/2020', '05/01/2020', '06/01/2020', '07/01/2020',
-            '08/01/2020', '09/01/2020', '10/01/2020', '11/01/2020', '12/01/2020'
-        ],
+        },*/
         markers: {
             size: 0
         },
         xaxis: {
-            type: 'datetime'
+            // type: 'datetime',
+            type: 'category',
+            categories: ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+                'August', 'September', 'October', 'November', 'December',]
         },
         yaxis: {
             title: {
                 text: 'Ton',
             },
-            min: 0
+            // min: 0
         },
         tooltip: {
             shared: true,
@@ -263,53 +265,58 @@ async function loadYearlyChartData() {
     let est2021Data = [];
     let rea2021Data = [];
     let rea2020Data = [];
-    let url, targetList;
+    let url, targetList, productionList;
 
-    //  Load Estimate 2021 Data - target amount for all months of 2021
-    url = "http://localhost:8066/target/p/year/2020";
-    targetList = JSON.parse(await fetchJsonFromUrl(url));
-    // console.log(JSON.stringify(targetList));
+    if (await testConnectionFailure()) {
+        console.log("Test Connection Failure.");
+        jsonProdControl.connectionFailure = true;
 
-    for (let monthlyTarget of targetList) {
-        let temp = {
-            "x": monthlyTarget["epochMilliSecond"],
-            "y": monthlyTarget["targetAmount"]
-        };
-        est2021Data.push(temp);
+        let options = jsonProdControl.yearlyChart.options;
+        options.noData.text = "Unable to establish connection with Back-end REST API.";
+        options.series = [];
+
+        //  On Connection Failure - Update Chart Options with empty series & text
+        // jsonProdControl.yearlyChart.chart.updateSeries([]);
+        jsonProdControl.yearlyChart.chart.updateOptions(options);
+        return;
     }
 
-    /*
-        //  Load Realization 2021 Data - production amount for all months of 2021
-        url = "http://localhost:8066/target/p/year/2021";
-        targetList = JSON.parse(await fetchJsonFromUrl(url));
-        // console.log(JSON.stringify(targetList));
+    //  Load Estimate 2021 Data - target amount for all months of 2021
+    url = "http://localhost:8066/target/p/year/2021";
+    targetList = JSON.parse(await fetchJsonFromUrl(url));
+    // console.log(JSON.stringify(targetList));
+    for (let targetPojo of targetList) est2021Data.push(targetPojo["targetAmount"]);
 
-        for (let monthlyTarget of targetList) {
-            let temp = {
-                "x": monthlyTarget["epochMilliSecond"],
-                "y": monthlyTarget["targetAmount"]
-            };
-            est2021Data.push(temp);
-        }
+    //  Load Realization 2021 Data - production amount for all months of 2021
+    url = "http://localhost:8066/production/monthly/2021";
+    productionList = JSON.parse(await fetchJsonFromUrl(url));
+    for (let productionPojo of productionList) rea2021Data.push(productionPojo["productionAmount"]);
 
-        //  Load Realization 2020 Data - production amount for all months of 2020
-        url = "http://localhost:8066/target/p/year/2020";
-        targetList = JSON.parse(await fetchJsonFromUrl(url));
-        // console.log(JSON.stringify(targetList));
+    //  Load Realization 2020 Data - production amount for all months of 2020
+    url = "http://localhost:8066/production/monthly/2020";
+    productionList = JSON.parse(await fetchJsonFromUrl(url));
+    for (let productionPojo of productionList) rea2020Data.push(productionPojo["productionAmount"]);
 
-        for (let monthlyTarget of targetList) {
-            let temp = {
-                "x": monthlyTarget["epochMilliSecond"],
-                "y": monthlyTarget["targetAmount"]
-            };
-            est2021Data.push(temp);
-        }
-    */
-
+    // console.log(JSON.stringify(est2021Data));
+    // console.log(JSON.stringify(rea2021Data));
     // console.log(JSON.stringify(rea2020Data));
 
     jsonProdControl.yearlyChart.est2021 = est2021Data;
-    // jsonProdControl.yearlyChart.rea2021 = rea2021Data;
-    // jsonProdControl.yearlyChart.rea2020 = rea2020Data;
+    jsonProdControl.yearlyChart.rea2021 = rea2021Data;
+    jsonProdControl.yearlyChart.rea2020 = rea2020Data;
+
+    jsonProdControl.yearlyChart.chart.updateSeries([{
+        name: 'Estimation 2021',
+        type: 'area',
+        data: jsonProdControl.yearlyChart.est2021
+    }, {
+        name: 'Realization 2021',
+        type: 'line',
+        data: jsonProdControl.yearlyChart.rea2021
+    }, {
+        name: 'Realization 2020',
+        type: 'column',
+        data: jsonProdControl.yearlyChart.rea2020
+    }]);
 
 }
