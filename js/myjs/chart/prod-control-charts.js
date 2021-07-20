@@ -20,10 +20,16 @@ jQuery(document).ready(function () {
         monthChanged(this.value).then();
     });
 
+    //  Year Report
     //  Load & Initialize Yearly Report Chart
-    initYearlyReportChart();
-    loadYearlyChartData().then(() => console.log("Yearly Chart Loaded."));
+    initYearlyReportChart().then(() => console.log("Initialized Yearly Chart."));
+    loadYearlyChartData().then(() => console.log("Yearly Chart Loaded successfully."));
 
+    //  Initialize Yearly Report Table
+    initYearlyReportTable().then(() => console.log("Initialized Yearly Report Table."));
+
+    //  Month Report
+    //  Initialize Monthly Report Chart
     initMonthlyReportChart();
 
     //  Switch to current Month
@@ -211,17 +217,17 @@ async function initYearlyReportChart() {
                 columnWidth: '20%'
             }
         },
-/*        fill: {
-            opacity: [0.85, 0.25, 1],
-            gradient: {
-                inverseColors: false,
-                shade: 'light',
-                type: "vertical",
-                opacityFrom: 0.85,
-                opacityTo: 0.55,
-                stops: [0, 100, 100, 100]
-            }
-        },*/
+        /*        fill: {
+                    opacity: [0.85, 0.25, 1],
+                    gradient: {
+                        inverseColors: false,
+                        shade: 'light',
+                        type: "vertical",
+                        opacityFrom: 0.85,
+                        opacityTo: 0.55,
+                        stops: [0, 100, 100, 100]
+                    }
+                },*/
         markers: {
             size: 0
         },
@@ -319,4 +325,44 @@ async function loadYearlyChartData() {
         data: jsonProdControl.yearlyChart.rea2020
     }]);
 
+}
+
+async function initYearlyReportTable() {
+
+    //  Wait for 500 ms to load yearly report chart data in background
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    //  Add new td element cells in each row of yearly report table
+    let elementRowEst21 = $('#prod-control-table-est21');
+    for (let i = 0; i < 12; i++) elementRowEst21.append(createNewElementTD(jsonProdControl.yearlyChart.est2021[i]));
+    elementRowEst21.append(createNewTotalElementTD(jsonProdControl.yearlyChart.est2021));
+
+    let elementRowRea21 = $('#prod-control-table-rea21');
+    for (let i = 0; i < 12; i++) elementRowRea21.append(createNewElementTD(jsonProdControl.yearlyChart.rea2021[i]));
+    elementRowRea21.append(createNewTotalElementTD(jsonProdControl.yearlyChart.rea2021));
+
+    let elementRowRea20 = $('#prod-control-table-rea20');
+    for (let i = 0; i < 12; i++) elementRowRea20.append(createNewElementTD(jsonProdControl.yearlyChart.rea2020[i]));
+    elementRowRea20.append(createNewTotalElementTD(jsonProdControl.yearlyChart.rea2020));
+
+    console.log("Yearly Report Table Initialized successfully.");
+
+}
+
+function createNewElementTD(strValue) {
+    let elementNewCell = document.createElement("td");
+    elementNewCell.classList.add("text-center");
+    elementNewCell.innerText = strValue !== undefined ? strValue : "-";
+    return elementNewCell;
+}
+
+function createNewTotalElementTD(amountArr) {
+    let total = 0;
+    for (let amount of amountArr) total += amount;
+
+    //  Create new element for total
+    let elementTotal = document.createElement("td");
+    elementTotal.classList.add("text-center");
+    elementTotal.innerText = total.toString();
+    return elementTotal;
 }
