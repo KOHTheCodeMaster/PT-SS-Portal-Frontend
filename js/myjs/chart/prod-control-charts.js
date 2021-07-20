@@ -33,12 +33,12 @@ jQuery(document).ready(function () {
     initMonthlyReportChart();
 
     //  Switch to current Month
-    monthChanged(getCurrentMonthAsString()).then();
+    monthChanged(getCurrentMonthNumberAsString()).then();
 
     //  Update current month in select element
-    elementSelectMonth.val(getCurrentMonthAsString());
+    elementSelectMonth.val(getCurrentMonthNumberAsString());
 
-    function getCurrentMonthAsString() {
+    function getCurrentMonthNumberAsString() {
         let currentMonthNum = new Date().getMonth() + 1 + "";
         return (currentMonthNum < 10)
             ? "0" + currentMonthNum
@@ -77,6 +77,8 @@ async function monthChanged(month) {
         data: jsonProdControl.monthlyChart.rea
         // data: [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 20, 20, 20, 20, 20, 20, 20, 20]
     }]);
+
+    updateMonthlyReportTable().then("Monthly Report Table Updated.");
 
     console.log("Monthly Chart Updated.");
 
@@ -291,7 +293,11 @@ async function loadYearlyChartData() {
     url = "http://localhost:8066/target/p/year/2021";
     targetList = JSON.parse(await fetchJsonFromUrl(url));
     // console.log(JSON.stringify(targetList));
-    for (let targetPojo of targetList) est2021Data.push(targetPojo["targetAmount"]);
+    for (let i = 0; i < 12; i++) {
+        let temp = targetList[i] !== undefined ? targetList[i]["targetAmount"] : '-';
+        est2021Data.push(temp);
+    }
+    // for (let targetPojo of targetList) est2021Data.push(targetPojo["targetAmount"]);
 
     //  Load Realization 2021 Data - production amount for all months of 2021
     url = "http://localhost:8066/production/monthly/2021";
@@ -327,31 +333,91 @@ async function loadYearlyChartData() {
 
 }
 
-async function initYearlyReportTable() {
+async function updateMonthlyReportTable() {
 
     //  Wait for 500 ms to load yearly report chart data in background
     await new Promise(resolve => setTimeout(resolve, 500));
 
     //  Add new td element cells in each row of yearly report table
+
+    let classList = ['pr-0', 'text-center'];
+    let est = jsonProdControl.monthlyChart.est;
+    let rea = jsonProdControl.monthlyChart.rea;
+    let monthNum = $('#prod-control-select-monthly-report').val();
+    let lengthOfMonth = new Date(2021, monthNum, 0).getDate();
+
+    // console.log(JSON.stringify(jsonProdControl.monthlyChart.rea));
+
+    //  Header
+    let elementRowHeader = $('#prod-control-table-monthly-header');
+    elementRowHeader.empty();
+
+    elementRowHeader.append(createNewCell('th', '', classList));
+    for (let i = 1; i <= lengthOfMonth; i++)
+        elementRowHeader.append(createNewCell('th', i, classList));
+    //  Add Total Header Element
+    elementRowHeader.append(createNewCell('th', 'Total', classList));
+
+    //  EST
+    let elementRowEst = $('#prod-control-table-monthly-est');
+    elementRowEst.empty();
+
+    let totalEst = 0;
+    elementRowEst.append(createNewCell('td', 'Est', classList));
+    for (let i = 1; i <= lengthOfMonth; i++) {
+        let strValue = est[i - 1] !== undefined ? est[i - 1]["y"] : "-";
+        elementRowEst.append(createNewCell('td', strValue, classList));
+        totalEst += strValue;
+    }
+    elementRowEst.append(createNewCell('td', totalEst, classList));
+
+    //  Rea
+    let elementRowRea = $('#prod-control-table-monthly-rea');
+    elementRowRea.empty();
+    let totalRea = 0;
+    elementRowRea.append(createNewCell('td', 'Rea', classList));
+    for (let i = 1; i <= lengthOfMonth; i++) {
+        let strValue = rea[i - 1] !== undefined ? rea[i - 1]["y"] : "-";
+        elementRowRea.append(createNewCell('td', strValue, classList));
+        totalRea += strValue !== "-" ? strValue : 0;
+    }
+    totalRea = totalRea === 0 ? '-' : totalRea;
+    elementRowRea.append(createNewCell('td', totalRea, classList));
+
+    console.log("Monthly Report Table Initialized successfully.");
+
+}
+
+async function initYearlyReportTable() {
+
+    //  Wait for 500 ms to load yearly report chart data in background
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    let classList = ['text-center'];
+
+    //  Add new td element cells in each row of yearly report table
     let elementRowEst21 = $('#prod-control-table-est21');
-    for (let i = 0; i < 12; i++) elementRowEst21.append(createNewElementTD(jsonProdControl.yearlyChart.est2021[i]));
+    for (let i = 0; i < 12; i++)
+        elementRowEst21.append(createNewCell('td', jsonProdControl.yearlyChart.est2021[i], classList));
     elementRowEst21.append(createNewTotalElementTD(jsonProdControl.yearlyChart.est2021));
 
     let elementRowRea21 = $('#prod-control-table-rea21');
-    for (let i = 0; i < 12; i++) elementRowRea21.append(createNewElementTD(jsonProdControl.yearlyChart.rea2021[i]));
+    for (let i = 0; i < 12; i++)
+        elementRowRea21.append(createNewCell('td', jsonProdControl.yearlyChart.rea2021[i], classList));
     elementRowRea21.append(createNewTotalElementTD(jsonProdControl.yearlyChart.rea2021));
 
     let elementRowRea20 = $('#prod-control-table-rea20');
-    for (let i = 0; i < 12; i++) elementRowRea20.append(createNewElementTD(jsonProdControl.yearlyChart.rea2020[i]));
+    for (let i = 0; i < 12; i++)
+        elementRowRea20.append(createNewCell('td', jsonProdControl.yearlyChart.rea2020[i], classList));
     elementRowRea20.append(createNewTotalElementTD(jsonProdControl.yearlyChart.rea2020));
 
     console.log("Yearly Report Table Initialized successfully.");
 
 }
 
-function createNewElementTD(strValue) {
-    let elementNewCell = document.createElement("td");
-    elementNewCell.classList.add("text-center");
+function createNewCell(tagName, strValue, classList) {
+    let elementNewCell = document.createElement(tagName);
+    elementNewCell.classList.add(...classList);
     elementNewCell.innerText = strValue !== undefined ? strValue : "-";
     return elementNewCell;
 }
