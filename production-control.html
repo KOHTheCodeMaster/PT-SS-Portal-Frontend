@@ -26,6 +26,8 @@
 
     <!--  CSS for Forms  -->
     <link rel="stylesheet" type="text/css" href="css/css/forms.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css">
 
 </head>
 
@@ -224,6 +226,11 @@
                                                 <div class="pd-20 d-flex justify-content-between align-items-center">
                                                     <h4 class="text-blue h4">Monthly Report</h4>
                                                     <div class="form-group">
+
+                                                        <button id="prod-control-month-refresh-btn"
+                                                                class="btn btn-primary">REFRESH
+                                                        </button>
+
                                                         <label>
                                                             <select id="prod-control-select-monthly-report"
                                                                     class="form-control">
@@ -244,122 +251,14 @@
                                                     </div>
                                                 </div>
                                                 <div class="pb-20">
-                                                    <table
-                                                            class="table hover multiple-select-row data-table-export nowrap">
+                                                    <table class="table hover multiple-select-row data-table-export
+                                                    nowrap">
                                                         <thead>
-                                                        <tr id="prod-control-table-monthly-header">
-<!--
-                                                            <th class="px-0 text-center"></th>
-                                                            <th class="px-0 text-center" >1</th>
-                                                            <th class="px-0 text-center" >2</th>
-                                                            <th class="px-0 text-center" >3</th>
-                                                            <th class="px-0 text-center" >4</th>
-                                                            <th class="px-0 text-center" >5</th>
-                                                            <th class="px-0 text-center" >6</th>
-                                                            <th class="px-0 text-center" >7</th>
-                                                            <th class="px-0 text-center" >8</th>
-                                                            <th class="px-0 text-center" >9</th>
-                                                            <th class="px-0 text-center" >10</th>
-                                                            <th class="px-0 text-center" >11</th>
-                                                            <th class="px-0 text-center" >12</th>
-                                                            <th class="px-0 text-center" >13</th>
-                                                            <th class="px-0 text-center" >14</th>
-                                                            <th class="px-0 text-center" >15</th>
-                                                            <th class="px-0 text-center" >16</th>
-                                                            <th class="px-0 text-center" >17</th>
-                                                            <th class="px-0 text-center" >18</th>
-                                                            <th class="px-0 text-center" >19</th>
-                                                            <th class="px-0 text-center" >20</th>
-                                                            <th class="px-0 text-center" >21</th>
-                                                            <th class="px-0 text-center" >22</th>
-                                                            <th class="px-0 text-center" >23</th>
-                                                            <th class="px-0 text-center" >24</th>
-                                                            <th class="px-0 text-center" >25</th>
-                                                            <th class="px-0 text-center" >26</th>
-                                                            <th class="px-0 text-center" >27</th>
-                                                            <th class="px-0 text-center" >28</th>
-                                                            <th class="px-0 text-center" >29</th>
-                                                            <th class="px-0 text-center" >30</th>
-                                                            <th class="px-0 text-center" >31</th>
-                                                            <th class="px-0 text-center" >Total</th>
--->
-                                                        </tr>
+                                                        <tr id="prod-control-table-monthly-header"></tr>
                                                         </thead>
                                                         <tbody>
-                                                        <tr id="prod-control-table-monthly-est">
-<!--
-                                                            <td class="px-0 text-center">Est</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >930</td>
--->
-                                                        </tr>
-                                                        <tr id="prod-control-table-monthly-rea">
-<!--
-                                                            <td class="table-plus">Rea</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >30</td>
-                                                            <td class="px-0 text-center" >930</td>
--->
-                                                        </tr>
+                                                        <tr id="prod-control-table-monthly-est"></tr>
+                                                        <tr id="prod-control-table-monthly-rea"></tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -378,8 +277,11 @@
                                         <div class="pd-20">
                                             <!-- Export Datatable start -->
                                             <div class="card-box mb-30">
-                                                <div class="pd-20">
+                                                <div class="pd-20 d-flex justify-content-between">
                                                     <h4 class="text-blue h4">Yearly Report</h4>
+                                                    <button id="prod-control-year-refresh-btn"
+                                                            class="btn btn-primary">REFRESH
+                                                    </button>
                                                 </div>
                                                 <div class="pb-20">
                                                     <table
@@ -405,57 +307,12 @@
                                                         <tbody>
                                                         <tr id="prod-control-table-est21">
                                                             <td class="table-plus text-center">Est 21</td>
-<!--
-                                                            <td>300</td>
-                                                            <td>330</td>
-                                                            <td>300</td>
-                                                            <td>330</td>
-                                                            <td>300</td>
-                                                            <td>330</td>
-                                                            <td>300</td>
-                                                            <td>330</td>
-                                                            <td>300</td>
-                                                            <td>330</td>
-                                                            <td>300</td>
-                                                            <td>330</td>
-                                                            <td>3780</td>
--->
                                                         </tr>
                                                         <tr id="prod-control-table-rea21">
                                                             <td class="table-plus text-center">Rea 21</td>
-<!--
-                                                            <td>300</td>
-                                                            <td>330</td>
-                                                            <td>300</td>
-                                                            <td>330</td>
-                                                            <td>300</td>
-                                                            <td>330</td>
-                                                            <td>300</td>
-                                                            <td>330</td>
-                                                            <td>300</td>
-                                                            <td>330</td>
-                                                            <td>300</td>
-                                                            <td>330</td>
-                                                            <td>3780</td>
--->
                                                         </tr>
                                                         <tr id="prod-control-table-rea20">
                                                             <td class="table-plus text-center">Rea 20</td>
-<!--
-                                                            <td>300</td>
-                                                            <td>330</td>
-                                                            <td>300</td>
-                                                            <td>330</td>
-                                                            <td>300</td>
-                                                            <td>330</td>
-                                                            <td>300</td>
-                                                            <td>330</td>
-                                                            <td>300</td>
-                                                            <td>330</td>
-                                                            <td>300</td>
-                                                            <td>330</td>
-                                                            <td>3780</td>
--->
                                                         </tr>
                                                         </tbody>
                                                     </table>
@@ -556,10 +413,10 @@
 <!-- Apex JS -->
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <!-- KOH JS -->
-<script src="js/myjs/chart/prod-control-charts.js"></script>
 <script src="js/myjs/api/api-helper.js"></script>
 <script src="js/myjs/form/validation-helper.js"></script>
 <script src="js/myjs/form/validate-prod-control-form.js"></script>
+<script src="js/myjs/chart/prod-control-charts.js"></script>
 
 </body>
 

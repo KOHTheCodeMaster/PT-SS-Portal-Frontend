@@ -20,24 +20,23 @@ jQuery(document).ready(function () {
         monthChanged(this.value).then();
     });
 
-    //  Year Report
-    //  Load & Initialize Yearly Report Chart
-    initYearlyReportChart().then(() => console.log("Initialized Yearly Chart."));
-    loadYearlyChartData().then(() => console.log("Yearly Chart Loaded successfully."));
-
-    //  Initialize Yearly Report Table
-    initYearlyReportTable().then(() => console.log("Initialized Yearly Report Table."));
-
     //  Month Report
     //  Initialize Monthly Report Chart
     initMonthlyReportChart();
-
-    //  Switch to current Month
-    monthChanged(getCurrentMonthNumberAsString()).then();
-
     //  Update current month in select element
     elementSelectMonth.val(getCurrentMonthNumberAsString());
+    //  On Month Refresh Click event
+    onMonthRefreshBtnClick(elementSelectMonth.val());
 
+
+    //  Year Report
+    //  Load & Initialize Yearly Report Chart
+    initYearlyReportChart();
+    //  Load Yearly Chart Data & Initialize Yearly Report Table
+    onYearRefreshBtnClick();
+
+
+    //  Utility Method
     function getCurrentMonthNumberAsString() {
         let currentMonthNum = new Date().getMonth() + 1 + "";
         return (currentMonthNum < 10)
@@ -47,21 +46,70 @@ jQuery(document).ready(function () {
 
 });
 
+//  Refresh Btn. Clicks
+//  -------------------
+
+async function onMonthRefreshBtnClick(monthValue) {
+
+    let elementRefreshBtn = $("#prod-control-month-refresh-btn");
+
+    elementRefreshBtn.click(async function () {
+        await monthChanged(monthValue);
+    });
+
+    elementRefreshBtn.trigger('click');
+
+}
+
+function onYearRefreshBtnClick() {
+
+    let elementRefreshBtn = $("#prod-control-year-refresh-btn");
+    elementRefreshBtn.click(async function () {
+
+        //  Disable Submit btn. to prevent multiple clicks
+        disableBtn('#prod-control-year-refresh-btn', 'Refresh');
+
+        let strMsg = "Loading Data...";
+        updateChartOptions(jsonProdControl.yearlyChart, strMsg);
+
+        //  Year Report
+        //  Load & Initialize Yearly Report Chart
+        await loadYearlyChartData();
+        //  Wait for 300 ms to load yearly report chart data in background
+        await new Promise(resolve => setTimeout(resolve, 300));
+        //  Initialize Yearly Report Table
+        initYearlyReportTable();
+
+        enableBtn('#prod-control-year-refresh-btn', 'Refresh');
+    });
+
+    elementRefreshBtn.trigger('click');
+
+}
+
+//  Month
+//  -----
 async function monthChanged(month) {
 
     // console.log("Month Changed - " + month);
+    let strMsg = "Loading Data...";
+    updateChartOptions(jsonProdControl.monthlyChart, strMsg);
+
+    //  Disable Refresh & Select Month elements to prevent multiple clicks
+    let elementSelectMonth = $('#prod-control-select-monthly-report');
+    disableBtn('#prod-control-month-refresh-btn', 'Refresh');
+    elementSelectMonth.attr('disabled', 'disabled');
 
     if (await testConnectionFailure()) {
-        console.log("Test Connection Failure.");
+        // console.log("Test Connection Failure.");
         jsonProdControl.connectionFailure = true;
 
-        let options = jsonProdControl.monthlyChart.options;
-        options.noData.text = "Unable to establish connection with Back-end REST API.";
-        options.series = [];
+        let strMsg = "Unable to establish connection with Back-end REST API.";
+        updateChartOptions(jsonProdControl.monthlyChart, strMsg);
 
-        //  On Connection Failure - Update Chart Options with empty series & text
-        // jsonProdControl.monthlyChart.chart.updateSeries([]);
-        jsonProdControl.monthlyChart.chart.updateOptions(options);
+        //  Enable Refresh & Select Month elements
+        enableBtn('#prod-control-month-refresh-btn', 'Refresh');
+        elementSelectMonth.removeAttr('disabled');
         return;
     }
 
@@ -79,6 +127,10 @@ async function monthChanged(month) {
     }]);
 
     updateMonthlyReportTable().then("Monthly Report Table Updated.");
+
+    //  Enable Refresh & Select Month elements
+    enableBtn('#prod-control-month-refresh-btn', 'Refresh');
+    elementSelectMonth.removeAttr('disabled');
 
     console.log("Monthly Chart Updated.");
 
@@ -134,7 +186,7 @@ function initMonthlyReportChart() {
             // data: [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 20, 20, 20, 20, 20, 20, 20, 20]
         }],
         noData: {
-            text: "Loading Data.",
+            text: "Loading Data...",
             // text: "Unable to establish connection with Back-end REST API.",
         },
         chart: {
@@ -174,7 +226,64 @@ function initMonthlyReportChart() {
 
 }
 
-async function initYearlyReportChart() {
+async function updateMonthlyReportTable() {
+
+    //  Wait for 500 ms to load yearly report chart data in background
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    //  Add new td element cells in each row of yearly report table
+
+    let classList = ['pr-0', 'text-center'];
+    let est = jsonProdControl.monthlyChart.est;
+    let rea = jsonProdControl.monthlyChart.rea;
+    let monthNum = $('#prod-control-select-monthly-report').val();
+    let lengthOfMonth = new Date(2021, monthNum, 0).getDate();
+
+    // console.log(JSON.stringify(jsonProdControl.monthlyChart.rea));
+
+    //  Header
+    let elementRowHeader = $('#prod-control-table-monthly-header');
+    elementRowHeader.empty();
+
+    elementRowHeader.append(createNewCell('th', '', classList));
+    for (let i = 1; i <= lengthOfMonth; i++)
+        elementRowHeader.append(createNewCell('th', i, classList));
+    //  Add Total Header Element
+    elementRowHeader.append(createNewCell('th', 'Total', classList));
+
+    //  EST
+    let elementRowEst = $('#prod-control-table-monthly-est');
+    elementRowEst.empty();
+
+    let totalEst = 0;
+    elementRowEst.append(createNewCell('td', 'Est', classList));
+    for (let i = 1; i <= lengthOfMonth; i++) {
+        let strValue = est[i - 1] !== undefined ? est[i - 1]["y"] : "-";
+        elementRowEst.append(createNewCell('td', strValue, classList));
+        totalEst += strValue;
+    }
+    elementRowEst.append(createNewCell('td', totalEst, classList));
+
+    //  Rea
+    let elementRowRea = $('#prod-control-table-monthly-rea');
+    elementRowRea.empty();
+    let totalRea = 0;
+    elementRowRea.append(createNewCell('td', 'Rea', classList));
+    for (let i = 1; i <= lengthOfMonth; i++) {
+        let strValue = rea[i - 1] !== undefined ? rea[i - 1]["y"] : "-";
+        elementRowRea.append(createNewCell('td', strValue, classList));
+        totalRea += strValue !== "-" ? strValue : 0;
+    }
+    totalRea = totalRea === 0 ? '-' : totalRea;
+    elementRowRea.append(createNewCell('td', totalRea, classList));
+
+    console.log("Monthly Report Table Initialized successfully.");
+
+}
+
+//  Year
+//  -----
+function initYearlyReportChart() {
     let options = {
         series: [{
             name: 'Estimation 2021',
@@ -193,7 +302,7 @@ async function initYearlyReportChart() {
             // data: [300, 330, 300, 330, 300, 330, 300, 330, 300, 330, 300, 330]
         }],
         noData: {
-            text: "Loading Data.",
+            text: "Loading Data...",
         },
         chart: {
             height: 350,
@@ -264,6 +373,8 @@ async function initYearlyReportChart() {
     jsonProdControl.yearlyChart.chart = chart;
     jsonProdControl.yearlyChart.options = options;
 
+    console.log("Initialized Yearly Chart.");
+
 }
 
 async function loadYearlyChartData() {
@@ -276,16 +387,11 @@ async function loadYearlyChartData() {
     let url, targetList, productionList;
 
     if (await testConnectionFailure()) {
-        console.log("Test Connection Failure.");
+        // console.log("Test Connection Failure.");
         jsonProdControl.connectionFailure = true;
 
-        let options = jsonProdControl.yearlyChart.options;
-        options.noData.text = "Unable to establish connection with Back-end REST API.";
-        options.series = [];
-
-        //  On Connection Failure - Update Chart Options with empty series & text
-        // jsonProdControl.yearlyChart.chart.updateSeries([]);
-        jsonProdControl.yearlyChart.chart.updateOptions(options);
+        let strMsg = "Unable to establish connection with Back-end REST API.";
+        updateChartOptions(jsonProdControl.yearlyChart, strMsg);
         return;
     }
 
@@ -331,87 +437,55 @@ async function loadYearlyChartData() {
         data: jsonProdControl.yearlyChart.rea2020
     }]);
 
-}
-
-async function updateMonthlyReportTable() {
-
-    //  Wait for 500 ms to load yearly report chart data in background
-    await new Promise(resolve => setTimeout(resolve, 500));
-
-    //  Add new td element cells in each row of yearly report table
-
-    let classList = ['pr-0', 'text-center'];
-    let est = jsonProdControl.monthlyChart.est;
-    let rea = jsonProdControl.monthlyChart.rea;
-    let monthNum = $('#prod-control-select-monthly-report').val();
-    let lengthOfMonth = new Date(2021, monthNum, 0).getDate();
-
-    // console.log(JSON.stringify(jsonProdControl.monthlyChart.rea));
-
-    //  Header
-    let elementRowHeader = $('#prod-control-table-monthly-header');
-    elementRowHeader.empty();
-
-    elementRowHeader.append(createNewCell('th', '', classList));
-    for (let i = 1; i <= lengthOfMonth; i++)
-        elementRowHeader.append(createNewCell('th', i, classList));
-    //  Add Total Header Element
-    elementRowHeader.append(createNewCell('th', 'Total', classList));
-
-    //  EST
-    let elementRowEst = $('#prod-control-table-monthly-est');
-    elementRowEst.empty();
-
-    let totalEst = 0;
-    elementRowEst.append(createNewCell('td', 'Est', classList));
-    for (let i = 1; i <= lengthOfMonth; i++) {
-        let strValue = est[i - 1] !== undefined ? est[i - 1]["y"] : "-";
-        elementRowEst.append(createNewCell('td', strValue, classList));
-        totalEst += strValue;
-    }
-    elementRowEst.append(createNewCell('td', totalEst, classList));
-
-    //  Rea
-    let elementRowRea = $('#prod-control-table-monthly-rea');
-    elementRowRea.empty();
-    let totalRea = 0;
-    elementRowRea.append(createNewCell('td', 'Rea', classList));
-    for (let i = 1; i <= lengthOfMonth; i++) {
-        let strValue = rea[i - 1] !== undefined ? rea[i - 1]["y"] : "-";
-        elementRowRea.append(createNewCell('td', strValue, classList));
-        totalRea += strValue !== "-" ? strValue : 0;
-    }
-    totalRea = totalRea === 0 ? '-' : totalRea;
-    elementRowRea.append(createNewCell('td', totalRea, classList));
-
-    console.log("Monthly Report Table Initialized successfully.");
+    console.log("Yearly Chart Loaded successfully.");
 
 }
 
-async function initYearlyReportTable() {
+function initYearlyReportTable() {
 
     //  Wait for 500 ms to load yearly report chart data in background
-    await new Promise(resolve => setTimeout(resolve, 500));
+    // await new Promise(resolve => setTimeout(resolve, 500));
 
     let classList = ['text-center'];
 
     //  Add new td element cells in each row of yearly report table
     let elementRowEst21 = $('#prod-control-table-est21');
+    elementRowEst21.empty();
+    elementRowEst21.append(createNewCell('td', 'Est 21', classList));
     for (let i = 0; i < 12; i++)
         elementRowEst21.append(createNewCell('td', jsonProdControl.yearlyChart.est2021[i], classList));
     elementRowEst21.append(createNewTotalElementTD(jsonProdControl.yearlyChart.est2021));
 
     let elementRowRea21 = $('#prod-control-table-rea21');
+    elementRowRea21.empty();
+    elementRowRea21.append(createNewCell('td', 'Rea 21', classList));
     for (let i = 0; i < 12; i++)
         elementRowRea21.append(createNewCell('td', jsonProdControl.yearlyChart.rea2021[i], classList));
     elementRowRea21.append(createNewTotalElementTD(jsonProdControl.yearlyChart.rea2021));
 
     let elementRowRea20 = $('#prod-control-table-rea20');
+    elementRowRea20.empty();
+    elementRowRea20.append(createNewCell('td', 'Rea 20', classList));
     for (let i = 0; i < 12; i++)
         elementRowRea20.append(createNewCell('td', jsonProdControl.yearlyChart.rea2020[i], classList));
     elementRowRea20.append(createNewTotalElementTD(jsonProdControl.yearlyChart.rea2020));
 
     console.log("Yearly Report Table Initialized successfully.");
+
+}
+
+//  Utility Methods
+//  ---------------
+
+function updateChartOptions(jsonChart, strMsg) {
+
+    let options = jsonChart.options;
+    options.noData.text = strMsg;
+    options.series = [];
+
+    //  On Connection Failure - Update Chart Options with empty series & text
+    // jsonProdControl.jsonChart.chart.updateSeries([]);
+    jsonChart.chart.updateOptions(options);
 
 }
 
@@ -432,3 +506,4 @@ function createNewTotalElementTD(amountArr) {
     elementTotal.innerText = total.toString();
     return elementTotal;
 }
+
