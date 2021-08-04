@@ -4,7 +4,7 @@
 <head>
     <!-- Basic Page Info -->
     <meta charset="utf-8">
-    <title>Production Control - PT Sermani Steel</title>
+    <title>Selling Control - PT Sermani Steel</title>
 
     <!-- Site favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="vendors/images/logo_besar.jpg">
@@ -26,8 +26,6 @@
 
     <!--  CSS for Forms  -->
     <link rel="stylesheet" type="text/css" href="css/css/forms.css">
-<!--    <link rel="stylesheet" type="text/css"-->
-<!--          href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css">-->
 
 </head>
 
@@ -128,17 +126,17 @@
 
     <div class="main-container">
         <div class="pd-ltr-20 xs-pd-20-10">
-            <div class="min-height-200">
+            <div class="min-height-200px">
                 <div class="page-header">
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <div class="title">
-                                <h4>Production Control</h4>
+                                <h4>Selling Control</h4>
                             </div>
                             <nav aria-label="breadcrumb" role="navigation">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Production Control</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Selling Control</li>
                                 </ol>
                             </nav>
                         </div>
@@ -156,7 +154,7 @@
                                            aria-selected="true">Target Input</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-blue" data-toggle="tab" href="#monthly" role="tab"
+                                        <a class="nav-link text-blue" data-toggle="tab" href="#profile" role="tab"
                                            aria-selected="false">Monthly</a>
                                     </li>
                                     <li class="nav-item">
@@ -171,8 +169,8 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="prod-control-select-year">Year : </label>
-                                                            <select id="prod-control-select-year"
+                                                            <label for="sell-control-select-year">Year : </label>
+                                                            <select id="sell-control-select-year"
                                                                     class="custom-select form-control">
                                                                 <option value="2020">2020</option>
                                                                 <option value="2021">2021</option>
@@ -184,8 +182,8 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <div class="form-group">
-                                                                <label for="prod-control-select-month">Month : </label>
-                                                                <select id="prod-control-select-month"
+                                                                <label for="sell-control-select-month">Month : </label>
+                                                                <select id="sell-control-select-month"
                                                                         class="custom-select form-control">
                                                                     <option value="01">January</option>
                                                                     <option value="02">February</option>
@@ -207,19 +205,19 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="prod-control-input-target-amount">
+                                                            <label for="sell-control-input-target-amount">
                                                                 Amount :</label>
-                                                            <input id="prod-control-input-target-amount" type="number"
+                                                            <input id="sell-control-input-target-amount" type="number"
                                                                    class="form-control remove-spinner">
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <input id="prod-control-input-submit" class="btn btn-primary"
-                                                       type="submit" onclick="submitProdControlForm()">
+                                                <input id="sell-control-input-submit" class="btn btn-primary"
+                                                       type="submit" onclick="submitSellControlForm()">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="monthly" role="tabpanel">
+                                    <div class="tab-pane fade" id="profile" role="tabpanel">
                                         <div class="pd-20">
                                             <!-- Export Datatable start -->
                                             <div class="card-box mb-30">
@@ -227,12 +225,12 @@
                                                     <h4 class="text-blue h4">Monthly Report</h4>
                                                     <div class="form-group">
 
-                                                        <button id="prod-control-month-refresh-btn"
+                                                        <button id="sell-control-month-refresh-btn"
                                                                 class="btn btn-primary">REFRESH
                                                         </button>
 
                                                         <label>
-                                                            <select id="prod-control-select-monthly-report"
+                                                            <select id="sell-control-select-monthly-report"
                                                                     class="form-control">
                                                                 <option value="01">January</option>
                                                                 <option value="02">February</option>
@@ -254,11 +252,11 @@
                                                     <table class="table hover multiple-select-row data-table-export
                                                     nowrap">
                                                         <thead>
-                                                        <tr id="prod-control-table-monthly-header"></tr>
+                                                        <tr id="sell-control-table-monthly-header"></tr>
                                                         </thead>
                                                         <tbody>
-                                                        <tr id="prod-control-table-monthly-est"></tr>
-                                                        <tr id="prod-control-table-monthly-rea"></tr>
+                                                        <tr id="sell-control-table-monthly-est"></tr>
+                                                        <tr id="sell-control-table-monthly-rea"></tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -268,7 +266,7 @@
                                                 <div class="pd-20">
                                                     <h4 class="text-blue h4">Monthly Report Chart</h4>
                                                 </div>
-                                                <div id="prod-control-monthly-report-chart"></div>
+                                                <div id="sell-control-monthly-report-chart"></div>
                                             </div>
                                             <button class="btn btn-primary" value="Print">Print</button>
                                         </div>
@@ -279,7 +277,7 @@
                                             <div class="card-box mb-30">
                                                 <div class="pd-20 d-flex justify-content-between">
                                                     <h4 class="text-blue h4">Yearly Report</h4>
-                                                    <button id="prod-control-year-refresh-btn"
+                                                    <button id="sell-control-year-refresh-btn"
                                                             class="btn btn-primary">REFRESH
                                                     </button>
                                                 </div>
@@ -305,13 +303,13 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-                                                        <tr id="prod-control-table-est21">
+                                                        <tr id="sell-control-table-est21">
                                                             <td class="table-plus text-center">Est 21</td>
                                                         </tr>
-                                                        <tr id="prod-control-table-rea21">
+                                                        <tr id="sell-control-table-rea21">
                                                             <td class="table-plus text-center">Rea 21</td>
                                                         </tr>
-                                                        <tr id="prod-control-table-rea20">
+                                                        <tr id="sell-control-table-rea20">
                                                             <td class="table-plus text-center">Rea 20</td>
                                                         </tr>
                                                         </tbody>
@@ -323,7 +321,7 @@
                                                 <div class="pd-20">
                                                     <h4 class="text-blue h4">Yearly Report Chart</h4>
                                                 </div>
-                                                <div id="prod-control-yearly-report-chart"></div>
+                                                <div id="sell-control-yearly-report-chart"></div>
                                             </div>
                                             <button class="btn btn-primary" value="Print">Print</button>
                                         </div>
@@ -416,7 +414,7 @@
 <script src="js/myjs/api/api-helper.js"></script>
 <script src="js/myjs/form/validation-helper.js"></script>
 <script src="js/myjs/form/validate-control-form.js"></script>
-<script src="js/myjs/chart/prod-control-charts.js"></script>
+<script src="js/myjs/chart/sell-control-charts.js"></script>
 
 </body>
 
