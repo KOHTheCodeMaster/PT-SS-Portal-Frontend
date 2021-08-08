@@ -26,7 +26,7 @@ jQuery(document).ready(function () {
     //  Update current month in select element
     elementSelectMonth.val(getCurrentMonthNumberAsString());
     //  On Month Refresh Click event
-    onMonthRefreshBtnClick(elementSelectMonth.val());
+    onMonthRefreshBtnClick(elementSelectMonth);
 
 
     //  Year Report
@@ -49,12 +49,12 @@ jQuery(document).ready(function () {
 //  Refresh Btn. Clicks
 //  -------------------
 
-async function onMonthRefreshBtnClick(monthValue) {
+async function onMonthRefreshBtnClick(elementSelectMonth) {
 
     let elementRefreshBtn = $("#prod-control-month-refresh-btn");
 
     elementRefreshBtn.click(async function () {
-        await monthChanged(monthValue);
+        await monthChanged(elementSelectMonth.val());
     });
 
     elementRefreshBtn.trigger('click');

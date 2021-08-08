@@ -79,13 +79,14 @@ function validateProdControlInputTargetAmount() {
 async function submitSellControlForm() {
 
     if (!validateSellControlInputTargetAmount()) return;
-    console.log('Submitting.');
+    // console.log('Submitting.');
 
     //  Disable Submit btn. to prevent multiple clicks
     disableBtn('#sell-control-input-submit', 'Submitting');
 
     if (await testConnectionFailure()) {
         $('#failure-modal').modal('show');
+        console.log('Connection FAILURE.');
         enableBtn('#sell-control-input-submit', 'Submit');
         return;
     }
@@ -96,7 +97,7 @@ async function submitSellControlForm() {
 
     //  Initialize jsonTargetInput from the form
     jsonTargetInput = JSON.stringify({
-        'type': 'P',
+        'type': 'S',
         'year': $('#sell-control-select-year').val().trim(),
         'month': $('#sell-control-select-month').val().trim(),
         'targetAmount': $('#sell-control-input-target-amount').val().trim()
@@ -112,11 +113,14 @@ async function submitSellControlForm() {
     //  Enable Submit btn. after form submit response received
     enableBtn('#sell-control-input-submit', 'Submit');
 
+    // console.log("JR: " + JSON.stringify(jsonResponse));
+
     //  status = 208 -> target already exists
     if (jsonResponse["status"] === 208) $('#target-already-exists-modal').modal('show')
 
     //  status = 201 -> target added successfully
     else if (jsonResponse["status"] === 201) $('#success-modal').modal('show')
+    //  OTHERWISE -> CONNECTION FAILURE
     else $('#failure-modal').modal('show')
 
 }

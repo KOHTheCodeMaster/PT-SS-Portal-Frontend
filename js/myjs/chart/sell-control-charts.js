@@ -26,7 +26,7 @@ jQuery(document).ready(function () {
     //  Update current month in select element
     elementSelectMonth.val(getCurrentMonthNumberAsString());
     //  On Month Refresh Click event
-    onMonthRefreshBtnClick(elementSelectMonth.val());
+    onMonthRefreshBtnClick(elementSelectMonth);
 
 
     //  Year Report
@@ -49,13 +49,12 @@ jQuery(document).ready(function () {
 //  Refresh Btn. Clicks
 //  -------------------
 
-async function onMonthRefreshBtnClick(monthValue) {
+async function onMonthRefreshBtnClick(elementSelectMonth) {
 
     let elementRefreshBtn = $("#sell-control-month-refresh-btn");
 
-
     elementRefreshBtn.click(async function () {
-        await monthChanged(monthValue);
+        await monthChanged(elementSelectMonth.val());
     });
 
     elementRefreshBtn.trigger('click');
@@ -146,7 +145,7 @@ async function loadMonthlyChartData(month) {
     let strYearAndMonth = "2021-" + month;
 
     //  Load Estimate Data - target amount for all types
-    let url = "http://localhost:8066/target/p/year-month/" + strYearAndMonth;
+    let url = "http://localhost:8066/target/s/year-month/" + strYearAndMonth;
     let targetList = JSON.parse(await fetchJsonFromUrl(url));
 
     for (let dailyTarget of targetList) {
@@ -158,13 +157,13 @@ async function loadMonthlyChartData(month) {
     }
 
     //  Load Realised Data - 1st class selling data for all types
-    url = "http://localhost:8066/selling/daily/all/";
+    url = "http://localhost:8066/sales/daily/all/";
     let sellingList = JSON.parse(await fetchJsonFromUrl(url + strYearAndMonth));
 
     for (let sellingPojo of sellingList)
         reaMonthlyData.push({
             "x": sellingPojo["epochMilliSecond"],
-            "y": sellingPojo["sellingAmount"]
+            "y": sellingPojo["salesAmount"]
         });
 
     jsonSellControl.monthlyChart.est = estMonthlyData;
@@ -397,7 +396,7 @@ async function loadYearlyChartData() {
     }
 
     //  Load Estimate 2021 Data - target amount for all months of 2021
-    url = "http://localhost:8066/target/p/year/2021";
+    url = "http://localhost:8066/target/s/year/2021";
     targetList = JSON.parse(await fetchJsonFromUrl(url));
     // console.log(JSON.stringify(targetList));
     for (let i = 0; i < 12; i++) {
@@ -407,14 +406,14 @@ async function loadYearlyChartData() {
     // for (let targetPojo of targetList) est2021Data.push(targetPojo["targetAmount"]);
 
     //  Load Realization 2021 Data - selling amount for all months of 2021
-    url = "http://localhost:8066/selling/monthly/2021";
+    url = "http://localhost:8066/sales/monthly/2021";
     sellingList = JSON.parse(await fetchJsonFromUrl(url));
-    for (let sellingPojo of sellingList) rea2021Data.push(sellingPojo["sellingAmount"]);
+    for (let sellingPojo of sellingList) rea2021Data.push(sellingPojo["salesAmount"]);
 
     //  Load Realization 2020 Data - selling amount for all months of 2020
-    url = "http://localhost:8066/selling/monthly/2020";
+    url = "http://localhost:8066/sales/monthly/2020";
     sellingList = JSON.parse(await fetchJsonFromUrl(url));
-    for (let sellingPojo of sellingList) rea2020Data.push(sellingPojo["sellingAmount"]);
+    for (let sellingPojo of sellingList) rea2020Data.push(sellingPojo["salesAmount"]);
 
     // console.log(JSON.stringify(est2021Data));
     // console.log(JSON.stringify(rea2021Data));
