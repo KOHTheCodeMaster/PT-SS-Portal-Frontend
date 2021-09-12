@@ -119,7 +119,7 @@ async function onSubmitSellingForm() {
 
     //  Save production in DB
     // console.log("Saving Sales in DB.");
-    let url = 'http://localhost:8066/sales'
+    let url = 'http://sermanisteel.co.id:8066/sales'
     let strResponse = await reqPostCall(url, sales);
 
     //  Enable Submit btn. after form submit response received

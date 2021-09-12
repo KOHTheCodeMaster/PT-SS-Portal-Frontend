@@ -39,7 +39,7 @@ async function submitProdControlForm() {
 
     //  Save jsonTargetInput in DB
     // console.log("Saving Corrugation in DB.");
-    let url = 'http://localhost:8066/target/'
+    let url = 'http://sermanisteel.co.id:8066/target/'
     let jsonResponse = JSON.parse(await reqPostCall(url, jsonTargetInput));
     // console.log("Response: " + JSON.stringify(jsonResponse));
 
@@ -106,7 +106,7 @@ async function submitSellControlForm() {
 
     //  Save jsonTargetInput in DB
     // console.log("Saving Corrugation in DB.");
-    let url = 'http://localhost:8066/target/'
+    let url = 'http://sermanisteel.co.id:8066/target/'
     let jsonResponse = JSON.parse(await reqPostCall(url, jsonTargetInput));
     // console.log("Response: " + JSON.stringify(jsonResponse));
 

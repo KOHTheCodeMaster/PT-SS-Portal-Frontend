@@ -46,7 +46,7 @@ async function onSignIn() {
 
         // console.log("Login Successful!");
         //  Fetch user details json
-        let userJson = await fetchJsonFromUrl("http://localhost:8066/user/" + emailId);
+        let userJson = await fetchJsonFromUrl("http://sermanisteel.co.id:8066/user/" + emailId);
 
         //  Set userJson in localStorage for dashboard.js
         localStorage.setItem('user', JSON.stringify(userJson));
@@ -69,7 +69,7 @@ async function onSignIn() {
 async function authenticateUser(emailId, password) {
 
     let userDTOJson = {'emailId': emailId, 'password': password};
-    let url = 'http://localhost:8066/login';
+    let url = 'http://sermanisteel.co.id:8066/login';
     let body = JSON.stringify(userDTOJson);
 
     //  The response of this POST request to /login is a plain-text boolean value

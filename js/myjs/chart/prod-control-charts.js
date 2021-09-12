@@ -145,7 +145,7 @@ async function loadMonthlyChartData(month) {
     let strYearAndMonth = "2021-" + month;
 
     //  Load Estimate Data - target amount for all types
-    let url = "http://localhost:8066/target/p/year-month/" + strYearAndMonth;
+    let url = "http://sermanisteel.co.id:8066/target/p/year-month/" + strYearAndMonth;
     let targetList = JSON.parse(await fetchJsonFromUrl(url));
 
     for (let dailyTarget of targetList) {
@@ -157,7 +157,7 @@ async function loadMonthlyChartData(month) {
     }
 
     //  Load Realised Data - 1st class production data for all types
-    url = "http://localhost:8066/production/daily/all/";
+    url = "http://sermanisteel.co.id:8066/production/daily/all/";
     let productionList = JSON.parse(await fetchJsonFromUrl(url + strYearAndMonth));
 
     for (let productionPojo of productionList)
@@ -396,7 +396,7 @@ async function loadYearlyChartData() {
     }
 
     //  Load Estimate 2021 Data - target amount for all months of 2021
-    url = "http://localhost:8066/target/p/year/2021";
+    url = "http://sermanisteel.co.id:8066/target/p/year/2021";
     targetList = JSON.parse(await fetchJsonFromUrl(url));
     // console.log(JSON.stringify(targetList));
     for (let i = 0; i < 12; i++) {
@@ -406,12 +406,12 @@ async function loadYearlyChartData() {
     // for (let targetPojo of targetList) est2021Data.push(targetPojo["targetAmount"]);
 
     //  Load Realization 2021 Data - production amount for all months of 2021
-    url = "http://localhost:8066/production/monthly/2021";
+    url = "http://sermanisteel.co.id:8066/production/monthly/2021";
     productionList = JSON.parse(await fetchJsonFromUrl(url));
     for (let productionPojo of productionList) rea2021Data.push(productionPojo["productionAmount"]);
 
     //  Load Realization 2020 Data - production amount for all months of 2020
-    url = "http://localhost:8066/production/monthly/2020";
+    url = "http://sermanisteel.co.id:8066/production/monthly/2020";
     productionList = JSON.parse(await fetchJsonFromUrl(url));
     for (let productionPojo of productionList) rea2020Data.push(productionPojo["productionAmount"]);
 

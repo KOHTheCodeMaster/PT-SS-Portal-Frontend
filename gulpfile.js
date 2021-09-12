@@ -205,9 +205,9 @@ gulp.task('connect-sync', function (done) {
 	browserSync.reload();
 	done();
     browserSync.init({
-      proxy: 'localhost/deskapp', // Change this value to match your local URL.
+      proxy: 'sermanisteel.co.id/deskapp', // Change this value to match your local URL.
 	    socket: {
-	      domain: 'localhost:3000'
+	      domain: 'sermanisteel.co.id:3000'
 	    }
 	});
 	gulp.watch("*.html").on("change", reload);
