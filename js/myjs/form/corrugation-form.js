@@ -117,7 +117,7 @@ async function onSubmitCorrugationForm() {
 
     //  Save production in DB
     // console.log("Saving Corrugation in DB.");
-    let url = 'http://sermanisteel.co.id:8066/corrugation'
+    let url = 'http://localhost:8066/corrugation'
     let strResponse = await reqPostCall(url, corrugation);
 
     console.log("Response: " + strResponse);

@@ -8,7 +8,7 @@ async function testConnectionFailure() {
     console.log("Test Connection Request - Time Stamp: " + new Date());
 
     //  Test connection by making GET request for productionId 1
-    let url = 'http://sermanisteel.co.id:8066/test/'
+    let url = 'http://localhost:8066/test/'
     let responseProd = await fetch(url)
         .then(response => {
             // The API call was successful!
@@ -93,7 +93,7 @@ async function fetchJsonFromUrl(url) {
 async function demoGetRESTCall() {
 
     // let url = 'https://jsonplaceholder.typicode.com/todos/1';
-    let url = 'http://sermanisteel.co.id:8066/user/rudys@sermanisteel.co.id';
+    let url = 'http://localhost:8066/user/rudys@sermanisteel.co.id';
     let json = await fetchJsonFromUrl(url);
 
     console.log("Response: " + json);
