@@ -49,13 +49,17 @@ function extractMonthFromStrDate(strDate) {
     return monthsShort[month_index];
 }
 
+/*
 function generateCurrentMonthAndYear() {
     const date = new Date();
     const formattedDate = date.toLocaleDateString('en-GB', {
         month: 'full', year: 'numeric'
     });//.replace(/ /g, '-');
     console.log(formattedDate);
+    return formattedDate;
 }
+*/
+
 //  Testing purpose method for log message
 function testInput(re, str) {
     let midstring;
