@@ -19,15 +19,217 @@ async function major() {
 
     console.log("Connection Failure: " + jsonSellDashboard.connectionFailure);
 
-    let strMsg = "Loading Data...";
-    updateChartOptions(jsonSellDashboard.chart1, strMsg);
+    updateChartOptions(jsonSellDashboard.chart1, "Loading Data...");
 
     await loadAllChartsData();
+
+    await initializeStatusTable();
+
+    onStatusChangeEvent();
 
     console.log('Sales Dashboard Loaded.');
 
 
 }
+
+function onStatusChangeEvent() {
+
+    let elementSaveStatusButton = $('#sell-dashboard-status-update-btn');
+
+    //  Change listener on each select status elements
+    $('.sell-dashboard-select-status').change(e => {
+        let elementSelect = $(e.target);
+        let elementRow = elementSelect.parent().parent();
+        let index = parseInt(elementRow.children('.sell-dashboard-serial-id').text()) - 1;
+
+        //  Update CSS Classes according to the new status
+        elementSelect.removeClass('badge-secondary');
+        elementSelect.removeClass('badge-primary');
+        elementSelect.removeClass('badge-success');
+        elementSelect.addClass(getCssClass(elementSelect.val()));
+
+        //  Update status in local json status table data
+        jsonSellDashboard.statusTable.data[index].status = elementSelect.val();
+
+        //  Add the index in changedStatusIndexList which will be used later for updating the status in DB
+        jsonSellDashboard.statusTable.changedStatusIndexList.add(index);
+        /*
+                let str = '';
+                jsonSellDashboard.statusTable.changedStatusIndexList.forEach(value => str += value + ' ');
+                console.log('Changed Status List - ' + str);
+        */
+    });
+
+    elementSaveStatusButton.click(() => {
+        console.log('Saving Status Table.');
+        let temp1 = [];
+
+        for (let x of jsonSellDashboard.statusTable.changedStatusIndexList.values()) {
+            temp1.push({
+               'id' : jsonSellDashboard.statusTable.data[x].id,
+               'status' : jsonSellDashboard.statusTable.data[x].status
+            });
+        }
+        console.log(JSON.stringify(temp1));
+
+        //  Todo: Save data to update in DB using Back-end REST API
+
+        //  Todo: Remove the row in case of status is DONE & then Fetch new row from DB
+
+    });
+
+}
+
+async function initializeStatusTable() {
+
+    console.log("Initializing Status Table");
+    //  Todo: Load latest 5 entry data from Back-end REST API
+
+    let data = [
+        {
+            'id': '10',
+            'buyerName': 'A1',
+            'salesName': 'S1',
+            'payment': 'CASH',
+            'status': 'Unsent',
+        }, {
+            'id': '20',
+            'buyerName': 'A2',
+            'salesName': 'S2',
+            'payment': '30 days',
+            'status': 'Unsent',
+        }, {
+            'id': '30',
+            'buyerName': 'A3',
+            'salesName': 'S3',
+            'payment': '90 days',
+            'status': 'Unsent',
+        }, {
+            'id': '40',
+            'buyerName': 'A4',
+            'salesName': 'S4',
+            'payment': '180 days',
+            'status': 'Unsent',
+        }, {
+            'id': '50',
+            'buyerName': 'A5',
+            'salesName': 'S5',
+            'payment': '360 days',
+            'status': 'Unsent',
+        },
+    ]
+    jsonSellDashboard['statusTable']['data'] = data;
+
+    /*
+        <tr>
+            <td><span class="font-20 sell-dashboard-serial-id">1</span></td>
+            <td><span class="font-20">Buyer Name ABC</span></td>
+            <td><span class="font-20">Sales Name XYZ</span></td>
+            <td><span class="font-16 badge badge-primary">Cash</span></td>
+            <td><span class="font-16 badge badge-secondary">Unsent</span></td>
+        </tr>
+     */
+    let elementBody = $('#selling-dashboard-status-table-body');
+
+    //  Iterate 5 rows loaded from DB
+    data.forEach((value, index) => {
+        //  Create an empty new row <Tr>
+        let elementNewRow = document.createElement('tr');
+
+        // console.log(JSON.stringify(current));
+        /*
+                let temp = {
+                    'serialId': index + 1,
+                    'buyerName': value.buyerName,
+                    'salesName': value.salesName,
+                    'payment': value.payment,
+                    'status': value.status,
+                }
+        */
+
+        //  Populate the row with values
+        // let classList = ['badge'];
+        // elementNewRow.append(createNewCell('td', index + 1 + "", 'sell-dashboard-serial-id'));
+
+        //  Serial Id
+        let tempElement = document.createElement('td');
+        tempElement.append(createNewCell('span', index + 1 + ''));
+        tempElement.classList.add('sell-dashboard-serial-id');
+        elementNewRow.append(tempElement);
+
+        //  Buyer Name
+        tempElement = document.createElement('td');
+        tempElement.append(createNewCell('span', value.buyerName));
+        elementNewRow.append(tempElement);
+
+        //  Sales Name
+        tempElement = document.createElement('td');
+        tempElement.append(createNewCell('span', value.salesName));
+        elementNewRow.append(tempElement);
+
+        //  Add Payment element
+        tempElement = document.createElement('td');
+        let tempSpanElement = createNewCell('span', value.payment);
+        tempSpanElement.classList.add(getCssClass(value.payment));
+        tempSpanElement.classList.add('badge');
+        tempSpanElement.classList.remove('font-20');
+        tempSpanElement.classList.add('font-16');
+        tempElement.append(tempSpanElement);
+        elementNewRow.append(tempElement);
+
+        //  Add Select Status element
+        tempElement = document.createElement('td');
+        let elementSelectStatus = createNewCell('select', '');
+        elementSelectStatus.classList.add('sell-dashboard-select-status');
+        for (let option of ['Unsent', 'Sent', 'Done'])
+            elementSelectStatus.append(createNewCell('option', option));
+        //  Update CSS Classes for select & option elements
+        elementSelectStatus.classList.add(getCssClass(value.status));
+        elementSelectStatus.classList.add('badge');
+        elementSelectStatus.classList.remove('font-20');
+        elementSelectStatus.classList.add('font-16');
+        tempElement.append(elementSelectStatus);
+        elementNewRow.append(tempElement);
+
+        //  Append the row to elementBody
+        elementBody.append(elementNewRow);
+
+    });
+
+    function createNewCell(tagName, strValue) {
+        let elementNewCell = document.createElement(tagName);
+        elementNewCell.classList.add('font-20');
+        elementNewCell.classList.add('text-center');
+        elementNewCell.innerText = strValue !== undefined ? strValue : "-";
+        return elementNewCell;
+    }
+
+}
+
+function getCssClass(payment) {
+    switch (payment) {
+        case 'CASH':
+            return 'badge-primary';
+        case '30 days':
+            return 'badge-warning';
+        case '90 days':
+            return 'badge-warning';
+        case '180 days':
+            return 'badge-warning';
+        case '360 days':
+            return 'badge-warning';
+        //  ---------   Status  ------------
+        case 'Unsent' :
+            return 'badge-secondary';
+        case 'Sent' :
+            return 'badge-primary';
+        case 'Done' :
+            return 'badge-success';
+        default:
+            console.log('Invalid Payment Found : ' + payment);
+    }
+}
+
 
 function initializeSalesCharts() {
 
@@ -36,6 +238,10 @@ function initializeSalesCharts() {
         "chart1": {},
         "chart2": {},
         "connectionFailure": false,
+        "statusTable": {
+            "changedStatusIndexList": new Set(),
+            "data": []
+        },
     }
 
     // console.log(jsonProdDashboard["chart1"]["data"]);

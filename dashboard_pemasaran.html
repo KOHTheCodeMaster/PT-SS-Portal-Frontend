@@ -183,9 +183,12 @@
         <!-- basic table  Start -->
         <div class="pd-20 card-box mb-30">
             <div class="clearfix mb-20">
-                <div class="pull-left">
-                    <h4 class="text-blue h4">Status</h4>
+                <div><h4 class="text-blue h4">Status</h4></div>
+                <div class="d-flex justify-content-between">
                     <p>Selling Status</p>
+                    <button id="sell-dashboard-status-update-btn"
+                            class="btn btn-info">Save
+                    </button>
                 </div>
             </div>
             <table class="table">
@@ -198,29 +201,29 @@
                     <th scope="col">Status</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="selling-dashboard-status-table-body"><!--
                 <tr>
-                    <th scope="row">1</th>
+                    <th>1</th>
                     <td>Mark</td>
                     <td>Otto</td>
                     <td><span class="badge badge-primary">Cash</span></td>
                     <td><span class="badge badge-primary">Sent</span></td>
                 </tr>
                 <tr>
-                    <th scope="row">2</th>
+                    <th>2</th>
                     <td>Jacob</td>
                     <td>Thornton</td>
                     <td><span class="badge badge-secondary">30 days</span></td>
                     <td><span class="badge badge-secondary">Unsent</span></td>
                 </tr>
                 <tr>
-                    <th scope="row">3</th>
+                    <th>3</th>
                     <td>Larry</td>
                     <td>the Bird</td>
                     <td><span class="badge badge-secondary">90 days</span></td>
                     <td><span class="badge badge-success">Done</span></td>
                 </tr>
-                </tbody>
+                --></tbody>
             </table>
 
         </div>
