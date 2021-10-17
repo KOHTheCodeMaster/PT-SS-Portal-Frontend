@@ -160,6 +160,7 @@ function initializeSalesFromForm() {
         'salesDate': $('#sell-select-date').val().trim(),
         'amountOfItem': $('#sell-select-amount-of-item').val().trim(),
         'payment': $('#sell-select-payment').val().trim(),
+        'status': 'UNSENT',
         'salesName': $('#sell-select-sales-name').val().trim(),
 
     });

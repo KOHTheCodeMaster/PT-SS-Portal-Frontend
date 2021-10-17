@@ -35,12 +35,15 @@ async function major() {
 function onStatusChangeEvent() {
 
     let elementSaveStatusButton = $('#sell-dashboard-status-update-btn');
+    //  Initially Disable Save Button
+    disableBtn('#sell-dashboard-status-update-btn', 'Save');
 
     //  Change listener on each select status elements
-    $('.sell-dashboard-select-status').change(e => {
+    $('.sell-dashboard-status-table-row-select-status').change(e => {
         let elementSelect = $(e.target);
         let elementRow = elementSelect.parent().parent();
-        let index = parseInt(elementRow.children('.sell-dashboard-serial-id').text()) - 1;
+        let elementSerialId = elementRow.find('.sell-dashboard-status-table-row-serial-id');
+        let index = parseInt(elementSerialId.text()) - 1;
 
         //  Update CSS Classes according to the new status
         elementSelect.removeClass('badge-secondary');
@@ -50,31 +53,72 @@ function onStatusChangeEvent() {
 
         //  Update status in local json status table data
         jsonSellDashboard.statusTable.data[index].status = elementSelect.val();
-
         //  Add the index in changedStatusIndexList which will be used later for updating the status in DB
         jsonSellDashboard.statusTable.changedStatusIndexList.add(index);
-        /*
-                let str = '';
-                jsonSellDashboard.statusTable.changedStatusIndexList.forEach(value => str += value + ' ');
-                console.log('Changed Status List - ' + str);
-        */
+
+        enableBtn('#sell-dashboard-status-update-btn', 'Save');
+
     });
 
-    elementSaveStatusButton.click(() => {
-        console.log('Saving Status Table.');
-        let temp1 = [];
+    elementSaveStatusButton.click(async () => {
+        if (jsonSellDashboard.statusTable.changedStatusIndexList.size === 0) return;
 
+        disableBtn('#sell-dashboard-status-update-btn', 'Save');
+
+        console.log('Saving Status Table.');
+        let jsonChangedListBody = [];
+
+        //  Initialize json for request body
         for (let x of jsonSellDashboard.statusTable.changedStatusIndexList.values()) {
-            temp1.push({
-               'id' : jsonSellDashboard.statusTable.data[x].id,
-               'status' : jsonSellDashboard.statusTable.data[x].status
+            jsonChangedListBody.push({
+                'index': x,
+                'salesId': jsonSellDashboard.statusTable.data[x].salesId,
+                'status': jsonSellDashboard.statusTable.data[x].status
             });
         }
-        console.log(JSON.stringify(temp1));
+        // let strJsonChangedListBody = JSON.stringify(jsonChangedListBody);
+        // console.log(strJsonChangedListBody);
 
-        //  Todo: Save data to update in DB using Back-end REST API
+        //  Save data for Selling Dashboard Status Table
+        //  Make GET REST API Call to update selling txn data in json
+        let url = "http://localhost:8066/sales/status-table/save/";
+        let jsonResponse = JSON.parse(await reqPostCall(url, JSON.stringify(jsonChangedListBody)));
+        console.log('Response: ' + jsonResponse);
 
-        //  Todo: Remove the row in case of status is DONE & then Fetch new row from DB
+        let logMsg = jsonResponse !== null || jsonResponse === 'true'
+            ? 'Data Saved Successfully!'
+            : 'Failed to save Data in DB.';
+        console.log(logMsg);
+
+        //  Update Row Content
+        //  When Status = DONE, then Remove Existing Row Content & Update with new content
+        let elementTableBody = $('#selling-dashboard-status-table-body');
+        for (let x of jsonChangedListBody) {
+            let elementNthRow = elementTableBody.children("tr:nth-child(" +
+                (x.index + 1) + ")");
+            //  Fade-out transition to hide the row
+            elementNthRow.addClass('fade-out');
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            let tempNewRowData = {
+                'serialId': x.index + 1,
+                'buyerName': 'Fetching New Buyer Name',
+                'salesName': 'Fetching New Sales Name',
+                'payment': 'Fetching New Payment',
+                'status': 'Fetching New Status',
+            }
+
+            elementNthRow.find('.sell-dashboard-status-table-row-serial-id').text(tempNewRowData.serialId);
+            elementNthRow.find('.sell-dashboard-status-table-row-buyer-name').text(tempNewRowData.buyerName);
+            elementNthRow.find('.sell-dashboard-status-table-row-sales-name').text(tempNewRowData.salesName);
+            elementNthRow.find('.sell-dashboard-status-table-row-payment').text(tempNewRowData.payment);
+            elementNthRow.find('.sell-dashboard-status-table-row-status').text(tempNewRowData.status);
+
+            //  Fade-in transition to show the row
+            elementNthRow.removeClass('fade-out');
+            elementNthRow.addClass('fade-in');
+
+        }
 
     });
 
@@ -82,47 +126,71 @@ function onStatusChangeEvent() {
 
 async function initializeStatusTable() {
 
-    console.log("Initializing Status Table");
-    //  Todo: Load latest 5 entry data from Back-end REST API
+    if (jsonSellDashboard.connectionFailure) {
+        //  ToDo - Add row for Unable to establish connection with Back-end REST API.
+        return;
+    }
 
-    let data = [
-        {
-            'id': '10',
-            'buyerName': 'A1',
-            'salesName': 'S1',
-            'payment': 'CASH',
-            'status': 'Unsent',
-        }, {
-            'id': '20',
-            'buyerName': 'A2',
-            'salesName': 'S2',
-            'payment': '30 days',
-            'status': 'Unsent',
-        }, {
-            'id': '30',
-            'buyerName': 'A3',
-            'salesName': 'S3',
-            'payment': '90 days',
-            'status': 'Unsent',
-        }, {
-            'id': '40',
-            'buyerName': 'A4',
-            'salesName': 'S4',
-            'payment': '180 days',
-            'status': 'Unsent',
-        }, {
-            'id': '50',
-            'buyerName': 'A5',
-            'salesName': 'S5',
-            'payment': '360 days',
-            'status': 'Unsent',
-        },
-    ]
+    console.log("Initializing Status Table");
+
+    //  Load data for Selling Dashboard Status Table
+    //  Make GET REST API Call to fetch latest 5 selling txn data in json
+    let url = "http://localhost:8066/sales/status-table/" + 5;
+    let jsonResponse = JSON.parse(await fetchJsonFromUrl(url));
+    // console.log(jsonResponse);
+
+    /*    data = [
+            {
+                'id': '10',
+                'buyerName': 'A1',
+                'salesName': 'S1',
+                'payment': 'CASH',
+                'status': 'Unsent',
+            }, {
+                'id': '20',
+                'buyerName': 'A2',
+                'salesName': 'S2',
+                'payment': '30 days',
+                'status': 'Unsent',
+            }, {
+                'id': '30',
+                'buyerName': 'A3',
+                'salesName': 'S3',
+                'payment': '90 days',
+                'status': 'Unsent',
+            }, {
+                'id': '40',
+                'buyerName': 'A4',
+                'salesName': 'S4',
+                'payment': '180 days',
+                'status': 'Unsent',
+            }, {
+                'id': '50',
+                'buyerName': 'A5',
+                'salesName': 'S5',
+                'payment': '360 days',
+                'status': 'Unsent',
+            },
+        ]*/
+
+    let data = [];
+    for (let salesDTO of jsonResponse) {
+        let temp = {
+            'salesId': salesDTO['salesId'],
+            'buyerName': salesDTO.buyerName,
+            'salesName': salesDTO.salesName,
+            'payment': salesDTO.payment,
+            'status': salesDTO.status,
+        }
+        // console.log('Sales DTO: ' + JSON.stringify(temp));
+        data.push(temp);
+    }
+
     jsonSellDashboard['statusTable']['data'] = data;
 
     /*
         <tr>
-            <td><span class="font-20 sell-dashboard-serial-id">1</span></td>
+            <td><span class="font-20 sell-dashboard-status-table-row-serial-id">1</span></td>
             <td><span class="font-20">Buyer Name ABC</span></td>
             <td><span class="font-20">Sales Name XYZ</span></td>
             <td><span class="font-16 badge badge-primary">Cash</span></td>
@@ -136,7 +204,6 @@ async function initializeStatusTable() {
         //  Create an empty new row <Tr>
         let elementNewRow = document.createElement('tr');
 
-        // console.log(JSON.stringify(current));
         /*
                 let temp = {
                     'serialId': index + 1,
@@ -148,46 +215,51 @@ async function initializeStatusTable() {
         */
 
         //  Populate the row with values
-        // let classList = ['badge'];
-        // elementNewRow.append(createNewCell('td', index + 1 + "", 'sell-dashboard-serial-id'));
-
         //  Serial Id
         let tempElement = document.createElement('td');
-        tempElement.append(createNewCell('span', index + 1 + ''));
-        tempElement.classList.add('sell-dashboard-serial-id');
+        let elementSpan = createNewCell('span', index + 1 + '');
+        elementSpan.classList.add('sell-dashboard-status-table-row-serial-id');
+        tempElement.append(elementSpan);
         elementNewRow.append(tempElement);
 
         //  Buyer Name
         tempElement = document.createElement('td');
-        tempElement.append(createNewCell('span', value.buyerName));
+        elementSpan = createNewCell('span', value.buyerName);
+        elementSpan.classList.add('sell-dashboard-status-table-row-buyer-name');
+        tempElement.append(elementSpan);
         elementNewRow.append(tempElement);
 
         //  Sales Name
         tempElement = document.createElement('td');
-        tempElement.append(createNewCell('span', value.salesName));
+        elementSpan = createNewCell('span', value.salesName);
+        elementSpan.classList.add('sell-dashboard-status-table-row-sales-name');
+        tempElement.append(elementSpan);
         elementNewRow.append(tempElement);
 
         //  Add Payment element
         tempElement = document.createElement('td');
-        let tempSpanElement = createNewCell('span', value.payment);
-        tempSpanElement.classList.add(getCssClass(value.payment));
-        tempSpanElement.classList.add('badge');
-        tempSpanElement.classList.remove('font-20');
-        tempSpanElement.classList.add('font-16');
-        tempElement.append(tempSpanElement);
+        elementSpan = createNewCell('span', value.payment);
+        elementSpan.classList.add(getCssClass(value.payment));
+        elementSpan.classList.add('badge');
+        elementSpan.classList.remove('font-18');
+        elementSpan.classList.add('font-14');
+        elementSpan.classList.add('sell-dashboard-status-table-row-payment');
+        tempElement.append(elementSpan);
         elementNewRow.append(tempElement);
 
         //  Add Select Status element
         tempElement = document.createElement('td');
         let elementSelectStatus = createNewCell('select', '');
-        elementSelectStatus.classList.add('sell-dashboard-select-status');
-        for (let option of ['Unsent', 'Sent', 'Done'])
+        for (let option of ['UNSENT', 'SENT', 'DONE'])
             elementSelectStatus.append(createNewCell('option', option));
+        //  Update currently selected value
+        elementSelectStatus.value = value.status;
         //  Update CSS Classes for select & option elements
         elementSelectStatus.classList.add(getCssClass(value.status));
         elementSelectStatus.classList.add('badge');
-        elementSelectStatus.classList.remove('font-20');
-        elementSelectStatus.classList.add('font-16');
+        elementSelectStatus.classList.remove('font-18');
+        elementSelectStatus.classList.add('font-14');
+        elementSelectStatus.classList.add('sell-dashboard-status-table-row-select-status');
         tempElement.append(elementSelectStatus);
         elementNewRow.append(tempElement);
 
@@ -198,7 +270,7 @@ async function initializeStatusTable() {
 
     function createNewCell(tagName, strValue) {
         let elementNewCell = document.createElement(tagName);
-        elementNewCell.classList.add('font-20');
+        elementNewCell.classList.add('font-18');
         elementNewCell.classList.add('text-center');
         elementNewCell.innerText = strValue !== undefined ? strValue : "-";
         return elementNewCell;
@@ -210,20 +282,20 @@ function getCssClass(payment) {
     switch (payment) {
         case 'CASH':
             return 'badge-primary';
-        case '30 days':
+        case 'DAYS_30':
             return 'badge-warning';
-        case '90 days':
+        case 'DAYS_90':
             return 'badge-warning';
-        case '180 days':
+        case 'DAYS_180':
             return 'badge-warning';
-        case '360 days':
+        case 'DAYS_360':
             return 'badge-warning';
         //  ---------   Status  ------------
-        case 'Unsent' :
+        case 'UNSENT' :
             return 'badge-secondary';
-        case 'Sent' :
+        case 'SENT' :
             return 'badge-primary';
-        case 'Done' :
+        case 'DONE' :
             return 'badge-success';
         default:
             console.log('Invalid Payment Found : ' + payment);
@@ -240,7 +312,7 @@ function initializeSalesCharts() {
         "connectionFailure": false,
         "statusTable": {
             "changedStatusIndexList": new Set(),
-            "data": []
+            "data": [{index: -1, status: 'NULL', salesId: 'NULL'}]
         },
     }
 

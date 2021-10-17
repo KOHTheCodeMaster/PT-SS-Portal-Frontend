@@ -1,0 +1,19 @@
+/*
+.sell-dashboard-status-table-row {
+    !*display: flex;*!
+    !*justify-content: center;*!
+    !*width: 100px;*!
+}
+*/
+
+.fade-in {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 1s linear;
+}
+
+.fade-out {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 1s, opacity 1s linear;
+}
