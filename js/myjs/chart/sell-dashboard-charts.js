@@ -32,6 +32,32 @@ async function major() {
 
 }
 
+async function fetchLast10SalesTxn() {
+    //  Load data for Selling Dashboard Status Table
+    //  Make GET REST API Call to fetch latest 10 selling txn data in json
+    let url = "http://localhost:8066/sales/status-table/" + 10;
+    let jsonResponse = JSON.parse(await fetchJsonFromUrl(url));
+    // console.log('Fetching After Save.');
+    // for (let x of jsonResponse) console.log(x.salesId + ' | ' + x.salesDate);
+
+    //  Data containing new rows that needs to be displayed in place of the rows with DONE Status
+    let dataForLatest10 = [];
+    for (let salesDTO of jsonResponse) {
+        let temp = {
+            'salesId': salesDTO['salesId'],
+            'buyerName': salesDTO.buyerName,
+            'salesName': salesDTO.salesName,
+            'payment': salesDTO.payment,
+            'status': salesDTO.status,
+        }
+        // console.log('Sales DTO: ' + JSON.stringify(temp));
+        dataForLatest10.push(temp);
+    }
+
+    return dataForLatest10.reverse();
+
+}
+
 function onStatusChangeEvent() {
 
     let elementSaveStatusButton = $('#sell-dashboard-status-update-btn');
@@ -40,6 +66,9 @@ function onStatusChangeEvent() {
 
     //  Change listener on each select status elements
     $('.sell-dashboard-status-table-row-select-status').change(e => {
+
+        disableBtn('#sell-dashboard-status-update-btn', 'Save');
+
         let elementSelect = $(e.target);
         let elementRow = elementSelect.parent().parent();
         let elementSerialId = elementRow.find('.sell-dashboard-status-table-row-serial-id');
@@ -92,34 +121,51 @@ function onStatusChangeEvent() {
 
         //  Update Row Content
         //  When Status = DONE, then Remove Existing Row Content & Update with new content
+        let dataForLatest10 = null, index = 0;
         let elementTableBody = $('#selling-dashboard-status-table-body');
         for (let x of jsonChangedListBody) {
+
+            //  Skip updating row content if status is not DONE
+            if (x.status !== 'DONE') continue;
+
+            //  Fetch last 10 sales txns.
+            if (dataForLatest10 === null) dataForLatest10 = await fetchLast10SalesTxn();
+
             let elementNthRow = elementTableBody.children("tr:nth-child(" +
                 (x.index + 1) + ")");
             //  Fade-out transition to hide the row
             elementNthRow.addClass('fade-out');
             await new Promise(resolve => setTimeout(resolve, 1000));
 
+            // console.log('index: ' + index + ' | ' + dataForLatest10[index].salesId +
+            //     ' | ' + dataForLatest10[index].status);
+
             let tempNewRowData = {
                 'serialId': x.index + 1,
-                'buyerName': 'Fetching New Buyer Name',
-                'salesName': 'Fetching New Sales Name',
-                'payment': 'Fetching New Payment',
-                'status': 'Fetching New Status',
+                'buyerName': dataForLatest10[index].buyerName,
+                'salesName': dataForLatest10[index].salesName,
+                'payment': dataForLatest10[index].payment,
+                'status': dataForLatest10[index].status,
             }
-
+            index++;
             elementNthRow.find('.sell-dashboard-status-table-row-serial-id').text(tempNewRowData.serialId);
             elementNthRow.find('.sell-dashboard-status-table-row-buyer-name').text(tempNewRowData.buyerName);
             elementNthRow.find('.sell-dashboard-status-table-row-sales-name').text(tempNewRowData.salesName);
             elementNthRow.find('.sell-dashboard-status-table-row-payment').text(tempNewRowData.payment);
-            elementNthRow.find('.sell-dashboard-status-table-row-status').text(tempNewRowData.status);
+            let elementSelect = elementNthRow.find('.sell-dashboard-status-table-row-select-status');
+            elementSelect.val(tempNewRowData.status);
+            elementSelect.removeClass('badge-secondary');
+            elementSelect.removeClass('badge-primary');
+            elementSelect.removeClass('badge-success');
+            elementSelect.addClass(getCssClass(tempNewRowData.status));
 
             //  Fade-in transition to show the row
             elementNthRow.removeClass('fade-out');
             elementNthRow.addClass('fade-in');
 
-        }
 
+        }
+        jsonSellDashboard.statusTable.changedStatusIndexList.clear();
     });
 
 }
@@ -135,9 +181,10 @@ async function initializeStatusTable() {
 
     //  Load data for Selling Dashboard Status Table
     //  Make GET REST API Call to fetch latest 5 selling txn data in json
-    let url = "http://localhost:8066/sales/status-table/" + 5;
+    let url = "http://localhost:8066/sales/status-table/" + 10;
     let jsonResponse = JSON.parse(await fetchJsonFromUrl(url));
     // console.log(jsonResponse);
+    // for (let x of jsonResponse) console.log(x.salesId + ' | ' + x.salesDate);
 
     /*    data = [
             {
@@ -283,11 +330,8 @@ function getCssClass(payment) {
         case 'CASH':
             return 'badge-primary';
         case 'DAYS_30':
-            return 'badge-warning';
         case 'DAYS_90':
-            return 'badge-warning';
         case 'DAYS_180':
-            return 'badge-warning';
         case 'DAYS_360':
             return 'badge-warning';
         //  ---------   Status  ------------
