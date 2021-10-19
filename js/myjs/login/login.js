@@ -2,12 +2,29 @@
 //  Wait for the html content to be loaded before running the major function
 document.addEventListener("DOMContentLoaded", () => {
 
-    test();
+    // console.log("Test - Time Stamp: " + new Date());
+
+    if (JSON.parse(localStorage.getItem('user')) !== null)
+        window.location.href = '/PT-SS-Portal-Frontend/dashboard.html';
+
+    // testAlreadyLoggedIn();
 
 });
 
-function test() {
-    console.log("Test - Time Stamp: " + new Date());
+function testAlreadyLoggedIn() {
+
+/*
+    //  Initialize Current Authenticated User
+    let currentUser = JSON.parse(localStorage.getItem('user'));
+
+    //  When currentUser doesn't exists, then Redirect to dashboard.html
+    if (currentUser !== null) {
+        console.log('Redirecting to Dashboard Page.');
+        // console.log(window.location.pathname);   //  Current page relative url
+        window.location.href = '/PT-SS-Portal-Frontend/dashboard.html';
+    }
+*/
+
 }
 
 async function onSignIn() {
@@ -32,7 +49,6 @@ async function onSignIn() {
 
         // Display Network Connection Failure popup
         $('#failure-modal').modal('show');
-
         //  Enable Submit btn. after form submit response received
         enableBtn('#login-input-submit', 'Sign In');
 
@@ -44,12 +60,11 @@ async function onSignIn() {
 
     if (isLoginSuccessful) {
 
-        // console.log("Login Successful!");
         //  Fetch user details json
         let userJson = await fetchJsonFromUrl("http://localhost:8066/user/" + emailId);
 
         //  Set userJson in localStorage for dashboard.js
-        localStorage.setItem('user', JSON.stringify(userJson));
+        localStorage.setItem('user', userJson);
 
         //  Submit Form and to navigate user to dashboard
         $('#login-form').submit();
