@@ -14,6 +14,9 @@ function init() {
     currentUser = JSON.parse(localStorage.getItem('user'));
     if (currentUser === null) window.location.href = '/PT-SS-Portal-Frontend/login.html';
 
+    // console.log(currentUser.userRole);
+    updateLeftSideBar();
+
     //  Update User details on Dashboard
     updateUserDetails();
 

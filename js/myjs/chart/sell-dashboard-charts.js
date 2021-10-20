@@ -85,7 +85,11 @@ function onStatusChangeEvent() {
         //  Add the index in changedStatusIndexList which will be used later for updating the status in DB
         jsonSellDashboard.statusTable.changedStatusIndexList.add(index);
 
-        enableBtn('#sell-dashboard-status-update-btn', 'Save');
+        let currentUser = JSON.parse(localStorage.getItem('user'));
+        //  Disable Save btn. if User is not Selling Manager or CEO
+        if (currentUser.userRole !== 'SellingManager' || currentUser.userRole !== 'CEO')
+            disableBtn('#sell-dashboard-status-update-btn', 'Save');
+        else enableBtn('#sell-dashboard-status-update-btn', 'Save');
 
     });
 
@@ -178,6 +182,11 @@ async function initializeStatusTable() {
     }
 
     console.log("Initializing Status Table");
+
+    let currentUser = JSON.parse(localStorage.getItem('user'));
+    //  Disable Save btn. if User is not Selling Manager or CEO
+    if (currentUser.userRole !== 'SellingManager' || currentUser.userRole !== 'CEO')
+        disableBtn('#sell-dashboard-status-update-btn', 'Save');
 
     //  Load data for Selling Dashboard Status Table
     //  Make GET REST API Call to fetch latest 5 selling txn data in json

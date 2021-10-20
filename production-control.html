@@ -91,7 +91,7 @@
                             <li><a href="dashboard.html">Dashboard</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown">
+                    <li class="dropdown left-side-bar-production">
                         <a href="javascript:" class="dropdown-toggle">
                             <span class="micon dw dw-edit2"></span><span class="mtext">Production</span>
                         </a>
@@ -99,17 +99,21 @@
                             <li><a href="dashboard_produksi.html">Production Dashboard</a></li>
                             <li><a href="form-produksi.html">Production Form</a></li>
                             <li><a href="form-corrugation.html">Corrugation Form</a></li>
-                            <li><a href="production-control.html">Production Control</a></li>
+                            <li class="left-side-bar-production-control">
+                                <a href="production-control.html">Production Control</a>
+                            </li>
                         </ul>
                     </li>
-                    <li class="dropdown">
+                    <li class="dropdown left-side-bar-selling">
                         <a href="javascript:" class="dropdown-toggle">
                             <span class="micon dw dw-analytics-21"></span><span class="mtext">Selling</span>
                         </a>
                         <ul class="submenu">
                             <li><a href="dashboard_pemasaran.html">Selling Dashboard</a></li>
                             <li><a href="form-pemasaran.html">Selling Form</a></li>
-                            <li><a href="selling-control.html">Selling Control</a></li>
+                            <li class="left-side-bar-selling-control">
+                                <a href="selling-control.html">Selling Control</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -418,6 +422,8 @@
 <script src="js/myjs/form/validate-control-form.js"></script>
 <script src="js/myjs/chart/prod-control-charts.js"></script>
 <script src="js/myjs/chart/chart-utility-helper.js"></script>
+<script src="js/myjs/login/auth-helper.js"></script>
+<script> updateLeftSideBar();</script>
 
 </body>
 

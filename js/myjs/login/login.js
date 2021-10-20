@@ -63,8 +63,14 @@ async function onSignIn() {
         //  Fetch user details json
         let userJson = await fetchJsonFromUrl("http://localhost:8066/user/" + emailId);
 
+        // console.log('Logging in userJson - ' + userJson);
+        // console.log('Logging in JSON.stringify(userJson) - ' + JSON.stringify(userJson));
+        // console.log('Logging in JSON.parse(userJson) - ' + JSON.parse(userJson));
+
         //  Set userJson in localStorage for dashboard.js
         localStorage.setItem('user', userJson);
+
+        // await sleepNow(500000);
 
         //  Submit Form and to navigate user to dashboard
         $('#login-form').submit();

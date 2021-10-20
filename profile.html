@@ -86,30 +86,37 @@
                         <li><a href="dashboard.html">Dashboard</a></li>
                     </ul>
                 </li>
-                <li class="dropdown">
+                <li class="dropdown left-side-bar-production">
                     <a href="javascript:" class="dropdown-toggle">
-                        <span class="micon dw dw-edit2"></span><span class="mtext">Produksi</span>
+                        <span class="micon dw dw-edit2"></span><span class="mtext">Production</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="dashboard_produksi.html">Dashboard Produksi</a></li>
-                        <li><a href="form-produksi.html">Form Laporan Harian</a></li>
+                        <li><a href="dashboard_produksi.html">Production Dashboard</a></li>
+                        <li><a href="form-produksi.html">Production Form</a></li>
+                        <li><a href="form-corrugation.html">Corrugation Form</a></li>
+                        <li class="left-side-bar-production-control">
+                            <a href="production-control.html">Production Control</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown left-side-bar-selling">
+                    <a href="javascript:" class="dropdown-toggle">
+                        <span class="micon dw dw-analytics-21"></span><span class="mtext">Selling</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="dashboard_pemasaran.html">Selling Dashboard</a></li>
+                        <li><a href="form-pemasaran.html">Selling Form</a></li>
+                        <li class="left-side-bar-selling-control">
+                            <a href="selling-control.html">Selling Control</a>
+                        </li>
                     </ul>
                 </li>
                 <li class="dropdown">
                     <a href="javascript:" class="dropdown-toggle">
-                        <span class="micon dw dw-analytics-21"></span><span class="mtext">Penjualan</span>
+                        <span class="micon dw dw-apartment"></span><span class="mtext">Warehouse</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="dashboard_pemasaran.html">Dashboard Penjualan</a></li>
-                        <li><a href="form-pemasaran.html">Form Penjualan</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:" class="dropdown-toggle">
-                        <span class="micon dw dw-apartment"></span><span class="mtext">Gudang</span>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="dashboard_gudang.html">Dashboard Gudang</a></li>
+                        <li><a href="dashboard_gudang.html">Warehouse Dashboard</a></li>
                     </ul>
                 </li>
             </ul>
@@ -169,10 +176,10 @@
                                 <span>Phone Number:</span>
                                 <span id="profile-details-phone-number"></span>
                             </li>
-                            <!--<li>
-                                <span>Country:</span>
-                                <span id="profile-details-country"></span>
-                            </li>-->
+                            <li>
+                                <span>Role:</span>
+                                <span id="profile-details-user-role"></span>
+                            </li>
                             <li>
                                 <span>Address:</span>
                                 <span id="profile-details-address"></span>
@@ -193,6 +200,7 @@
 <script src="vendors/scripts/process.js"></script>
 <script src="vendors/scripts/layout-settings.js"></script>
 <script src="src/plugins/cropperjs/dist/cropper.js"></script>
+<script src="js/myjs/login/auth-helper.js"></script>
 <script>
     function initializeUserProfilePage() {
         let currentUser = JSON.parse(localStorage.getItem('user'));
@@ -206,6 +214,7 @@
         $('#profile-details-full-name').text(currentUser.name);
         $('#profile-details-email-id').text(currentUser.emailId);
         $('#profile-details-phone-number').text(currentUser.phoneNumber);
+        $('#profile-details-user-role').text(currentUser.userRole);
         $('#profile-details-address').text(currentUser.address);
         // $('#profile-details-country').text(currentUser.address);
     }
