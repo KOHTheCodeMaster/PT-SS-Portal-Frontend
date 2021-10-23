@@ -52,7 +52,8 @@ async function loadDataChart1() {
 
     //  Load data for Chart 1 - Total Production
     //  Make GET REST API Call to fetch all production charts data in json
-    let url = "http://localhost:8066/production/daily/all/", strYearAndMonth = "2021-02";
+    let url = "http://localhost:8066/production/daily/all/";
+    let strYearAndMonth = new Date().getFullYear() + "-" + (new Date().getMonth() + 1);
     let jsonResponse = JSON.parse(await fetchJsonFromUrl(url + strYearAndMonth));
     // jsonResponse = JSON.parse(jsonResponse);
 
@@ -76,7 +77,7 @@ async function loadDataChart2() {
 
     //  Load data for Chart 2 - Total Production Based on Type of Goods
     //  Make GET REST API Call to fetch all production charts data in json
-    let strYearAndMonth = "2021-02";
+    let strYearAndMonth = new Date().getFullYear() + "-" + (new Date().getMonth() + 1);
     let url = "http://localhost:8066/corrugation/daily/each-item-type/" + strYearAndMonth;
     let jsonResponse = JSON.parse(await fetchJsonFromUrl(url));
 
@@ -121,7 +122,8 @@ async function loadDataChart7() {
 
     //  Load data for Chart 1 - Total Production
     //  Make GET REST API Call to fetch all production charts data in json
-    let url = "http://localhost:8066/production/daily/2nd-class/", strYearAndMonth = "2021-02";
+    let url = "http://localhost:8066/production/daily/2nd-class/";
+    let strYearAndMonth = new Date().getFullYear() + "-" + (new Date().getMonth() + 1);
     let jsonResponse = JSON.parse(await fetchJsonFromUrl(url + strYearAndMonth));
     // jsonResponse = JSON.parse(jsonResponse);
 

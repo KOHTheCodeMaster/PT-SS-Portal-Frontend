@@ -142,7 +142,7 @@ async function loadMonthlyChartData(month) {
     //  Make GET REST API Call to fetch target data for specified month in json
     let estMonthlyData = [];
     let reaMonthlyData = [];
-    let strYearAndMonth = "2021-" + month;
+    let strYearAndMonth = new Date().getFullYear() + "-" + (new Date().getMonth() + 1);
 
     //  Load Estimate Data - target amount for all types
     let url = "http://localhost:8066/target/s/year-month/" + strYearAndMonth;

@@ -560,7 +560,7 @@ async function loadDataChart1() {
     //  Load data for Chart 1 - Total Sales
     //  Make GET REST API Call to fetch all sales charts data in json
     let url = "http://localhost:8066/sales/daily/all/";
-    // let strYearAndMonth = "2021-02";
+    // let strYearAndMonth = new Date().getFullYear() + "-" + (new Date().getMonth() + 1);
     let strYearAndMonth = new Date().getFullYear() + "-" + (new Date().getMonth() + 1);
 
     let jsonResponse = JSON.parse(await fetchJsonFromUrl(url + strYearAndMonth));
@@ -592,7 +592,7 @@ async function loadDataChart2() {
 
     //  Load data for Chart 2 - Total Sales Based on Type of Goods
     //  Make GET REST API Call to fetch all sales charts data in json
-    // let strYearAndMonth = "2021-02";
+    // let strYearAndMonth = new Date().getFullYear() + "-" + (new Date().getMonth() + 1);
     let strYearAndMonth = new Date().getFullYear() + "-" + (new Date().getMonth() + 1);
     let url = "http://localhost:8066/sales/daily/each-item-type/" + strYearAndMonth;
     let jsonResponse = JSON.parse(await fetchJsonFromUrl(url));
@@ -643,9 +643,3 @@ async function loadDataChart2() {
 
 }
 
-function generateCurrentFullMonthAndYear() {
-    const date = new Date();
-    return date.toLocaleDateString('en-US', {
-        month: 'long', year: 'numeric'
-    });//.replace(/ /g, '-');
-}
