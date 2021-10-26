@@ -382,7 +382,7 @@ function initializeChart2() {
             {name: 'Seng Kaki (762)', data: jsonProdDashboard.chart2["Seng Kaki"]},
             {name: 'Seng Lebar (914)', data: jsonProdDashboard.chart2["Seng Lebar"]},
             {name: 'Spandeck', data: jsonProdDashboard.chart2["Spandeck"]},
-            {name: 'Galvanum', data: jsonProdDashboard.chart2["Galvanum"]},
+            {name: 'Galvalum', data: jsonProdDashboard.chart2["Galvalum"]},
             {name: 'Coil', data: jsonProdDashboard.chart2["Coil"]}
         ],
         tooltip: {

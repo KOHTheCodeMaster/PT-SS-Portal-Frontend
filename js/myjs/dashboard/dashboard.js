@@ -27,6 +27,10 @@ async function init() {
         chart2: 0,
         chart3: 0,
         chart4: 0,
+        chart5: {
+            productionData: [],
+            sellingData: []
+        }
     }
 
     await loadChartData();
@@ -40,6 +44,13 @@ async function init() {
 function initializeChart5And6() {
 
     let options5 = {
+        series: [{
+            name: 'In Progress',    //  Production
+            data: jsonDashboard.chart5.productionData
+        }, {
+            name: 'Complete',       //  Selling
+            data: jsonDashboard.chart5.sellingData
+        }],
         chart: {
             height: 350,
             type: 'bar',
@@ -69,15 +80,8 @@ function initializeChart5And6() {
             width: 2,
             colors: ['transparent']
         },
-        series: [{
-            name: 'In Progress',
-            data: [40, 28, 47, 22, 34, 25]
-        }, {
-            name: 'Complete',
-            data: [30, 20, 37, 10, 28, 11]
-        }],
         xaxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             labels: {
                 style: {
                     colors: ['#353535'],
@@ -136,57 +140,8 @@ function initializeChart5And6() {
         }
     }
 
-    let options6 = {
-        series: [73],
-        chart: {
-            height: 350,
-            type: 'radialBar',
-            offsetY: 0
-        },
-        colors: ['#0B132B', '#222222'],
-        plotOptions: {
-            radialBar: {
-                startAngle: -135,
-                endAngle: 135,
-                dataLabels: {
-                    name: {
-                        fontSize: '16px',
-                        color: undefined,
-                        offsetY: 120
-                    },
-                    value: {
-                        offsetY: 76,
-                        fontSize: '22px',
-                        color: undefined,
-                        formatter: function (val) {
-                            return val + "%";
-                        }
-                    }
-                }
-            }
-        },
-        fill: {
-            type: 'gradient',
-            gradient: {
-                shade: 'dark',
-                shadeIntensity: 0.15,
-                inverseColors: false,
-                opacityFrom: 1,
-                opacityTo: 1,
-                stops: [0, 50, 65, 91]
-            },
-        },
-        stroke: {
-            dashArray: 4
-        },
-        labels: ['Achieve Goals'],
-    };
-
     let chart5 = new ApexCharts(document.querySelector("#chart5"), options5);
     chart5.render();
-
-    let chart6 = new ApexCharts(document.querySelector("#chart6"), options6);
-    chart6.render();
 
 }
 
@@ -514,14 +469,14 @@ function initChart1234() {
 
 async function loadChartData() {
 
-    await loadMonthlyProdChartData();
+    await loadDailyProdChartData();
+    await loadDailySellingChartData();
+    await loadMonthlyProductionChartData();
     await loadMonthlySellingChartData();
-    await loadYearlyProductionChartData();
-    await loadYearlySellingChartData();
 
 }
 
-async function loadMonthlyProdChartData() {
+async function loadDailyProdChartData() {
 
     //  Load data for Monthly Production %
     //  Make GET REST API Call to fetch target data for specified month in json
@@ -548,7 +503,7 @@ async function loadMonthlyProdChartData() {
 
 }
 
-async function loadMonthlySellingChartData() {
+async function loadDailySellingChartData() {
 
     let totalEstMonthlyData = 0;
     let totalReaMonthlyData = 0;
@@ -574,7 +529,7 @@ async function loadMonthlySellingChartData() {
 
 }
 
-async function loadYearlyProductionChartData() {
+async function loadMonthlyProductionChartData() {
 
     let totalEstMonthlyData = 0;
     let totalReaMonthlyData = 0;
@@ -602,14 +557,20 @@ async function loadYearlyProductionChartData() {
     let productionList = JSON.parse(await fetchJsonFromUrl(url + strYear));
 
     //  Process total monthly selling realised data
-    for (let productionPojo of productionList) totalReaMonthlyData += parseInt(productionPojo["productionAmount"]);
+    for (let productionPojo of productionList) {
+        let currentProdData = parseInt(productionPojo["productionAmount"]);
+        let month = productionPojo["productionDate"].split('-')[1];
+        
+        // jsonDashboard.chart5.productionData[month] = currentProdData;
+        totalReaMonthlyData += currentProdData;
+    }
 
     //  Percentage -> (Total Rea / Total Target) * 100
     jsonDashboard.chart3 = parseInt(totalReaMonthlyData * 100 / totalEstMonthlyData);
 
 }
 
-async function loadYearlySellingChartData() {
+async function loadMonthlySellingChartData() {
 
     //  Load data for Yearly Selling %
     //  Make GET REST API Call to fetch target data for specified month in json
